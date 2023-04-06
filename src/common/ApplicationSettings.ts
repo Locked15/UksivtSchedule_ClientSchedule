@@ -5,7 +5,7 @@ export default class ApplicationSettings {
 
   static darkColorTheme = new ColorsTheme(1, 'Gray', 'Тёмная', '#ff0000', '#ffff00', '#ffffff', '#000000', '#171717', '#E62117', '#abb8c3');
 
-  static colorThemeNames = [this.azureColorTheme.name, this.darkColorTheme.name];
+  static colorThemes = [this.azureColorTheme, this.darkColorTheme];
 
   static getDefaultTheme() : ApplicationSettings {
     return this.azureColorTheme;

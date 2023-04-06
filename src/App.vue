@@ -1,10 +1,11 @@
 <template>
-  <v-app :theme="currentTheme">
+  <v-app :theme="currentTheme.name">
     <!-- General place for all Header-Related staff. -->
     <header>
-      <v-select chips label="Текущая тема" :items="themes"
-                v-on:update:model-value="onThemeSelectionChanged" v-model="currentTheme" />
       <HeaderComponent />
+      <v-select chips label="Текущая тема" :items="themes"
+                v-on:update:model-value="onThemeSelectionChanged" v-model="currentTheme"
+                item-title="title" item-value="title" return-object />
     </header>
 
     <!-- Main page content. -->
@@ -23,17 +24,18 @@
   import FooterComponent from '@/components/base/FooterComponent.vue';
   import HeaderComponent from '@/components/base/HeaderComponent.vue';
   import ApplicationSettings from './common/ApplicationSettings';
+  import ColorsTheme from './models/ColorsTheme';
 
   export default {
     data() {
       return {
-        currentTheme: localStorage.getItem('UKSIVT_CurrentTheme') || '',
-        themes: ApplicationSettings.colorThemeNames,
+        currentTheme: JSON.parse(localStorage.getItem('UKSIVT_CurrentTheme') || '{}') || ApplicationSettings.getDefaultTheme(),
+        themes: ApplicationSettings.colorThemes,
       };
     },
     methods: {
-      onThemeSelectionChanged(item: string) {
-        localStorage.setItem('UKSIVT_CurrentTheme', item);
+      onThemeSelectionChanged(item: ColorsTheme) {
+        localStorage.setItem('UKSIVT_CurrentTheme', JSON.stringify(item));
       },
     },
 
@@ -52,6 +54,10 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+  }
+
+  .header-nav {
+    max-width: 30%;
   }
 
   nav {

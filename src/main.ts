@@ -1,14 +1,15 @@
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
+import '@mdi/font/css/materialdesignicons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
 import App from './App.vue';
+import ApplicationSettings from './common/ApplicationSettings';
 import router from './common/router';
 import store from './common/store';
-import ApplicationSettings from './common/ApplicationSettings';
 
 /**
  * Generates new instance of Vuetify component settings and injects it into Application instance.
