@@ -7,7 +7,7 @@ import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
 import App from './App.vue';
-import ApplicationSettings from './common/ApplicationSettings';
+import ApplicationThemes from './models/themes/ApplicationThemes';
 import router from './common/router';
 import store from './common/store';
 
@@ -25,21 +25,21 @@ function generateVuetifyInstance(): any {
       themes: {
         Azure: {
           colors: {
-            primary: ApplicationSettings.azureColorTheme.primaryColor,
-            secondary: ApplicationSettings.azureColorTheme.secondaryColor,
-            background: ApplicationSettings.azureColorTheme.backgroundColor,
-            surface: ApplicationSettings.azureColorTheme.surfaceColor,
-            error: ApplicationSettings.azureColorTheme.errorColor,
+            primary: ApplicationThemes.azureColorTheme.primaryColor,
+            secondary: ApplicationThemes.azureColorTheme.secondaryColor,
+            background: ApplicationThemes.azureColorTheme.backgroundColor,
+            surface: ApplicationThemes.azureColorTheme.surfaceColor,
+            error: ApplicationThemes.azureColorTheme.errorColor,
           },
         },
         Gray: {
           colors: {
-            primary: ApplicationSettings.darkColorTheme.primaryColor,
-            secondary: ApplicationSettings.darkColorTheme.secondaryColor,
-            accent: ApplicationSettings.darkColorTheme.accentColor,
-            background: ApplicationSettings.darkColorTheme.backgroundColor,
-            surface: ApplicationSettings.darkColorTheme.surfaceColor,
-            grey: ApplicationSettings.darkColorTheme.grayColor,
+            primary: ApplicationThemes.darkColorTheme.primaryColor,
+            secondary: ApplicationThemes.darkColorTheme.secondaryColor,
+            accent: ApplicationThemes.darkColorTheme.accentColor,
+            background: ApplicationThemes.darkColorTheme.backgroundColor,
+            surface: ApplicationThemes.darkColorTheme.surfaceColor,
+            grey: ApplicationThemes.darkColorTheme.grayColor,
           },
         },
       },

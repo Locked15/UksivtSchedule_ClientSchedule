@@ -2,10 +2,41 @@
   <v-app :theme="currentTheme.name">
     <!-- General place for all Header-Related staff. -->
     <header>
-      <HeaderComponent />
-      <v-select chips label="Текущая тема" :items="themes"
-                v-on:update:model-value="onThemeSelectionChanged" v-model="currentTheme"
-                item-title="title" item-value="title" return-object />
+      <nav>
+        <v-app-bar>
+          <v-app-bar-nav-icon />
+          <v-app-bar-title>Расписание УКСИВТ</v-app-bar-title>
+          <v-spacer />
+
+          <v-btn>
+            <v-select chips
+                      label="Тема:"
+                      :items="themes"
+                      v-on:update:model-value="onThemeSelectionChanged"
+                      v-model="currentTheme"
+                      item-title="title"
+                      item-value="title"
+                      return-object
+                      class="theme-picker" />
+          </v-btn>
+          <v-menu>
+            <template>
+              <v-btn icon="mdi-wrench" color="purple" />
+            </template>
+          </v-menu>
+
+          <template v-slot:extension>
+            <v-tabs>
+              <v-tab to="/">Заглавная</v-tab>
+              <v-tab to="/about">Информация</v-tab>
+              <v-tab>Прочее</v-tab>
+            </v-tabs>
+          </template>
+        </v-app-bar>
+        <v-sheet>
+          <v-container />
+        </v-sheet>
+      </nav>
     </header>
 
     <!-- Main page content. -->
@@ -22,9 +53,9 @@
 
 <script lang="ts">
   import FooterComponent from '@/components/base/FooterComponent.vue';
-  import HeaderComponent from '@/components/base/HeaderComponent.vue';
-  import ApplicationSettings from './common/ApplicationSettings';
-  import ColorsTheme from './models/ColorsTheme';
+
+  import ApplicationSettings from './models/themes/ApplicationThemes';
+  import ColorsTheme from './models/themes/ColorsTheme';
 
   export default {
     data() {
@@ -41,7 +72,6 @@
 
     name: 'App',
     components: {
-      HeaderComponent,
       FooterComponent,
     },
   };
@@ -56,10 +86,6 @@
     color: #2c3e50;
   }
 
-  .header-nav {
-    max-width: 30%;
-  }
-
   nav {
     padding: 30px;
   }
@@ -71,5 +97,14 @@
 
   nav a.router-link-exact-active {
     color: #42b983;
+  }
+
+  .theme-picker {
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+
+  main {
+    margin-top: 5%;
   }
 </style>
