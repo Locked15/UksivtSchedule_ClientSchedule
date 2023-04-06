@@ -1,0 +1,18 @@
+tabWidth: 2
+useTabs: false
+endOfLine: lf
+
+printWidth: 150
+singleAttributePerLine: false
+vueIndentScriptAndStyle: true
+
+semi: true
+singleQuote: true
+trailingComma: all
+bracketSameLine: true
+
+importOrderSeparation: true
+importOrderSortSpecifiers: true
+importOrderGroupNamespaceSpecifiers: true
+importOrderParserPlugins: ['typescript', 'decorators']
+importOrder: ['^@core/(.*)$', '^@server/(.*)$', '^@ui/(.*)$', '^[./]']
