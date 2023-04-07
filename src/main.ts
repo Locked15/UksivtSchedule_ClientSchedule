@@ -7,9 +7,10 @@ import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
 import App from './App.vue';
-import ApplicationThemes from './models/themes/ApplicationThemes';
 import router from './common/router';
 import store from './common/store';
+import SearchComponent from './components/search/SearchComponent.vue';
+import ApplicationThemes from './models/themes/ApplicationThemes';
 
 /**
  * Generates new instance of Vuetify component settings and injects it into Application instance.
@@ -30,6 +31,7 @@ function generateVuetifyInstance(): any {
             background: ApplicationThemes.azureColorTheme.backgroundColor,
             surface: ApplicationThemes.azureColorTheme.surfaceColor,
             error: ApplicationThemes.azureColorTheme.errorColor,
+            grey: ApplicationThemes.azureColorTheme.grayColor,
           },
         },
         Gray: {
@@ -53,5 +55,7 @@ const app = createApp(App);
 app.use(store);
 app.use(router);
 app.use(generateVuetifyInstance());
+
+app.component('SearchComponent', SearchComponent);
 
 app.mount('#app');

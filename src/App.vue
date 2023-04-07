@@ -4,20 +4,22 @@
     <header>
       <nav>
         <v-app-bar>
-          <v-app-bar-nav-icon />
-          <v-app-bar-title>Расписание УКСИВТ</v-app-bar-title>
-          <v-spacer />
+          <v-app-bar-nav-icon icon="mdi-calendar-month-outline" />
+          <v-app-bar-title class="header-content">Расписание УКСИВТ</v-app-bar-title>
+          <v-spacer /> <v-spacer />
 
-          <v-btn>
-            <v-select chips
-                      label="Тема:"
-                      :items="themes"
-                      v-on:update:model-value="onThemeSelectionChanged"
-                      v-model="currentTheme"
-                      item-title="title"
-                      item-value="title"
-                      return-object
-                      class="theme-picker" />
+          <v-btn :ripple="false">
+            <v-hover :disabled="true">
+              <v-select chips
+                        label="Тема:"
+                        :items="themes"
+                        @update:model-value="onThemeSelectionChanged"
+                        v-model="currentTheme"
+                        item-title="title"
+                        item-value="title"
+                        class="theme-picker"
+                        return-object />
+            </v-hover>
           </v-btn>
           <v-menu>
             <template>
@@ -29,7 +31,7 @@
             <v-tabs>
               <v-tab to="/">Заглавная</v-tab>
               <v-tab to="/about">Информация</v-tab>
-              <v-tab>Прочее</v-tab>
+              <v-tab to="/settings">Настройки</v-tab>
             </v-tabs>
           </template>
         </v-app-bar>
@@ -52,21 +54,21 @@
 </template>
 
 <script lang="ts">
+  import { CURRENT_THEME_KEY } from '@/common/keys';
   import FooterComponent from '@/components/base/FooterComponent.vue';
-
-  import ApplicationSettings from './models/themes/ApplicationThemes';
-  import ColorsTheme from './models/themes/ColorsTheme';
+  import ApplicationSettings from '@/models/themes/ApplicationThemes';
+  import ColorsTheme from '@/models/themes/ColorsTheme';
 
   export default {
     data() {
       return {
-        currentTheme: JSON.parse(localStorage.getItem('UKSIVT_CurrentTheme') || '{}') || ApplicationSettings.getDefaultTheme(),
+        currentTheme: JSON.parse(localStorage.getItem(CURRENT_THEME_KEY) || '{}') || ApplicationSettings.getDefaultTheme(),
         themes: ApplicationSettings.colorThemes,
       };
     },
     methods: {
       onThemeSelectionChanged(item: ColorsTheme) {
-        localStorage.setItem('UKSIVT_CurrentTheme', JSON.stringify(item));
+        localStorage.setItem(CURRENT_THEME_KEY, JSON.stringify(item));
       },
     },
 
@@ -78,6 +80,9 @@
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,400;0,700;1,300&display=swap');
+  @import '@/../public/css/general.css';
+
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -99,12 +104,7 @@
     color: #42b983;
   }
 
-  .theme-picker {
-    max-width: 95%;
-    box-sizing: border-box;
-  }
-
   main {
-    margin-top: 5%;
+    margin-top: 3.141%;
   }
 </style>

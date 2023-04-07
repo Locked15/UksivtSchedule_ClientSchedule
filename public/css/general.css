@@ -1,0 +1,43 @@
+.heirloom-hr {
+  overflow: visible;
+  height: 30px;
+  border-style: solid;
+  border-width: 5px 2px 0 2px;
+  border-radius: 20px;
+}
+
+.heirloom-hr::before {
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-width: 0 2px 5px 2px;
+  border-radius: 20px;
+}
+
+.styled-link {
+  font-family: 'Jost', sans-serif;
+  font-style: italic;
+
+  color: rgb(128, 199, 199);
+  text-decoration: none;
+
+  font-size: 1.48rem;
+}
+
+.styled-link:hover {
+  color: rgb(0, 127, 127);
+  text-decoration: underline;
+
+  transition: all 0.25s ease-in;
+}
+
+.header-content {
+  font-family: 'Jost', sans-serif;
+}
+
+.theme-picker {
+  max-width: 95%;
+  box-sizing: border-box;
+}
