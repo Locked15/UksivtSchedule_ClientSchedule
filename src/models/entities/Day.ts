@@ -17,7 +17,7 @@ export default class Day {
 
   public static readonly SUNDAY = new Day(6, 'Воскресенье');
 
-  public static readonly allAvailableDays = new Array<Day>(
+  public static readonly ALL_AVAILABLE_DAYS = new Array<Day>(
     this.MONDAY,
     this.TUESDAY,
     this.WEDNESDAY,
@@ -30,5 +30,25 @@ export default class Day {
   private constructor(index: number, name: string) {
     this.index = index;
     this.name = name;
+  }
+
+  public static getDayFromIndex(index: number) : Day {
+    switch (index) {
+      case 0:
+        return this.MONDAY;
+      case 1:
+        return this.TUESDAY;
+      case 2:
+        return this.WEDNESDAY;
+      case 3:
+        return this.THURSDAY;
+      case 4:
+        return this.FRIDAY;
+      case 5:
+        return this.SATURDAY;
+
+      default:
+        return this.SUNDAY;
+    }
   }
 }

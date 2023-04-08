@@ -35,7 +35,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/result',
     name: 'result',
     component: () => import('@/views/ResultView.vue'),
-    props: true,
+    meta: {
+      title: 'Результат',
+    },
   },
 ];
 

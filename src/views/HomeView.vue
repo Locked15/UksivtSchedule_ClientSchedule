@@ -6,8 +6,10 @@
       <div class="short-explanation">
         <v-dialog width="auto" v-model="isDialogActive" transition="dialog-bottom-transition">
           <template v-slot:activator="{ props }">
-            <article class="advisory-opener" title="Хотите знать больше? Нажмите на надпись." v-bind="props">
-              Это динамический поиск, основанный на данных API.
+            <article class="advisory-parent">
+              <p class="advisory-opener" title="Хотите знать больше? Нажмите на надпись." v-bind="props">
+                Это динамический поиск, основанный на данных API.
+              </p>
             </article>
           </template>
           <v-card>
@@ -79,7 +81,15 @@
     max-width: 80%;
   }
 
-  .advisory-opener {
+  .advisory-parent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .advisory-parent > .advisory-opener {
+    align-self: center;
+    width: fit-content;
+
     cursor: help;
 
     font-family: 'Jost', sans-serif;

@@ -1,18 +1,45 @@
 import Day from '@/models/entities/Day';
+import UserSettings from '@/models/user/UserSettings';
+import Swal from 'sweetalert2';
+import UserMessages from '@/models/messages/UserMessages';
 
 export default class ResultSelectionModel {
   public groupName: string;
 
   public selectedDays: Array<Day>;
 
+  public currentUserSettings: UserSettings;
+
+  public readonly ALL_AVAILABLE_DAYS = Day.ALL_AVAILABLE_DAYS;
+
   public static readonly defaultGroupName = '19П-3';
 
-  public constructor(groupName: string, selectedDays: Array<Day>) {
+  public constructor(groupName: string, settings: UserSettings, selectedDays: Array<Day>) {
     this.groupName = groupName;
+    this.currentUserSettings = settings;
     this.selectedDays = selectedDays;
   }
 
   public static getDefaultModel(): ResultSelectionModel {
-    return new ResultSelectionModel('', [Day.MONDAY]);
+    const currentDay = this.getNormalizedDayOfWeek();
+    let settings = UserSettings.getUserSettings();
+    if (settings === null) {
+      Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'info');
+      settings = UserSettings.getDefaultUserSettings();
+    }
+
+    return new ResultSelectionModel('', settings, [Day.getDayFromIndex(currentDay)]);
+  }
+
+  private static getNormalizedDayOfWeek(): number {
+    const date = new Date();
+    let dayOfWeek = date.getDay();
+    // Day of week in JS/TS starts from Sunday, so we must to normalize it.
+    if (dayOfWeek === 0) {
+      dayOfWeek = 7;
+    }
+
+    // We need to shift this value (to make it start from Monday):
+    return dayOfWeek - 1;
   }
 }
