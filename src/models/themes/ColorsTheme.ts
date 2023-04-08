@@ -9,6 +9,8 @@ export default class ColorsTheme {
 
   title: string;
 
+  isDarkTheme: boolean;
+
   primaryColor: string;
 
   secondaryColor: string;
@@ -27,6 +29,7 @@ export default class ColorsTheme {
     id: number,
     name: string,
     title: string,
+    isDarkTheme: boolean,
     primaryColor: string,
     secondaryColor: string,
     accentColor: string,
@@ -39,6 +42,7 @@ export default class ColorsTheme {
 
     this.name = name;
     this.title = title;
+    this.isDarkTheme = isDarkTheme;
 
     this.primaryColor = primaryColor;
     this.secondaryColor = secondaryColor;

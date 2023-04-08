@@ -11,7 +11,7 @@ export default class StructureRepository {
     this.useStableBranch = useStable;
   }
 
-  async getGroupsList(limit = false): Promise<Array<string>> {
+  public async getGroupsList(limit = false): Promise<Array<string>> {
     // ToDO: Make local source reading.
     const data = await this.getGroupsListFromAPI();
 

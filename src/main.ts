@@ -25,6 +25,7 @@ function generateVuetifyInstance(): any {
     theme: {
       themes: {
         Azure: {
+          dark: ApplicationThemes.azureColorTheme.isDarkTheme,
           colors: {
             primary: ApplicationThemes.azureColorTheme.primaryColor,
             secondary: ApplicationThemes.azureColorTheme.secondaryColor,
@@ -35,6 +36,7 @@ function generateVuetifyInstance(): any {
           },
         },
         Gray: {
+          dark: ApplicationThemes.azureColorTheme.isDarkTheme,
           colors: {
             primary: ApplicationThemes.darkColorTheme.primaryColor,
             secondary: ApplicationThemes.darkColorTheme.secondaryColor,

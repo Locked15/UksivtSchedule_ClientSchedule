@@ -11,10 +11,13 @@ export default class Lesson {
 
   place: string;
 
-  constructor(id: number, name: string, teacher: string, place: string) {
+  isChanged: boolean;
+
+  constructor(id: number, name: string, teacher: string, place: string, isChanged: boolean) {
     this.id = id;
     this.name = name;
     this.teacher = teacher;
     this.place = place;
+    this.isChanged = isChanged;
   }
 }

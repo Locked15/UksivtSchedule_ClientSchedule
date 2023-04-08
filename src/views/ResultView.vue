@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/max-len -->
 <template>
   <div>
     <h1>Выборка Результата</h1>
@@ -22,7 +23,24 @@
       <span>
         <!-- Template for basic schedule. -->
         <div v-if="checkBasicScheduleSelectionIsEnabled()">
-          <p>Basic schedule is enabled.</p>
+          <v-dialog v-model="isDialogActive" scrim="false" fullscreen persistent>
+            <template v-slot:activator="{ props }">
+              <v-btn color="primary" v-bind="props">Итоги</v-btn>
+            </template>
+
+            <v-card>
+              <v-toolbar color="grey">
+                <v-btn icon="mdi-close" @click="isDialogActive = false" />
+
+                <v-toolbar-title>Итоговое Расписание</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                </v-toolbar-items>
+              </v-toolbar>
+              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectFinalSchedule)" />
+            </v-card>
+          </v-dialog>
         </div>
 
         <!-- Template for schedule replacements. -->
@@ -46,13 +64,21 @@
   import ResultSelectionModel from '@/models/views/ResultSelectionModel';
   import Swal from 'sweetalert2';
   import SelectableInformation from '@/models/user/SelectableInformation';
+  import ResultComponent from '@/components/result/ResultComponent.vue';
+  import ResultComponentModel from '@/models/views/ResultComponentModel';
 
   @Options({
-    components: {},
+    components: {
+      ResultComponent,
+    },
   })
 
   export default class ResultView extends Vue {
-    viewModel = ResultSelectionModel.getDefaultModel();
+    public isDialogActive = false;
+
+    public viewModel = ResultSelectionModel.getDefaultModel();
+
+    public bind_SelectFinalSchedule = SelectableInformation.FINAL_SCHEDULE;
 
     public async beforeMount() {
       let target = localStorage.getItem(LATEST_SEARCH_TARGET);
@@ -72,6 +98,9 @@
       }
     }
 
+    /**
+     * ToDo: Remade this, to remove these 4 functions to standalone file.
+     */
     public checkBasicScheduleSelectionIsEnabled(): boolean {
       const targetId = SelectableInformation.BASIC_SCHEDULE.id;
       const selectable = this.viewModel.currentUserSettings.informationToSelect;
@@ -98,6 +127,19 @@
 
       // Firstly, we check value to be empty (!val), and then we revert this, to check presence.
       return !!foundElement;
+    }
+
+    public getInfoAboutResult() {
+      Swal.fire(this.viewModel.groupName, 'В данном окне представлена выбранная Вами информация.', 'info');
+    }
+
+    public createModelForResultComponent(selectable: SelectableInformation) : ResultComponentModel {
+      return new ResultComponentModel(
+        this.viewModel.currentUserSettings,
+        this.viewModel.groupName,
+        selectable,
+        this.viewModel.selectedDays,
+      );
     }
   }
 </script>

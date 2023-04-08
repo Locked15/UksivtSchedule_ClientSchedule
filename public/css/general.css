@@ -1,3 +1,7 @@
+.swal2-container {
+  z-index: 99100 !important;
+}
+
 .heirloom-hr {
   overflow: visible;
   height: 30px;
