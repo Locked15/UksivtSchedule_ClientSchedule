@@ -145,7 +145,7 @@
       <hr class="heirloom-hr" />
       <section>
         <h2 class="header-content">Сохранение Данных</h2>
-        <span>Подробные сведения представлены на странице <router-link class="styled-link" to="/info">информации</router-link>.</span>
+        <span>Подробные сведения представлены на странице <router-link class="styled-link" to="/about">информации</router-link>.</span>
       </section>
     </div>
 

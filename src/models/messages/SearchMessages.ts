@@ -1,17 +1,26 @@
 import Swal from 'sweetalert2';
 
-export default class SearchMessages {
-  public static readonly EmptySearchResultTitle = 'Ничего не найдено...';
+import BaseMessage from './base/BaseMessage';
 
-  public static readonly EmptySearchResultMessage = 'По Вашему поисковому запросу ничего не найдено.\nПопробуйте изменить поисковый запрос.';
+export default class SearchMessages {
+  public static readonly emptySearchResult = new BaseMessage(
+    'Ничего не найдено...',
+    'По Вашему поисковому запросу ничего не найдено.\nПопробуйте изменить поисковый запрос.',
+  );
+
+  public static readonly teachersSearchNotYetImplemented = new BaseMessage(
+    'Функция недоступна!',
+    'К сожалению, на данный момент подключение API к БД не было реализовано до конца.\nЭто наложило определённые ограничения на функционал.',
+  );
+
+  private static readonly secretGroupMessage = new BaseMessage(
+    'Никто не забыт.\nНичто не забыто.',
+    'В один момент мы потеряли себя.\nСвою идентичность. Свою веру. Свою честь.\n\nНо мы выстояли.',
+  );
 
   public static tryToShowSpecialMessageForGreatGood(loweredRequest: string): boolean {
     if (loweredRequest === '19п-5') {
-      Swal.fire(
-        'Никто не забыт.\nНичто не забыто.',
-        'В один момент мы потеряли себя.\nСвою идентичность. Свою веру. Свою честь.\n\nНо мы выстояли.',
-        'info',
-      );
+      Swal.fire(this.secretGroupMessage.title, this.secretGroupMessage.message, 'info');
       return true;
     }
 

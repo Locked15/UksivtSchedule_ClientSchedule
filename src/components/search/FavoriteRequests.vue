@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>This Is Nothing. For now...</h3>
+    <h3>Здесь будут отображаться предметы, добавленные в избранное.</h3>
   </div>
 </template>
 

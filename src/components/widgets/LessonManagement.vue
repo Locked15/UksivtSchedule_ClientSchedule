@@ -6,9 +6,5 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
 
-  export default class LessonManagement extends Vue {
-
-  }
 </script>

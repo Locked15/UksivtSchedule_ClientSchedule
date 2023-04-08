@@ -34,7 +34,7 @@
     public beforeMount(): void {
       if (this.settingsControlModel.userSettingsAreInitializedAgain) {
         this.saveCurrentUserSettings();
-        Swal.fire(UserMessages.UserNotFoundTitle, UserMessages.UserNotFoundMessage, 'error');
+        Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'error');
       }
     }
 

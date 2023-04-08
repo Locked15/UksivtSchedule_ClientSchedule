@@ -29,7 +29,7 @@ export default class StructureRepository {
       .then((response) => response.data)
       .catch((error) => {
         if (error.response === undefined || error.response.status === undefined) {
-          Swal.fire(APIMessages.APINotAvailableTitle, APIMessages.APINotAvailableMessage, 'error');
+          Swal.fire(APIMessages.APINotAvailable.title, APIMessages.APINotAvailable.message, 'error');
         } else {
           Swal.fire('Что-то пошло не так', error.response.data, 'error');
         }

@@ -1,5 +1,8 @@
-export default class APIMessages {
-  public static UserNotFoundTitle = 'Пользователь не найден!';
+import BaseMessage from './base/BaseMessage';
 
-  public static UserNotFoundMessage = 'Пользовательские данные не обнаружены.\nБудут сгенерированы новые.';
+export default class APIMessages {
+  public static readonly UserNotFound = new BaseMessage(
+    'Пользователь не найден!',
+    'Пользовательские данные не обнаружены.\nБудут сгенерированы новые.',
+  );
 }

@@ -5,30 +5,23 @@
       <nav>
         <v-app-bar>
           <v-app-bar-nav-icon icon="mdi-calendar-month-outline" />
-          <v-app-bar-title class="header-content">Расписание УКСИВТ</v-app-bar-title>
-          <v-spacer /> <v-spacer />
+          <v-app-bar-title class="header-content app-title">Расписание УКСИВТ</v-app-bar-title>
+          <v-spacer /> <v-spacer class="app-title" />
 
-          <v-btn :ripple="false">
-            <v-hover :disabled="true">
-              <v-select chips
-                        label="Тема:"
-                        :items="themes"
-                        @update:model-value="onThemeSelectionChanged"
-                        v-model="currentTheme"
-                        item-title="title"
-                        item-value="title"
-                        class="theme-picker"
-                        return-object />
-            </v-hover>
+          <v-btn>
+            <v-select chips
+                      label="Тема:"
+                      :items="themes"
+                      @update:model-value="onThemeSelectionChanged"
+                      v-model="currentTheme"
+                      item-title="title"
+                      item-value="title"
+                      class="theme-picker"
+                      return-object />
           </v-btn>
-          <v-menu>
-            <template>
-              <v-btn icon="mdi-wrench" color="purple" />
-            </template>
-          </v-menu>
 
           <template v-slot:extension>
-            <v-tabs>
+            <v-tabs class="header-nav">
               <v-tab to="/">Заглавная</v-tab>
               <v-tab to="/about">Информация</v-tab>
               <v-tab to="/settings">Настройки</v-tab>
@@ -81,6 +74,8 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,400;0,700;1,300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,200&display=swap');
+
   @import '@/../public/css/general.css';
 
   #app {
@@ -105,6 +100,16 @@
   }
 
   main {
-    margin-top: 3.141%;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 671px) {
+    .app-title {
+      display: none;
+    }
+
+    .theme-picker > .v-input__control {
+      height: 0 !important;
+    }
   }
 </style>
