@@ -4,8 +4,11 @@
   <div>
     <h2 class="header-content">Поиск</h2>
     <div>
-      <v-text-field density="compact" persistent-hint variant="outlined"
-                    label="Что ищем?" v-model="viewModel.searchRequest"
+      <v-text-field density="compact"
+                    persistent-hint
+                    variant="outlined"
+                    label="Что ищем?"
+                    v-model="viewModel.searchRequest"
                     @update:model-value="onSearchRequestUpdated"
                     clearable />
       <div class="search-parameters">
@@ -18,13 +21,11 @@
           <div class="results-container-inner">
             <v-card v-for="group in viewModel.selectedGroups.slice(0, 6)" v-bind:key="`result-${group}`">
               <v-card-title>{{ group }}</v-card-title>
-              <v-card-subtitle>Всего доступно: {{ viewModel.selectedGroups.length }}.</v-card-subtitle>
+              <v-btn @click="onGroupSelected(group)">Выбрать</v-btn>
             </v-card>
 
             <div v-if="viewModel.selectedGroups.length < 1">
-              <p class="search-is-empty">
-                ✖️ ... ✖️
-              </p>
+              <p class="search-is-empty">✖️ ... ✖️</p>
             </div>
           </div>
         </div>
@@ -34,9 +35,10 @@
 </template>
 
 <script lang="ts">
+  import { LATEST_SEARCH_TARGET } from '@/common/keys';
   import StructureRepository from '@/common/repository/StructureRepository';
-  import SearchModel from '@/models/views/SearchModel';
   import SearchMessages from '@/models/messages/SearchMessages';
+  import SearchModel from '@/models/views/SearchModel';
   import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';
 
@@ -61,7 +63,8 @@
 
     public onSearchParametersChanged() {
       if (this.viewModel.searchByTeachers) {
-        Swal.fire();
+        // eslint-disable-next-line vue/max-len
+        Swal.fire(SearchMessages.teachersSearchNotYetImplemented.title, SearchMessages.teachersSearchNotYetImplemented.message, 'warning');
         this.viewModel.searchByTeachers = false;
       }
     }
@@ -85,6 +88,11 @@
       if (this.viewModel.selectedGroups.length === 0) {
         Swal.fire(SearchMessages.emptySearchResult.title, SearchMessages.emptySearchResult.message, 'warning');
       }
+    }
+
+    public onGroupSelected(group: string) {
+      localStorage.setItem(LATEST_SEARCH_TARGET, group);
+      this.$router.push('/result');
     }
   }
 </script>

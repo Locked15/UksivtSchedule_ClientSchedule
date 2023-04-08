@@ -1,19 +1,19 @@
 <template>
-  <v-app :theme="currentTheme.name">
+  <v-app :theme="applicationBaseModel.currentTheme.name">
     <!-- General place for all Header-Related staff. -->
     <header>
       <nav>
         <v-app-bar>
-          <v-app-bar-nav-icon icon="mdi-calendar-month-outline" />
+          <v-app-bar-nav-icon icon="mdi-calendar-month-outline" @click="onIconClick" />
           <v-app-bar-title class="header-content app-title">Расписание УКСИВТ</v-app-bar-title>
           <v-spacer /> <v-spacer class="app-title" />
 
           <v-btn>
             <v-select chips
                       label="Тема:"
-                      :items="themes"
+                      :items="applicationBaseModel.themes"
                       @update:model-value="onThemeSelectionChanged"
-                      v-model="currentTheme"
+                      v-model="applicationBaseModel.currentTheme"
                       item-title="title"
                       item-value="title"
                       class="theme-picker"
@@ -49,27 +49,46 @@
 <script lang="ts">
   import { CURRENT_THEME_KEY } from '@/common/keys';
   import FooterComponent from '@/components/base/FooterComponent.vue';
-  import ApplicationSettings from '@/models/themes/ApplicationThemes';
+  import ApplicationThemes from '@/models/themes/ApplicationThemes';
+  import ApplicationBaseModel from '@/models/views/ApplicationBaseModel';
   import ColorsTheme from '@/models/themes/ColorsTheme';
+  import { Options, Vue } from 'vue-class-component';
 
-  export default {
-    data() {
-      return {
-        currentTheme: JSON.parse(localStorage.getItem(CURRENT_THEME_KEY) || '{}') || ApplicationSettings.getDefaultTheme(),
-        themes: ApplicationSettings.colorThemes,
-      };
+  @Options({
+    props: {
+      name: 'app',
     },
-    methods: {
-      onThemeSelectionChanged(item: ColorsTheme) {
-        localStorage.setItem(CURRENT_THEME_KEY, JSON.stringify(item));
-      },
-    },
-
-    name: 'App',
     components: {
       FooterComponent,
     },
-  };
+  })
+
+  export default class App extends Vue {
+    public applicationBaseModel = this.initModel();
+
+    public data() {
+      return {
+        viewModel: this.applicationBaseModel,
+      };
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    private initModel() : ApplicationBaseModel {
+      const currentTheme = JSON.parse(localStorage.getItem(CURRENT_THEME_KEY) || '{}') || ApplicationThemes.getDefaultTheme();
+      const themes = ApplicationThemes.colorThemes;
+
+      return new ApplicationBaseModel(currentTheme, themes);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    onThemeSelectionChanged(item: ColorsTheme) {
+      localStorage.setItem(CURRENT_THEME_KEY, JSON.stringify(item));
+    }
+
+    onIconClick() {
+      this.$router.push('/');
+    }
+  }
 </script>
 
 <style>

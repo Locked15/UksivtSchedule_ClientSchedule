@@ -15,3 +15,11 @@ export const USER_SETTINGS_KEY = 'UKSIVT_CurrentUserSettings';
  * This element contains current user favorites list. This may be group names, or something else.
  */
 export const USER_FAVORITES_KEY = 'UKSIVT_CurrentUserFavorites';
+
+/**
+ * Contains key of the local storage element.
+ * This element contains latest user search request.
+ *
+ * ? This is the hack, to pass selected element between search component and result view.
+ */
+export const LATEST_SEARCH_TARGET = 'UKSIVT_LatestSearch';

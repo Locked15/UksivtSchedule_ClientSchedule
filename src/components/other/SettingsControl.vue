@@ -30,7 +30,6 @@
   export default class SettingsControl extends Vue {
     public settingsControlModel = new SettingsModel();
 
-    // eslint-disable-next-line class-methods-use-this
     public beforeMount(): void {
       if (this.settingsControlModel.userSettingsAreInitializedAgain) {
         this.saveCurrentUserSettings();
@@ -68,7 +67,7 @@
       align-self: center;
       gap: 2.5%;
 
-      width: fit-content;
+      width: max-content;
       padding: 2.16rem;
 
       border: solid 2.74px;

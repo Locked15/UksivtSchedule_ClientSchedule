@@ -31,6 +31,12 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Настройки',
     },
   },
+  {
+    path: '/result',
+    name: 'result',
+    component: () => import('@/views/ResultView.vue'),
+    props: true,
+  },
 ];
 
 const router = createRouter({
