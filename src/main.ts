@@ -6,11 +6,11 @@ import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
-import App from './App.vue';
-import router from './common/router';
-import store from './common/store';
-import SearchComponent from './components/search/SearchComponent.vue';
-import ApplicationThemes from './models/themes/ApplicationThemes';
+import App from '@/App.vue';
+import router from '@/common/router';
+import store from '@/common/store';
+import SearchComponent from '@/components/search/SearchComponent.vue';
+import ApplicationThemes from '@/models/themes/ApplicationThemes';
 
 /**
  * Generates new instance of Vuetify component settings and injects it into Application instance.

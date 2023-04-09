@@ -1,7 +1,7 @@
 import Day from '@/models/entities/base/Day';
+import UserMessages from '@/models/messages/UserMessages';
 import UserSettings from '@/models/user/UserSettings';
 import Swal from 'sweetalert2';
-import UserMessages from '@/models/messages/UserMessages';
 
 export default class ResultSelectionModel {
   public groupName: string;

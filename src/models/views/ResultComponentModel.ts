@@ -1,6 +1,6 @@
-import Day from '../entities/base/Day';
-import SelectableInformation from '../user/SelectableInformation';
-import UserSettings from '../user/UserSettings';
+import Day from '@/models/entities/base/Day';
+import SelectableInformation from '@/models/user/SelectableInformation';
+import UserSettings from '@/models/user/UserSettings';
 
 export default class ResultComponentModel {
   userSettings: UserSettings;
