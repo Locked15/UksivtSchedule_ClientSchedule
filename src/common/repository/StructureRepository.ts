@@ -13,7 +13,7 @@ export default class StructureRepository {
 
   public async getGroupsList(limit = false): Promise<Array<string>> {
     // ToDO: Make local source reading.
-    const data = await this.getGroupsListFromAPI();
+    const data = await this.tryToGetGroupsListFromAPI(limit);
 
     if (data == null && !limit) {
       const useStable = this.useStableBranch;
@@ -22,16 +22,18 @@ export default class StructureRepository {
     return data;
   }
 
-  private async getGroupsListFromAPI(): Promise<Array<string>> {
+  private async tryToGetGroupsListFromAPI(alert: boolean): Promise<Array<string>> {
     const basicRoute = `${APIBase.apiBasicRoute}/${StructureAPIRoutes.structureAPIRoute}/${StructureAPIRoutes.allGroupsRoute}`;
     const finalRoute = `${this.getSpecifiedAPIAddress()}/${basicRoute}`;
     const data: Promise<Array<string>> = await Axios.get(finalRoute)
       .then((response) => response.data)
       .catch((error) => {
-        if (error.response === undefined || error.response.status === undefined) {
-          Swal.fire(APIMessages.APINotAvailable.title, APIMessages.APINotAvailable.message, 'error');
-        } else {
-          Swal.fire('Что-то пошло не так', error.response.data, 'error');
+        if (alert) {
+          if (error.response === undefined || error.response.status === undefined) {
+            Swal.fire(APIMessages.APINotAvailable.title, APIMessages.APINotAvailable.message, 'error');
+          } else {
+            Swal.fire('Что-то пошло не так', error.response.data, 'error');
+          }
         }
       });
 
