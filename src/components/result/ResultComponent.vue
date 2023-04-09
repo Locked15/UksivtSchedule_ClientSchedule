@@ -60,7 +60,7 @@
   import FinalSchedule from '@/models/entities/FinalSchedule';
   import ScheduleReplacement from '@/models/entities/ScheduleReplacement';
   import Day from '@/models/entities/base/Day';
-  import ScheduleOfDay from '@/models/entities/base/ScheduleOfDay';
+  import ScheduleOfDay from '@/models/entities/ScheduleOfDay';
   import SelectableInformation from '@/models/user/SelectableInformation';
   import ResultComponentModel from '@/models/views/ResultComponentModel';
   import { Options, Vue } from 'vue-class-component';
@@ -176,6 +176,10 @@
     align-self: center;
   }
 
+  .results-legend > p {
+    text-align: center;
+  }
+
   .result-parent-container {
     display: flex;
     flex: auto;
@@ -218,5 +222,19 @@
 
   .element-info {
     text-align: center;
+  }
+
+  @media (max-width: 641px) {
+    .result-parent-container > .result-container > .result-item {
+      width: 85%;
+      max-width: 90%;
+    }
+  }
+
+  @media (max-width: 481px) {
+    .result-parent-container > .result-container > .result-item {
+      width: 95%;
+      max-width: 100%;
+    }
   }
 </style>

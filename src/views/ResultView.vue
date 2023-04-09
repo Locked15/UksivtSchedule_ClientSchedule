@@ -20,7 +20,7 @@
         <h2 class="header-content" title="На основе настроек Вам доступны следующие результаты.">Выбор Результата</h2>
       </span>
 
-      <span>
+      <span class="result-selection-panel">
         <!-- Template for basic schedule. -->
         <div v-if="checkBasicScheduleSelectionIsEnabled()">
           <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false"
@@ -214,6 +214,14 @@
 
     width: 42%;
     align-self: center;
+  }
+
+  .result-navigation-parent > .result-selection-panel {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+
+    gap: 16px;
   }
 
   .result-navigation-header > h2 {

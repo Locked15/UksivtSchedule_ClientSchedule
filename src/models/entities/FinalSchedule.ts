@@ -1,4 +1,4 @@
-import ScheduleOfDay from '@/models/entities/base/ScheduleOfDay';
+import ScheduleOfDay from '@/models/entities/ScheduleOfDay';
 
 export default class FinalSchedule {
   ActualChanges: boolean;
