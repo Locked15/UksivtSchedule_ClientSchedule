@@ -1,19 +1,23 @@
+import Lesson from '@/models/entities/base/Lesson';
+
 export default class ScheduleReplacement {
-  id: number;
+  public ChangesFound: boolean;
 
-  scheduleHash: number;
+  public AbsoluteChanges: boolean;
 
-  targetGroup: string;
+  public ChangesDate: Date;
 
-  targetDate: Date;
+  public NewLessons: Lesson[];
 
-  isAbsolute: boolean;
-
-  constructor(id: number, hash: number, group: string, date: Date, isAbsolute: boolean) {
-    this.id = id;
-    this.scheduleHash = hash;
-    this.targetGroup = group;
-    this.targetDate = date;
-    this.isAbsolute = isAbsolute;
+  public constructor(
+    changesFound: boolean,
+    absoluteChanges: boolean,
+    changesDate: Date,
+    newLessons: Lesson[],
+  ) {
+    this.ChangesFound = changesFound;
+    this.AbsoluteChanges = absoluteChanges;
+    this.ChangesDate = changesDate;
+    this.NewLessons = newLessons;
   }
 }

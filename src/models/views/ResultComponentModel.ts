@@ -1,4 +1,4 @@
-import Day from '../entities/Day';
+import Day from '../entities/base/Day';
 import SelectableInformation from '../user/SelectableInformation';
 import UserSettings from '../user/UserSettings';
 

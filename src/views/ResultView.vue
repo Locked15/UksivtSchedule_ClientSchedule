@@ -23,7 +23,8 @@
       <span>
         <!-- Template for basic schedule. -->
         <div v-if="checkBasicScheduleSelectionIsEnabled()">
-          <v-dialog v-model="isDialogActive" scrim="false" fullscreen persistent>
+          <v-dialog v-model="isDialogActive" scrim="false"
+                    transition="dialog-bottom-transition" fullscreen persistent>
             <template v-slot:activator="{ props }">
               <v-btn color="primary" v-bind="props">Итоги</v-btn>
             </template>
@@ -84,7 +85,7 @@
       let target = localStorage.getItem(LATEST_SEARCH_TARGET);
       if (!target || target == null || target === '') {
         Swal.fire();
-        target = ResultSelectionModel.defaultGroupName;
+        target = ResultSelectionModel.DEFAULT_GROUP_NAME;
       }
 
       this.viewModel.groupName = target;

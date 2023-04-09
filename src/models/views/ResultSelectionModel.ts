@@ -1,4 +1,4 @@
-import Day from '@/models/entities/Day';
+import Day from '@/models/entities/base/Day';
 import UserSettings from '@/models/user/UserSettings';
 import Swal from 'sweetalert2';
 import UserMessages from '@/models/messages/UserMessages';
@@ -12,7 +12,7 @@ export default class ResultSelectionModel {
 
   public readonly ALL_AVAILABLE_DAYS = Day.ALL_AVAILABLE_DAYS;
 
-  public static readonly defaultGroupName = '19П-3';
+  public static readonly DEFAULT_GROUP_NAME = '19П-3';
 
   public constructor(groupName: string, settings: UserSettings, selectedDays: Array<Day>) {
     this.groupName = groupName;
