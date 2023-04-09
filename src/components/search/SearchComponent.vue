@@ -36,6 +36,7 @@
 
 <script lang="ts">
   import { LATEST_SEARCH_TARGET } from '@/common/keys';
+  import ApplicationData from '@/common/data/ApplicationData';
   import StructureRepository from '@/common/repository/StructureRepository';
   import SearchMessages from '@/models/messages/SearchMessages';
   import SearchModel from '@/models/views/SearchModel';
@@ -55,9 +56,11 @@
 
     // eslint-disable-next-line class-methods-use-this
     public async beforeMount() {
-      const data = await new StructureRepository(true).getGroupsList();
-      if (data) {
-        this.viewModel.availableGroups = data;
+      if (ApplicationData.length < 1) {
+        const data = await new StructureRepository(true).getGroupsList();
+        if (data) {
+          ApplicationData.AvailableGroups = data;
+        }
       }
     }
 
@@ -72,7 +75,7 @@
     public async onSearchRequestUpdated() {
       const loweredRequest = this.viewModel.searchRequest?.toLowerCase() || '';
       if (loweredRequest !== '') {
-        const selected = await this.viewModel.availableGroups
+        const selected = await ApplicationData.AvailableGroups
                                    .filter((group) => group.toLowerCase().includes(loweredRequest));
         this.viewModel.selectedGroups = selected;
 
