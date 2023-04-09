@@ -1,3 +1,3 @@
 export default class ApplicationData {
-  public static AvailableGroups = new Array<string>();
+  public static availableGroups = new Array<string>();
 }

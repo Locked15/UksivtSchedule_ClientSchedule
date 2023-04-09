@@ -18,10 +18,13 @@ export default class FinalScheduleRepository implements ScheduleRepository<Final
   }
 
   public async getDataFromAPI(dayIndex: number, groupName: string, remainAttempts: number): Promise<FinalSchedule> {
+    let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
-    while (data == null && remainAttempts > 0) {
+    while (data == null && attempts > 0) {
+      attempts -= 1;
+
       // eslint-disable-next-line no-await-in-loop
-      data = await this.getDataFromAPI(dayIndex, groupName, remainAttempts - 1);
+      data = await this.getDataFromAPI(dayIndex, groupName, attempts);
     }
 
     return data;

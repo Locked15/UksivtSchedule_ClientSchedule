@@ -26,7 +26,7 @@
           <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false"
                     transition="dialog-bottom-transition" fullscreen persistent>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">Базовое Расписание</v-btn>
+              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Базовое Расписание</v-btn>
             </template>
 
             <v-card>
@@ -49,7 +49,7 @@
           <v-dialog v-model="dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false"
                     transition="dialog-bottom-transition" fullscreen persistent>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">Замены Расписания</v-btn>
+              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Замены Расписания</v-btn>
             </template>
 
             <v-card>
@@ -72,7 +72,7 @@
           <v-dialog v-model="dialogsActivityState.isFinalScheduleDialogActive" scrim="false"
                     transition="dialog-bottom-transition" fullscreen persistent>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">Итоговое Расписание</v-btn>
+              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Итоговое Расписание</v-btn>
             </template>
 
             <v-card>

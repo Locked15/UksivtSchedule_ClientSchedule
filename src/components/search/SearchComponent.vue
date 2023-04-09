@@ -55,12 +55,14 @@
     }
 
     // eslint-disable-next-line class-methods-use-this
-    public async beforeMount() {
+    public beforeMount() {
       if (ApplicationData.length < 1) {
-        const data = await new StructureRepository(true).getGroupsList();
-        if (data) {
-          ApplicationData.AvailableGroups = data;
-        }
+        new StructureRepository(true).getGroupsList()
+          .then((data) => {
+            if (data != null) {
+              ApplicationData.availableGroups = data;
+            }
+          });
       }
     }
 
@@ -75,7 +77,7 @@
     public async onSearchRequestUpdated() {
       const loweredRequest = this.viewModel.searchRequest?.toLowerCase() || '';
       if (loweredRequest !== '') {
-        const selected = await ApplicationData.AvailableGroups
+        const selected = await ApplicationData.availableGroups
                                    .filter((group) => group.toLowerCase().includes(loweredRequest));
         this.viewModel.selectedGroups = selected;
 

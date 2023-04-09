@@ -18,10 +18,14 @@ export default class ScheduleReplacementsRepository implements ScheduleRepositor
   }
 
   public async getDataFromAPI(dayIndex: number, groupName: string, remainAttempts: number): Promise<ScheduleReplacement> {
+    let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
     while (data == null && remainAttempts > 0) {
       // eslint-disable-next-line no-await-in-loop
-      data = await this.getDataFromAPI(dayIndex, groupName, remainAttempts - 1);
+      attempts -= 1;
+
+      // eslint-disable-next-line no-await-in-loop
+      data = await this.getDataFromAPI(dayIndex, groupName, attempts);
     }
 
     return data;
