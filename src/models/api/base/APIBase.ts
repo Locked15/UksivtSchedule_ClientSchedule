@@ -4,14 +4,14 @@ export default class APIBase {
    * ? Can be used to generate queries to API.
    * @type {string} Address string.
    */
-  static stableAPIAddress = 'http://localhost:5174';
+  static stableAPIAddress = 'https://uksivt.info';
 
   /**
    * Contains preview API release public address.
    * ? Can be used to generate queries to API.
    * @type {string} Address string.
    */
-  static previewAPIAddress = 'http://localhost:5174';
+  static previewAPIAddress = 'https://uksivt.azurewebsites.net';
 
   /**
    * Contains basic route to get access to API data functions.
