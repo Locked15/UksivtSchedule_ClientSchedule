@@ -10,7 +10,7 @@
                   item-title="name"
                   item-value="name"
                   @update:model-value="onShowingDaysSelectionChanged"
-                  return-object multiple chips />
+                  chips return-object multiple />
       </span>
     </div>
 
@@ -23,15 +23,61 @@
       <span>
         <!-- Template for basic schedule. -->
         <div v-if="checkBasicScheduleSelectionIsEnabled()">
-          <v-dialog v-model="isDialogActive" scrim="false"
+          <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false"
                     transition="dialog-bottom-transition" fullscreen persistent>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">Итоги</v-btn>
+              <v-btn color="primary" v-bind="props">Базовое Расписание</v-btn>
             </template>
 
             <v-card>
               <v-toolbar color="grey">
-                <v-btn icon="mdi-close" @click="isDialogActive = false" />
+                <v-btn icon="mdi-close" @click="dialogsActivityState.isBasicScheduleDialogActive = false" />
+
+                <v-toolbar-title>Базовое Расписание</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                </v-toolbar-items>
+              </v-toolbar>
+              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.basicSchedule)" />
+            </v-card>
+          </v-dialog>
+        </div>
+
+        <!-- Template for schedule replacements. -->
+        <div v-if="checkScheduleReplacementsSelectionIsEnabled()">
+          <v-dialog v-model="dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false"
+                    transition="dialog-bottom-transition" fullscreen persistent>
+            <template v-slot:activator="{ props }">
+              <v-btn color="primary" v-bind="props">Замены Расписания</v-btn>
+            </template>
+
+            <v-card>
+              <v-toolbar color="grey">
+                <v-btn icon="mdi-close" @click="dialogsActivityState.isScheduleReplacementsDialogActive = false" />
+
+                <v-toolbar-title>Замены Расписания</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                </v-toolbar-items>
+              </v-toolbar>
+              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.scheduleReplacements)" />
+            </v-card>
+          </v-dialog>
+        </div>
+
+        <!-- Template for final schedule. -->
+        <div v-if="checkFinalScheduleSelectionIsEnabled()">
+          <v-dialog v-model="dialogsActivityState.isFinalScheduleDialogActive" scrim="false"
+                    transition="dialog-bottom-transition" fullscreen persistent>
+            <template v-slot:activator="{ props }">
+              <v-btn color="primary" v-bind="props">Итоговое Расписание</v-btn>
+            </template>
+
+            <v-card>
+              <v-toolbar color="grey">
+                <v-btn icon="mdi-close" @click="dialogsActivityState.isFinalScheduleDialogActive = false" />
 
                 <v-toolbar-title>Итоговое Расписание</v-toolbar-title>
                 <v-spacer />
@@ -39,19 +85,9 @@
                   <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
                 </v-toolbar-items>
               </v-toolbar>
-              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectFinalSchedule)" />
+              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.finalSchedule)" />
             </v-card>
           </v-dialog>
-        </div>
-
-        <!-- Template for schedule replacements. -->
-        <div v-if="checkScheduleReplacementsSelectionIsEnabled()">
-          <p>Replacements is enabled.</p>
-        </div>
-
-        <!-- Template for final schedule. -->
-        <div v-if="checkFinalScheduleSelectionIsEnabled()">
-          <p>Finals are enabled.</p>
         </div>
       </span>
     </div>
@@ -75,11 +111,19 @@
   })
 
   export default class ResultView extends Vue {
-    public isDialogActive = false;
-
     public viewModel = ResultSelectionModel.getDefaultModel();
 
-    public bind_SelectFinalSchedule = SelectableInformation.FINAL_SCHEDULE;
+    public dialogsActivityState = {
+      isBasicScheduleDialogActive: false,
+      isScheduleReplacementsDialogActive: false,
+      isFinalScheduleDialogActive: false,
+    };
+
+    public bind_SelectableInformation = {
+      basicSchedule: SelectableInformation.BASIC_SCHEDULE,
+      scheduleReplacements: SelectableInformation.SCHEDULE_REPLACEMENTS,
+      finalSchedule: SelectableInformation.FINAL_SCHEDULE,
+    };
 
     public async beforeMount() {
       let target = localStorage.getItem(LATEST_SEARCH_TARGET);

@@ -20,4 +20,14 @@ export default class ScheduleReplacement {
     this.ChangesDate = changesDate;
     this.NewLessons = newLessons;
   }
+
+  public static isScheduleReplacement(result: any): result is ScheduleReplacement {
+    const isChangesFoundPresented = result.ChangesFound !== undefined;
+    const isAbsoluteChangesPresented = result.AbsoluteChanges !== undefined;
+    const isChangesDatePresented = result.ChangesDate !== undefined;
+    const isNewLessonsPresented = result.NewLessons !== undefined;
+
+    return isChangesFoundPresented && isAbsoluteChangesPresented
+      && isChangesDatePresented && isNewLessonsPresented;
+  }
 }

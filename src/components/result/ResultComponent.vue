@@ -9,16 +9,41 @@
       </span>
       <div class="result-parent-container">
         <div class="result-container" v-for="result in componentModel.results" :key="`result-${componentModel.results.indexOf(result)}`">
-          <!-- Parent container for 'Final Schedule' result. -->
-          <div class="result-item" v-if="checkResultIsFinalSchedule(result.value)">
+          <!-- Parent container for 'Basic Schedule' result. -->
+          <div class="result-item" v-if="checkResultIsInstanceOfBasicSchedule(result.value)">
             <hr class="heirloom-hr" />
-            <h3 class="header-content">{{ result.value.Schedule.Day }}</h3>
-            <hr class="heirloom-hr small-hr" />
+            <h3 class="header-content">{{ getDayTitleByDayId(result.dayId).name }}</h3>
 
+            <hr class="heirloom-hr small-hr" />
+            <div class="element-info">
+              <span>Представлено базовое расписание для указанной группы.</span>
+            </div>
+            <ResultElement :dayId="result.dayId" :lessons="result.value.Lessons" />
+          </div>
+
+          <!-- Parent container for 'Schedule Replacements' result. -->
+          <div class="result-item" v-if="checkResultIsInstanceOfScheduleReplacements(result.value)">
+            <hr class="heirloom-hr" />
+            <h3 class="header-content">{{ getDayTitleByDayId(result.dayId).name }}</h3>
+
+            <hr class="heirloom-hr small-hr" />
+            <div class="element-info">
+              <span>Замены для: {{ getDateLocaleString(result.value.ChangesDate) || '[N/A]' }}.</span>
+              <span v-if="result.value.AbsoluteChanges">Замены на весь день.</span>
+            </div>
+            <ResultElement :dayId="result.dayId" :lessons="result.value.NewLessons" />
+          </div>
+
+          <!-- Parent container for 'Final Schedule' result. -->
+          <div class="result-item" v-if="checkResultIsInstanceOfFinalSchedule(result.value)">
+            <hr class="heirloom-hr" />
+            <h3 class="header-content">{{ getDayTitleByDayId(result.dayId).name }}</h3>
+
+            <hr class="heirloom-hr small-hr" />
             <div class="element-info">
               <span> Дата: {{ getDateLocaleString(result.value.ScheduleDate) || result.value.Schedule.Day }}. </span>
             </div>
-            <ResultComponentElement :dayId="result.dayId" :lessons="result.value.Schedule.Lessons" />
+            <ResultElement :dayId="result.dayId" :lessons="result.value.Schedule.Lessons" />
           </div>
         </div>
       </div>
@@ -27,10 +52,16 @@
 </template>
 
 <script lang="ts">
+  import ScheduleRepository from '@/common/repository/base/ScheduleRepository';
+  import BasicScheduleRepository from '@/common/repository/schedule/BasicScheduleRepository';
   import FinalScheduleRepository from '@/common/repository/schedule/FinalScheduleRepository';
-  import ResultComponentElement from '@/components/result/ResultComponentElement.vue';
+  import ScheduleReplacementRepository from '@/common/repository/schedule/ScheduleReplacementRepository';
+  import ResultElement from '@/components/result/ResultElement.vue';
   import FinalSchedule from '@/models/entities/FinalSchedule';
-  import Day from '@/models/entities/base/Day.js';
+  import ScheduleReplacement from '@/models/entities/ScheduleReplacement';
+  import Day from '@/models/entities/base/Day';
+  import ScheduleOfDay from '@/models/entities/base/ScheduleOfDay';
+  import SelectableInformation from '@/models/user/SelectableInformation';
   import ResultComponentModel from '@/models/views/ResultComponentModel';
   import { Options, Vue } from 'vue-class-component';
 
@@ -39,7 +70,7 @@
       componentModel: ResultComponentModel,
     },
     components: {
-      ResultComponentElement,
+      ResultElement,
     },
   })
   export default class ResultComponent extends Vue {
@@ -50,12 +81,28 @@
       const useDb = this.componentModel.userSettings.useDBAsSource;
       const useStableAPI = this.componentModel.userSettings.useStableAPIBranch;
 
-      const repo = new FinalScheduleRepository(useDb, useStableAPI);
-      this.componentModel.selectableDays.forEach(async (day: Day) => {
-        const item = await repo.getFinalScheduleFromAPI(day.index, target, 1);
-        this.updateResultsArray(day.index, item);
+      const repo = this.createRepoForCurrentSelectableInformation(useDb, useStableAPI);
+      this.beginResultsInit(target, repo);
+    }
 
-        this.$forceUpdate();
+    // eslint-disable-next-line vue/max-len
+    private createRepoForCurrentSelectableInformation(useDb: boolean, useStableAPIBranch: boolean): ScheduleRepository<any> {
+      if (this.componentModel.selectionType.id === SelectableInformation.BASIC_SCHEDULE.id) {
+        return new BasicScheduleRepository(useDb, useStableAPIBranch);
+      }
+      if (this.componentModel.selectionType.id === SelectableInformation.SCHEDULE_REPLACEMENTS.id) {
+        return new ScheduleReplacementRepository(useDb, useStableAPIBranch);
+      }
+
+      return new FinalScheduleRepository(useDb, useStableAPIBranch);
+    }
+
+    private beginResultsInit(target: string, repo: ScheduleRepository<any>) {
+      this.componentModel.selectableDays.forEach(async (day: Day) => {
+        repo.getDataFromAPI(day.index, target, 1).then((result: any) => {
+          this.updateResultsArray(day.index, result);
+          this.$forceUpdate();
+        });
       });
     }
 
@@ -81,8 +128,23 @@
     }
 
     // eslint-disable-next-line class-methods-use-this
-    public checkResultIsFinalSchedule(result: any): result is FinalSchedule {
+    public checkResultIsInstanceOfBasicSchedule(result: any): result is ScheduleOfDay {
+      return ScheduleOfDay.isScheduleOfDay(result);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    public checkResultIsInstanceOfScheduleReplacements(result: any): result is ScheduleReplacement {
+      return ScheduleReplacement.isScheduleReplacement(result);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    public checkResultIsInstanceOfFinalSchedule(result: any): result is FinalSchedule {
       return FinalSchedule.isFinalSchedule(result);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    public getDayTitleByDayId(dayId: number): Day {
+      return Day.getDayFromIndex(dayId);
     }
 
     // eslint-disable-next-line class-methods-use-this

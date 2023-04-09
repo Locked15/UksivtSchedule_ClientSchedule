@@ -13,4 +13,11 @@ export default class ScheduleOfDay {
     this.Day = day;
     this.Lessons = lessons;
   }
+
+  public static isScheduleOfDay(instance: any): instance is ScheduleOfDay {
+    const isDayPresented = instance.Day !== undefined;
+    const isLessonPresented = instance.Lessons !== undefined;
+
+    return isDayPresented && isLessonPresented;
+  }
 }
