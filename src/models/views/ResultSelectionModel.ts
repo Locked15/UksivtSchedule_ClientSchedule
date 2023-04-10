@@ -25,7 +25,9 @@ export default class ResultSelectionModel {
     let settings = UserSettings.getUserSettings();
     if (settings === null) {
       Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'info');
+
       settings = UserSettings.getDefaultUserSettings();
+      settings.saveCurrentUserSettings();
     }
 
     return new ResultSelectionModel('', settings, [Day.getDayFromIndex(currentDay)]);

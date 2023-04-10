@@ -34,4 +34,8 @@ export default class UserSettings {
   static getDefaultUserSettings(): UserSettings {
     return new UserSettings(false, true, false, new Array(SelectableInformation.FINAL_SCHEDULE));
   }
+
+  public saveCurrentUserSettings() {
+    localStorage.setItem(USER_SETTINGS_KEY, JSON.stringify(this));
+  }
 }
