@@ -74,8 +74,10 @@
 
     // eslint-disable-next-line class-methods-use-this
     private initModel() : ApplicationBaseModel {
-      const currentTheme = JSON.parse(localStorage.getItem(CURRENT_THEME_KEY) || '{}') || ApplicationThemes.getDefaultTheme();
       const themes = ApplicationThemes.colorThemes;
+      const savedSelectedTheme = localStorage.getItem(CURRENT_THEME_KEY);
+      const currentTheme = savedSelectedTheme === null ? ApplicationThemes.getDefaultTheme()
+                                                       : JSON.parse(savedSelectedTheme);
 
       return new ApplicationBaseModel(currentTheme, themes);
     }
