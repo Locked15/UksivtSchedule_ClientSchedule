@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts">
+  import { USER_SETTINGS_KEY } from '@/common/keys';
   import UserMessages from '@/models/messages/UserMessages';
   import SettingsModel from '@/models/views/SettingsModel';
   import Swal from 'sweetalert2';
@@ -31,14 +32,20 @@
 
     public beforeMount(): void {
       if (this.settingsControlModel.userSettingsAreInitializedAgain) {
+        this.saveCurrentUserSettings();
         Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'error');
-        this.settingsControlModel.currentUserSettings.saveCurrentUserSettings();
       }
     }
 
-    // eslint-disable-next-line class-methods-use-this
     public onParametersChanged() {
-      this.settingsControlModel.currentUserSettings.saveCurrentUserSettings();
+      this.saveCurrentUserSettings();
+    }
+
+    private saveCurrentUserSettings() {
+      localStorage.setItem(
+        USER_SETTINGS_KEY,
+        JSON.stringify(this.settingsControlModel.currentUserSettings),
+      );
     }
   }
 </script>
