@@ -22,7 +22,7 @@
 
 <script lang="ts">
   import { USER_SETTINGS_KEY } from '@/common/keys';
-  import UserMessages from '@/models/messages/UserMessages';
+  import UserMessages from '@/models/common/messages/UserMessages';
   import SettingsModel from '@/models/views/SettingsModel';
   import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';

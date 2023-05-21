@@ -53,15 +53,16 @@
 
 <script lang="ts">
   import ScheduleRepository from '@/common/repository/base/ScheduleRepository';
-  import BasicScheduleRepository from '@/common/repository/schedule/BasicScheduleRepository';
-  import FinalScheduleRepository from '@/common/repository/schedule/FinalScheduleRepository';
-  import ScheduleReplacementRepository from '@/common/repository/schedule/ScheduleReplacementRepository';
-  import ResultElement from '@/components/result/ResultElement.vue';
-  import FinalSchedule from '@/models/entities/FinalSchedule';
-  import ScheduleReplacement from '@/models/entities/ScheduleReplacement';
-  import Day from '@/models/entities/base/Day';
-  import ScheduleOfDay from '@/models/entities/ScheduleOfDay';
-  import SelectableInformation from '@/models/user/SelectableInformation';
+  import BasicScheduleRepository from '@/common/repository/v1/schedule/BasicScheduleRepository';
+  import FinalScheduleRepository from '@/common/repository/v1/schedule/FinalScheduleRepository';
+  import ScheduleReplacementRepository from '@/common/repository/v1/schedule/ScheduleReplacementRepository';
+  import ResultElement from '@/components/common/result/ResultElement.vue';
+  import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
+  import FinalSchedule from '@/models/api/entities/v1/FinalSchedule';
+  import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
+  import Day from '@/models/api/entities/v1/base/Day';
+  import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+  import SelectableInformation from '@/models/common/user/SelectableInformation';
   import ResultComponentModel from '@/models/views/ResultComponentModel';
   import { Options, Vue } from 'vue-class-component';
 
@@ -86,7 +87,7 @@
     }
 
     // eslint-disable-next-line vue/max-len
-    private createRepoForCurrentSelectableInformation(useDb: boolean, useStableAPIBranch: boolean): ScheduleRepository<any> {
+    private createRepoForCurrentSelectableInformation(useDb: boolean, useStableAPIBranch: boolean): ScheduleRepository<ILegacyAPIEntitiesParent> {
       if (this.componentModel.selectionType.id === SelectableInformation.BASIC_SCHEDULE.id) {
         return new BasicScheduleRepository(useDb, useStableAPIBranch);
       }
@@ -97,16 +98,16 @@
       return new FinalScheduleRepository(useDb, useStableAPIBranch);
     }
 
-    private beginResultsInit(target: string, repo: ScheduleRepository<any>) {
+    private beginResultsInit(target: string, repo: ScheduleRepository<ILegacyAPIEntitiesParent>) {
       this.componentModel.selectableDays.forEach(async (day: Day) => {
-        repo.getDataFromAPI(day.index, target, 1).then((result: any) => {
+        repo.getDataFromAPI(day.index, target, 1).then((result: ILegacyAPIEntitiesParent) => {
           this.updateResultsArray(day.index, result);
           this.$forceUpdate();
         });
       });
     }
 
-    private updateResultsArray(dayIndex: number, newItem: any) {
+    private updateResultsArray(dayIndex: number, newItem: ILegacyAPIEntitiesParent) {
       this.componentModel.results.push({
         dayId: dayIndex,
         value: newItem,
@@ -128,8 +129,8 @@
     }
 
     // eslint-disable-next-line class-methods-use-this
-    public checkResultIsInstanceOfBasicSchedule(result: any): result is ScheduleOfDay {
-      return ScheduleOfDay.isScheduleOfDay(result);
+    public checkResultIsInstanceOfBasicSchedule(result: any): result is BasicSchedule {
+      return BasicSchedule.isScheduleOfDay(result);
     }
 
     // eslint-disable-next-line class-methods-use-this

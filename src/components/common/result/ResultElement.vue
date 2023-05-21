@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-  import Lesson from '@/models/entities/base/Lesson';
+  import Lesson from '@/models/api/entities/v1/base/Lesson';
   import { Options, Vue } from 'vue-class-component';
 
   @Options({

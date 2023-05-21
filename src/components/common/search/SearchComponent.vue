@@ -37,8 +37,8 @@
 <script lang="ts">
   import { LATEST_SEARCH_TARGET } from '@/common/keys';
   import ApplicationData from '@/common/data/ApplicationData';
-  import StructureRepository from '@/common/repository/StructureRepository';
-  import SearchMessages from '@/models/messages/SearchMessages';
+  import StructureRepository from '@/common/repository/v1/StructureRepository';
+  import SearchMessages from '@/models/common/messages/SearchMessages';
   import SearchModel from '@/models/views/SearchModel';
   import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';
@@ -57,7 +57,7 @@
     // eslint-disable-next-line class-methods-use-this
     public beforeMount() {
       if (ApplicationData.length < 1) {
-        new StructureRepository(true).getGroupsList()
+        StructureRepository.getGroupsList(true, false)
           .then((data) => {
             if (data != null) {
               ApplicationData.availableGroups = data;
