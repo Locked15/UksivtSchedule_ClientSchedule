@@ -23,3 +23,9 @@ export const USER_FAVORITES_KEY = 'UKSIVT_CurrentUserFavorites';
  * ? This is the hack, to pass selected element between search component and result view.
  */
 export const LATEST_SEARCH_TARGET = 'UKSIVT_LatestSearch';
+
+/**
+ * Contains key of the storage element.
+ * This element contains list with groups.
+ */
+export const SAVED_GROUPS_DATA = 'Data_GroupsList';

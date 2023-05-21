@@ -1,13 +1,13 @@
 /* eslint-disable vue/max-len */
+import APIBase from '@/models/api/routes/base/APIBase';
 import ScheduleRepository from '@/common/repository/base/ScheduleRepository';
-import APIBase from '@/models/api/base/APIBase';
-import ScheduleReplacementsAPIRoutes from '@/models/api/schedule/ScheduleReplacementsAPIRoutes';
-import ScheduleReplacement from '@/models/entities/ScheduleReplacement';
-import APIMessages from '@/models/messages/APIMessages';
+import BasicScheduleAPIRoutes from '@/models/api/routes/v1/schedule/BasicScheduleAPIRouters';
+import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
+import APIMessages from '@/models/common/messages/APIMessages';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 
-export default class ScheduleReplacementsRepository implements ScheduleRepository<ScheduleReplacement> {
+export default class BasicScheduleRepository implements ScheduleRepository<BasicSchedule> {
   public useDbAsSource: boolean;
 
   public useStableBranch: boolean;
@@ -17,22 +17,20 @@ export default class ScheduleReplacementsRepository implements ScheduleRepositor
     this.useStableBranch = useStableBranch;
   }
 
-  public async getDataFromAPI(dayIndex: number, groupName: string, remainAttempts: number): Promise<ScheduleReplacement> {
+  public async getDataFromAPI(dayIndex: number, groupName: string, remainAttempts: number): Promise<BasicSchedule> {
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
-    while (data == null && remainAttempts > 0) {
-      // eslint-disable-next-line no-await-in-loop
+    while (data === undefined && attempts > 0) {
       attempts -= 1;
-
       // eslint-disable-next-line no-await-in-loop
-      data = await this.getDataFromAPI(dayIndex, groupName, attempts);
+      data = await this.tryToGetDataFromAPI(dayIndex, groupName);
     }
 
     return data;
   }
 
-  public async tryToGetDataFromAPI(dayIndex: number, groupName: string): Promise<ScheduleReplacement> {
-    const basicRoute = `${APIBase.apiBasicRoute}/${ScheduleReplacementsAPIRoutes.REPLACEMENTS_CONTROLLER}/${ScheduleReplacementsAPIRoutes.DAY_ROUTE}`;
+  public async tryToGetDataFromAPI(dayIndex: number, groupName: string): Promise<BasicSchedule> {
+    const basicRoute = `${APIBase.apiBasicRoute}/${BasicScheduleAPIRoutes.SCHEDULE_ROUTE}/${BasicScheduleAPIRoutes.DAY_ROUTE}`;
     const finalRoute = `${this.getSpecifiedAPIAddress()}/${basicRoute}`;
     const data = await Axios.get(finalRoute, {
       params: {
