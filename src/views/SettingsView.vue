@@ -154,7 +154,7 @@
 </template>
 
 <script lang="ts">
-  import SettingsControl from '@/components/other/SettingsControl.vue';
+  import SettingsControl from '@/components/widgets/SettingsControl.vue';
 
   export default {
     components: {

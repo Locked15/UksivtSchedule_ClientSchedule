@@ -1,6 +1,6 @@
-import Day from '@/models/entities/base/Day';
-import UserMessages from '@/models/messages/UserMessages';
-import UserSettings from '@/models/user/UserSettings';
+import Day from '@/models/api/entities/v1/base/Day';
+import UserMessages from '@/models/common/messages/UserMessages';
+import UserSettings from '@/models/common/user/UserSettings';
 import Swal from 'sweetalert2';
 
 export default class ResultSelectionModel {

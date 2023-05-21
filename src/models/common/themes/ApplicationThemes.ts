@@ -1,4 +1,4 @@
-import ColorsTheme from '@/models/themes/ColorsTheme';
+import ColorsTheme from '@/models/common/themes/ColorsTheme';
 
 export default class ApplicationThemes {
   static azureColorTheme = new ColorsTheme(0, 'Azure', '☀️ Светлая ☀️', false, '#FF0000', '#FFFFFF', '#0000', '#FFFFFF', '#F9F9F9', '#E62117', '#CBCBCB');

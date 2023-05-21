@@ -1,4 +1,4 @@
-import BaseMessage from '@/models/messages/base/BaseMessage';
+import BaseMessage from '@/models/common/messages/base/BaseMessage';
 
 export default class ResultMessages {
   public static readonly ShowSelectionIsEmpty = new BaseMessage(

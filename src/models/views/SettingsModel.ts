@@ -1,5 +1,5 @@
-import SelectableInformation from '@/models/user/SelectableInformation';
-import UserSettings from '@/models/user/UserSettings';
+import SelectableInformation from '@/models/common/user/SelectableInformation';
+import UserSettings from '@/models/common/user/UserSettings';
 
 export default class SettingsModel {
   public currentUserSettings: UserSettings;

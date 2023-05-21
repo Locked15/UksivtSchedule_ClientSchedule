@@ -1,4 +1,4 @@
-import ColorsTheme from '@/models/themes/ColorsTheme';
+import ColorsTheme from '@/models/common/themes/ColorsTheme';
 
 export default class ApplicationBaseModel {
   public currentTheme: ColorsTheme;

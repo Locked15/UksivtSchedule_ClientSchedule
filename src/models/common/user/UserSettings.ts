@@ -1,4 +1,4 @@
-import SelectableInformation from '@/models/user/SelectableInformation';
+import SelectableInformation from '@/models/common/user/SelectableInformation';
 import { USER_SETTINGS_KEY } from '@/common/keys';
 
 export default class UserSettings {

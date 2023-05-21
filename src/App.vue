@@ -49,9 +49,9 @@
 <script lang="ts">
   import { CURRENT_THEME_KEY } from '@/common/keys';
   import FooterComponent from '@/components/base/FooterComponent.vue';
-  import ApplicationThemes from '@/models/themes/ApplicationThemes';
+  import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
   import ApplicationBaseModel from '@/models/views/ApplicationBaseModel';
-  import ColorsTheme from '@/models/themes/ColorsTheme';
+  import ColorsTheme from '@/models/common/themes/ColorsTheme';
   import { Options, Vue } from 'vue-class-component';
 
   @Options({

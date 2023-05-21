@@ -4,12 +4,8 @@
     <h1>Выборка Результата</h1>
     <div class="result-selection-parent">
       <span class="result-selection-row">
-        <v-select label="Какие дни нужно отобразить?"
-                  :items="viewModel.ALL_AVAILABLE_DAYS"
-                  v-model="viewModel.selectedDays"
-                  item-title="name"
-                  item-value="name"
-                  @update:model-value="onShowingDaysSelectionChanged"
+        <v-select label="Какие дни нужно отобразить?" :items="viewModel.ALL_AVAILABLE_DAYS" v-model="viewModel.selectedDays"
+                  item-title="name" item-value="name" @update:model-value="onShowingDaysSelectionChanged"
                   chips return-object multiple />
       </span>
     </div>
@@ -23,8 +19,8 @@
       <span class="result-selection-panel">
         <!-- Template for basic schedule. -->
         <div v-if="checkBasicScheduleSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false"
-                    transition="dialog-bottom-transition" fullscreen persistent>
+          <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
+                    fullscreen persistent>
             <template v-slot:activator="{ props }">
               <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Базовое Расписание</v-btn>
             </template>
@@ -46,8 +42,8 @@
 
         <!-- Template for schedule replacements. -->
         <div v-if="checkScheduleReplacementsSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false"
-                    transition="dialog-bottom-transition" fullscreen persistent>
+          <v-dialog v-model="dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false" transition="dialog-bottom-transition"
+                    fullscreen persistent>
             <template v-slot:activator="{ props }">
               <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Замены Расписания</v-btn>
             </template>
@@ -69,8 +65,8 @@
 
         <!-- Template for final schedule. -->
         <div v-if="checkFinalScheduleSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isFinalScheduleDialogActive" scrim="false"
-                    transition="dialog-bottom-transition" fullscreen persistent>
+          <v-dialog v-model="dialogsActivityState.isFinalScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
+                    fullscreen persistent>
             <template v-slot:activator="{ props }">
               <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Итоговое Расписание</v-btn>
             </template>
@@ -96,20 +92,19 @@
 
 <script lang="ts">
   import { LATEST_SEARCH_TARGET } from '@/common/keys';
-  import { Options, Vue } from 'vue-class-component';
-  import ResultMessage from '@/models/messages/ResultMessages';
+  import ResultComponent from '@/components/common/result/ResultComponent.vue';
+  import ResultMessage from '@/models/common/messages/ResultMessages';
+  import SelectableInformation from '@/models/common/user/SelectableInformation';
+  import ResultComponentModel from '@/models/views/ResultComponentModel';
   import ResultSelectionModel from '@/models/views/ResultSelectionModel';
   import Swal from 'sweetalert2';
-  import SelectableInformation from '@/models/user/SelectableInformation';
-  import ResultComponent from '@/components/result/ResultComponent.vue';
-  import ResultComponentModel from '@/models/views/ResultComponentModel';
+  import { Options, Vue } from 'vue-class-component';
 
   @Options({
     components: {
       ResultComponent,
     },
   })
-
   export default class ResultView extends Vue {
     public viewModel = ResultSelectionModel.getDefaultModel();
 
@@ -178,7 +173,7 @@
       Swal.fire(this.viewModel.groupName, 'В данном окне представлена выбранная Вами информация.', 'info');
     }
 
-    public createModelForResultComponent(selectable: SelectableInformation) : ResultComponentModel {
+    public createModelForResultComponent(selectable: SelectableInformation): ResultComponentModel {
       return new ResultComponentModel(
         this.viewModel.currentUserSettings,
         this.viewModel.groupName,

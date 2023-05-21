@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
-
-import BaseMessage from '@/models/messages/base/BaseMessage';
+import BaseMessage from '@/models/common/messages/base/BaseMessage';
 
 export default class SearchMessages {
   public static readonly emptySearchResult = new BaseMessage(

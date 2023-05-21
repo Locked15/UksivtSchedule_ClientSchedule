@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-  import FavoriteRequests from '@/components/search/FavoriteRequests.vue';
+  import FavoriteRequests from '@/components/common/search/FavoriteRequests.vue';
   import { Options, Vue } from 'vue-class-component';
 
   @Options({
