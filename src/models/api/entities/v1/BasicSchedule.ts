@@ -1,24 +1,19 @@
 import Lesson from '@/models/api/entities/v1/base/Lesson';
-import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
-export default class BasicSchedule implements ILegacyAPIEntitiesParent {
+export default class BasicSchedule extends LegacyAPIEntitiesParent {
   /**
    * This property represents 'Day' property.
    * @type {string} because currently Day returns as day name, this is string value.
    */
-  public Day: string;
+  public day: string;
 
-  public Lessons: Lesson[];
+  public lessons: Lesson[];
 
   public constructor(day: string, lessons: Lesson[]) {
-    this.Day = day;
-    this.Lessons = lessons;
-  }
+    super();
 
-  public static isScheduleOfDay(instance: any): instance is BasicSchedule {
-    const isDayPresented = instance.Day !== undefined;
-    const isLessonPresented = instance.Lessons !== undefined;
-
-    return isDayPresented && isLessonPresented;
+    this.day = day;
+    this.lessons = lessons;
   }
 }

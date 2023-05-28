@@ -1,14 +1,14 @@
 import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
-import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
-export default class FinalSchedule implements ILegacyAPIEntitiesParent {
-  ActualChanges: boolean;
+export default class FinalSchedule extends LegacyAPIEntitiesParent {
+  public actualChanges: boolean;
 
-  ChangesFound: boolean;
+  public changesFound: boolean;
 
-  ScheduleDate: Date | null;
+  public scheduleDate: Date | null;
 
-  Schedule: BasicSchedule;
+  public schedule: BasicSchedule;
 
   constructor(
     changesFound: boolean,
@@ -16,19 +16,11 @@ export default class FinalSchedule implements ILegacyAPIEntitiesParent {
     scheduleDate: Date | null,
     schedule: BasicSchedule,
   ) {
-    this.ChangesFound = changesFound;
-    this.ActualChanges = actualChanges;
-    this.ScheduleDate = scheduleDate;
-    this.Schedule = schedule;
-  }
+    super();
 
-  public static isFinalSchedule(instance: any): instance is FinalSchedule {
-    const isActualChangesPresented = instance.ActualChanges !== undefined;
-    const isChangesFoundPresented = instance.ChangesFound !== undefined;
-    const isScheduleDatePresented = instance.ScheduleDate !== undefined;
-    const isSchedulePresented = instance.Schedule !== undefined;
-
-    return isActualChangesPresented && isChangesFoundPresented
-        && isScheduleDatePresented && isSchedulePresented;
+    this.changesFound = changesFound;
+    this.actualChanges = actualChanges;
+    this.scheduleDate = scheduleDate;
+    this.schedule = schedule;
   }
 }

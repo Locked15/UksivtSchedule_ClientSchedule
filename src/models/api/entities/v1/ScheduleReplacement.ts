@@ -1,14 +1,14 @@
 import Lesson from '@/models/api/entities/v1/base/Lesson';
-import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
-export default class ScheduleReplacement implements ILegacyAPIEntitiesParent {
-  public ChangesFound: boolean;
+export default class ScheduleReplacement extends LegacyAPIEntitiesParent {
+  public changesFound: boolean;
 
-  public AbsoluteChanges: boolean;
+  public absoluteChanges: boolean;
 
-  public ChangesDate: Date;
+  public changesDate: Date;
 
-  public NewLessons: Lesson[];
+  public newLessons: Lesson[];
 
   public constructor(
     changesFound: boolean,
@@ -16,19 +16,11 @@ export default class ScheduleReplacement implements ILegacyAPIEntitiesParent {
     changesDate: Date,
     newLessons: Lesson[],
   ) {
-    this.ChangesFound = changesFound;
-    this.AbsoluteChanges = absoluteChanges;
-    this.ChangesDate = changesDate;
-    this.NewLessons = newLessons;
-  }
+    super();
 
-  public static isScheduleReplacement(result: any): result is ScheduleReplacement {
-    const isChangesFoundPresented = result.ChangesFound !== undefined;
-    const isAbsoluteChangesPresented = result.AbsoluteChanges !== undefined;
-    const isChangesDatePresented = result.ChangesDate !== undefined;
-    const isNewLessonsPresented = result.NewLessons !== undefined;
-
-    return isChangesFoundPresented && isAbsoluteChangesPresented
-      && isChangesDatePresented && isNewLessonsPresented;
+    this.changesFound = changesFound;
+    this.absoluteChanges = absoluteChanges;
+    this.changesDate = changesDate;
+    this.newLessons = newLessons;
   }
 }
