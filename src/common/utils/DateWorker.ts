@@ -33,6 +33,15 @@ export default class DateWorker {
     else if (normalizedDayOfWeek > targetDayIndex) dateObject.setDate(dateObject.getDate() - 1);
   }
 
+  public static getDateTitleString(date: Date): string {
+    const normalizedDate = this.getNormalizedDateInstance(date);
+    const dayOfMonth = normalizedDate.getDate();
+    const month = normalizedDate.getMonth() + 1;
+    const year = normalizedDate.getFullYear();
+
+    return `${dayOfMonth}-${month}-${year}!`;
+  }
+
   public static getRequestVariantForDate(date: Date): string {
     const normalizedDate = this.getNormalizedDateInstance(date);
     const dayOfMonth = normalizedDate.getDate();

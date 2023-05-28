@@ -48,6 +48,7 @@
   import Swal from 'sweetalert2';
   import { Vue, Options } from 'vue-class-component';
   import { getDarkStateOfCurrentTheme } from '@/common/utils/ColorThemeWorker';
+import DateWorker from '@/common/utils/DateWorker';
 
   @Options({
     components: {
@@ -75,7 +76,7 @@
       if (dates != null) {
         const formattedStrings = new Array<string>();
         dates.forEach((date) => {
-          formattedStrings.push(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}!`);
+          formattedStrings.push(DateWorker.getDateTitleString(date));
         });
 
         return formattedStrings.join(', ');
