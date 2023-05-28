@@ -37,9 +37,12 @@
         </v-dialog>
       </div>
 
-      <hr class="heirloom-hr" />
-      <div class="favorites-list">
-        <FavoriteRequests />
+      <!-- Hack. For the further development (when it's ready). -->
+      <div style="display: none;">
+        <hr class="heirloom-hr" />
+        <div class="favorites-list">
+          <FavoriteRequests />
+        </div>
       </div>
     </div>
 
@@ -58,6 +61,7 @@
       FavoriteRequests,
     },
   })
+
   export default class HomeView extends Vue {
     public isDialogActive = false;
   }
