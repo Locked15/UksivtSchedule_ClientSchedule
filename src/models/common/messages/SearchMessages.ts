@@ -12,6 +12,11 @@ export default class SearchMessages {
     'К сожалению, на данный момент подключение API к БД не было реализовано до конца.\nЭто наложило определённые ограничения на функционал.',
   );
 
+  public static readonly teachersSearchNotAvailableWithoutDB = new BaseMessage(
+    'Уведомление',
+    'Поиск по преподавателям недоступен без включённой опции использования базы данных.\nВключите её, чтобы выполнить запрос.',
+  );
+
   private static readonly secretGroupMessage = new BaseMessage(
     'Никто не забыт.\nНичто не забыто.',
     'В один момент мы потеряли себя.\nСвою идентичность. Свою веру. Свою честь.\n\nНо мы выстояли.',
