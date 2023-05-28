@@ -1,3 +1,6 @@
+import Lesson from '@/models/api/entities/v1/base/Lesson';
+import GroupLesson from '@/models/api/entities/v2/GroupLesson';
+import TeacherLesson from '@/models/api/entities/v2/TeacherLesson';
 import Teacher from '@/models/api/entities/v2/base/Teacher';
 
 type TeacherSearchData = {
@@ -35,4 +38,25 @@ export function compareGroupData(group: string, requestString: string): boolean 
   const loweredRequest = requestString.trim().toLowerCase();
 
   return loweredGroupName.includes(loweredRequest);
+}
+
+export function checkLegacyLessonIsActual(lesson: Lesson): boolean {
+  const lessonNameIsNotNull = lesson?.name != null || false;
+  const lessonNameIsNotEmpty = lesson?.name !== '' || false;
+
+  return lessonNameIsNotNull && lessonNameIsNotEmpty;
+}
+
+export function checkModernGroupLessonIsActual(lesson: GroupLesson): boolean {
+  const lessonNameIsNotNull = lesson?.lessonName != null || false;
+  const lessonNameIsNotEmpty = lesson?.lessonName !== '' || false;
+
+  return lessonNameIsNotNull && lessonNameIsNotEmpty;
+}
+
+export function checkModernTeacherLessonIsActual(lesson: TeacherLesson): boolean {
+  const lessonNameIsNotNull = lesson?.lessonName != null || false;
+  const lessonNameIsNotEmpty = lesson?.lessonName !== '' || false;
+
+  return lessonNameIsNotNull && lessonNameIsNotEmpty;
 }
