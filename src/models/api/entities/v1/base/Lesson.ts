@@ -1,17 +1,17 @@
-import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
-export default class Lesson implements ILegacyAPIEntitiesParent {
-  Number: number;
+export default class Lesson extends LegacyAPIEntitiesParent {
+  public number: number;
 
-  Name: string;
+  public name: string;
 
-  Teacher: string;
+  public teacher: string;
 
-  Place: string;
+  public place: string;
 
-  Changed: boolean;
+  public changed: boolean;
 
-  HoursPassed: number | null;
+  public hoursPassed: number | null;
 
   constructor(
     number: number,
@@ -21,11 +21,13 @@ export default class Lesson implements ILegacyAPIEntitiesParent {
     isChanged: boolean,
     hoursPassed: number | null,
   ) {
-    this.Number = number;
-    this.Name = name;
-    this.Teacher = teacher;
-    this.Place = place;
-    this.Changed = isChanged;
-    this.HoursPassed = hoursPassed;
+    super();
+
+    this.number = number;
+    this.name = name;
+    this.teacher = teacher;
+    this.place = place;
+    this.changed = isChanged;
+    this.hoursPassed = hoursPassed;
   }
 }

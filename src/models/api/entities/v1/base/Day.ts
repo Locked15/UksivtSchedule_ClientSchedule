@@ -1,6 +1,7 @@
-import ILegacyAPIEntitiesParent from '@/models/api/entities/v1/common/ILegacyAPIEntitiesParent';
+import DateWorker from '@/common/utils/DateWorker';
+import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
-export default class Day implements ILegacyAPIEntitiesParent {
+export default class Day extends LegacyAPIEntitiesParent {
   public index: number;
 
   public name: string;
@@ -30,8 +31,17 @@ export default class Day implements ILegacyAPIEntitiesParent {
   );
 
   private constructor(index: number, name: string) {
+    super();
+
     this.index = index;
     this.name = name;
+  }
+
+  public static getCurrentDay(): Day {
+    const currentDate = new Date();
+    const dayIndex = DateWorker.getNormalizedDayOfWeek(currentDate);
+
+    return this.getDayFromIndex(dayIndex);
   }
 
   public static getDayFromIndex(index: number) : Day {
