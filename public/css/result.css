@@ -2,3 +2,14 @@
   display: flex;
   flex: auto;
 }
+
+.result-fade-enter-active,
+.result-fade-leave-active {
+  transition: opacity 0.5s;
+  background-color: wheat;
+}
+
+.result-fade-enter,
+.result-fade-leave-to {
+  opacity: 0;
+}
