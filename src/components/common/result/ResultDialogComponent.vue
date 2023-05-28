@@ -10,13 +10,11 @@
         <div class="result-container" v-for="result in componentModel.results" :key="`result-${componentModel.results.indexOf(result)}`">
           <!-- Parent for all Legacy Results. -->
           <div v-if="isInstanceOfLegacyEntity(result.value)">
-            <p>is Legacy model.</p>
             <LegacyResultElement :model="getLegacyResultModelForElement(result.value)" />
           </div>
 
           <!-- Parent for all Modern Results. -->
           <div v-else-if="isInstanceOfModernEntity(result.value)">
-            <p>Is New Model.</p>
             <ModernResultElement :model="getModernResultModelForElement(result.value)" />
           </div>
 

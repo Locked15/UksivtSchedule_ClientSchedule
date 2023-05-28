@@ -1,44 +1,69 @@
 <template>
   <div>
     <!-- Parent container for 'Basic Schedule' result. -->
-    <div class="result-item" v-if="modelIsInstanceOfBasicSchedule(model.data)">
-      <p>This is Basic Schedule.</p>
+    <div class="result-item" v-if="modelIsInstanceOfBasicSchedule()">
+      <LegacyBasicScheduleResultItem :itemModel="getItemModelForBasicSchedule()" />
     </div>
 
     <!-- Parent container for 'Schedule Replacements' result. -->
-    <div class="result-item" v-else-if="modelIsInstanceOfScheduleReplacement(model.data)">
-      <p>This is Schedule Replacement.</p>
+    <div class="result-item" v-else-if="modelIsInstanceOfScheduleReplacement()">
+      <LegacyScheduleReplacementResultItem :itemModel="getItemModelForScheduleReplacement()" />
     </div>
 
     <!-- Parent container for 'Final Schedule' result. -->
     <div class="result-item" v-else>
-      <p>This is Final Schedule.</p>
+      <LegacyFinalScheduleResultItem :itemModel="getItemModelForFinalSchedule()" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
+  import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
+  import FinalSchedule from '@/models/api/entities/v1/FinalSchedule';
+  import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
   import { isFinalSchedule, isScheduleOfDay, isScheduleReplacement } from '@/models/api/entities/v1/common/LegacyEntityCastUtils';
   import LegacyResultElementModel from '@/models/components/common/result/LegacyResultElementModel';
   import { Options, Vue } from 'vue-class-component';
+  import LegacyBasicScheduleResultItem from './types/v1/LegacyBasicScheduleResultItem.vue';
+  import LegacyScheduleReplacementResultItem from './types/v1/LegacyScheduleReplacementResultItem.vue';
+  import LegacyFinalScheduleResultItem from './types/v1/LegacyFinalScheduleResultItem.vue';
 
   @Options({
     props: {
       model: LegacyResultElementModel,
     },
+    components: {
+      LegacyBasicScheduleResultItem,
+      LegacyScheduleReplacementResultItem,
+      LegacyFinalScheduleResultItem,
+    },
   })
   export default class LegacyResultElement extends Vue {
     public model!: LegacyResultElementModel;
 
-    // eslint-disable-next-line class-methods-use-this
-    public modelIsInstanceOfBasicSchedule = (obj: LegacyAPIEntitiesParent) => isScheduleOfDay(obj);
+    public modelIsInstanceOfBasicSchedule(): boolean {
+      return isScheduleOfDay(this.model.data);
+    }
 
-    // eslint-disable-next-line class-methods-use-this, vue/max-len
-    public modelIsInstanceOfScheduleReplacement = (obj: LegacyAPIEntitiesParent) => isScheduleReplacement(obj);
+    public getItemModelForBasicSchedule(): BasicSchedule {
+      return this.model.data as BasicSchedule;
+    }
 
-    // eslint-disable-next-line class-methods-use-this
-    public modelIsInstanceOfFinalSchedule = (obj: LegacyAPIEntitiesParent) => isFinalSchedule(obj);
+    public modelIsInstanceOfScheduleReplacement(): boolean {
+      return isScheduleReplacement(this.model.data);
+    }
+
+    public getItemModelForScheduleReplacement(): ScheduleReplacement {
+      return this.model.data as ScheduleReplacement;
+    }
+
+    public modelIsInstanceOfFinalSchedule(): boolean {
+      return isFinalSchedule(this.model.data);
+    }
+
+    public getItemModelForFinalSchedule(): FinalSchedule {
+      return this.model.data as FinalSchedule;
+    }
   }
 </script>
 
