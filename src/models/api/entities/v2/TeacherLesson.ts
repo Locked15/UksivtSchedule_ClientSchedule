@@ -1,6 +1,6 @@
-import ModernAPIEntitiesParent from './common/ModernAPIEntitiesParent';
+import ModernAPILessonEntitiesParent from './common/ModernAPILessonEntitiesParent';
 
-export default class TeacherLesson extends ModernAPIEntitiesParent {
+export default class TeacherLesson extends ModernAPILessonEntitiesParent {
   public lessonNumber: number | null;
 
   public lessonName: string | null;
