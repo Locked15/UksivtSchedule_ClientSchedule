@@ -1,5 +1,5 @@
 export default class StructureAPIRoutes {
-  static structureAPIRoute = 'structure';
+  public static readonly STRUCTURE_CONTROLLER = 'structure';
 
-  static allGroupsRoute = 'summary';
+  public static readonly ALL_GROUPS_ROUTE = 'summary';
 }

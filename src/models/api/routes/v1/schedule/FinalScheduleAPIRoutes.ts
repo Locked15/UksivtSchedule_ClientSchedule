@@ -7,12 +7,5 @@ export default class FinalScheduleAPIRoutes {
 
   public static readonly DAY_INDEX_PARAMETER = 'dayIndex';
 
-  public static getRoutesByMode(isDbMode: boolean) : string[] {
-    // ToDo: When DB is complete, update this.
-    if (isDbMode) {
-      return Array<string>(this.FINAL_CONTROLLER, this.DAY_ROUTE);
-    }
-
-    return Array<string>(this.FINAL_CONTROLLER, this.DAY_ROUTE);
-  }
+  public static readonly WEEK_ROUTE = 'week';
 }
