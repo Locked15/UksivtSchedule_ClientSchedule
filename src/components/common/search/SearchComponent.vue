@@ -1,30 +1,28 @@
-<!-- eslint-disable vue/max-len -->
-
 <template>
   <div>
     <h2 class="header-content">Поиск</h2>
     <div>
       <v-text-field density="compact"
-                    persistent-hint
                     variant="outlined"
                     label="Что ищем?"
                     v-model="viewModel.searchRequest"
                     @update:model-value="onSearchRequestUpdated"
+                    persistent-hint
                     clearable />
       <div class="search-parameters">
-        <v-checkbox label="Поиск по преподавателям?" @change="onSearchParametersChanged" v-model="viewModel.searchByTeachers" />
+        <v-checkbox label="Поиск по преподавателям?" @change="onTeacherSearchStateChanged" v-model="viewModel.searchByTeachers" />
       </div>
 
       <v-sheet class="results-container-outer" color="grey">
         <h3 class="header-content">Результаты</h3>
         <div>
           <div class="results-container-inner">
-            <v-card v-for="group in viewModel.selectedGroups.slice(0, 6)" v-bind:key="`result-${group}`">
-              <v-card-title>{{ group }}</v-card-title>
-              <v-btn @click="onGroupSelected(group)">Выбрать</v-btn>
+            <v-card v-for="variant in viewModel.availableVariants.slice(0, 6)" v-bind:key="`result-${variant}`">
+              <v-card-title>{{ getTitleForItem(variant) }}</v-card-title>
+              <v-btn @click="onTargetSelected(variant)">Выбрать</v-btn>
             </v-card>
 
-            <div v-if="viewModel.selectedGroups.length < 1">
+            <div v-if="viewModel.availableVariants.length < 1">
               <p class="search-is-empty">✖️ ... ✖️</p>
             </div>
           </div>
@@ -35,11 +33,15 @@
 </template>
 
 <script lang="ts">
-  import { LATEST_SEARCH_TARGET } from '@/common/keys';
   import ApplicationData from '@/common/data/ApplicationData';
   import StructureRepository from '@/common/repository/v1/StructureRepository';
+  import SearchRepository from '@/common/repository/v2/SearchRepository';
+  import { compareTeacherData, compareGroupData } from '@/common/utils/FilterHelper';
+  import Teacher from '@/models/api/entities/v2/base/Teacher';
+  import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/ModernEntityCastUtils';
   import SearchMessages from '@/models/common/messages/SearchMessages';
-  import SearchModel from '@/models/views/SearchModel';
+  import UserSettings from '@/models/common/user/UserSettings';
+  import SearchModel from '@/models/components/common/search/SearchModel';
   import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';
 
@@ -49,55 +51,86 @@
      */
     public viewModel = SearchModel.getDefaultModel();
 
-    // eslint-disable-next-line class-methods-use-this
-    public data(): SearchModel {
-      return this.viewModel;
-    }
+    public data = () => this.viewModel;
 
     // eslint-disable-next-line class-methods-use-this
     public beforeMount() {
-      if (ApplicationData.length < 1) {
-        StructureRepository.getGroupsList(true, false)
-          .then((data) => {
-            if (data != null) {
-              ApplicationData.availableGroups = data;
-            }
-          });
+      if (ApplicationData.availableGroups.length < 1) {
+        new StructureRepository(true).getGroupsList(false).then((data) => {
+          if (data != null) {
+            ApplicationData.availableGroups = data;
+          }
+        });
+      }
+      if (ApplicationData.availableTeachers.length < 1) {
+        new SearchRepository(true).getTeachersList(false).then((data) => {
+          if (data != null) {
+            ApplicationData.availableTeachers = data;
+          }
+        });
       }
     }
 
-    public onSearchParametersChanged() {
-      if (this.viewModel.searchByTeachers) {
-        // eslint-disable-next-line vue/max-len
-        Swal.fire(SearchMessages.teachersSearchNotYetImplemented.title, SearchMessages.teachersSearchNotYetImplemented.message, 'warning');
+    // eslint-disable-next-line class-methods-use-this
+    public getTitleForItem(item: any): string {
+      if (isInstanceOfTeacher(item)) {
+        return Teacher.clone(item).toString();
+      }
+      return item;
+    }
+
+    public onTeacherSearchStateChanged() {
+      const settings = UserSettings.getUserSettings() || UserSettings.getDefaultUserSettings();
+      if (!settings.useDBAsSource) {
         this.viewModel.searchByTeachers = false;
-      }
-    }
-
-    public async onSearchRequestUpdated() {
-      const loweredRequest = this.viewModel.searchRequest?.toLowerCase() || '';
-      if (loweredRequest !== '') {
-        const selected = await ApplicationData.availableGroups
-                                   .filter((group) => group.toLowerCase().includes(loweredRequest));
-        this.viewModel.selectedGroups = selected;
-
-        if (!SearchMessages.tryToShowSpecialMessageForGreatGood(loweredRequest)) {
-          this.showWarningMessageIfResultSetIsEmpty();
-        }
+        Swal.fire(SearchMessages.teachersSearchNotAvailableWithoutDB.title, SearchMessages.teachersSearchNotAvailableWithoutDB.message);
       } else {
-        this.viewModel.selectedGroups = Array<string>();
+        this.viewModel.searchRequest = '';
+        this.onSearchRequestUpdated();
       }
     }
 
-    private showWarningMessageIfResultSetIsEmpty() {
-      if (this.viewModel.selectedGroups.length === 0) {
-        Swal.fire(SearchMessages.emptySearchResult.title, SearchMessages.emptySearchResult.message, 'warning');
+    public onSearchRequestUpdated = () => (this.viewModel.searchByTeachers ? this.searchForTargetTeacher() : this.searchForTargetGroup());
+
+    private searchForTargetTeacher() {
+      const request = this.viewModel.searchRequest || '';
+      if (request !== '') {
+        this.viewModel.availableVariants = ApplicationData.availableTeachers.filter((teacher) => compareTeacherData(teacher, request));
+        this.showSpecialMessagesIfCompletesCondition(request);
+      } else {
+        this.viewModel.availableVariants = Array<Teacher>();
       }
     }
 
-    public onGroupSelected(group: string) {
-      localStorage.setItem(LATEST_SEARCH_TARGET, group);
-      this.$router.push('/result');
+    private searchForTargetGroup() {
+      const request = this.viewModel.searchRequest || '';
+      if (request !== '') {
+        this.viewModel.availableVariants = ApplicationData.availableGroups.filter((group) => compareGroupData(group, request));
+        this.showSpecialMessagesIfCompletesCondition(request);
+      } else {
+        this.viewModel.availableVariants = Array<string>();
+      }
+    }
+
+    private showSpecialMessagesIfCompletesCondition(request: string) {
+      if (!SearchMessages.tryToShowSpecialMessageForGreatGood(request)) {
+        if (this.viewModel.availableVariants.length === 0) {
+          SearchComponent.showWarningMessageResultSetIsEmpty();
+        }
+      }
+    }
+
+    private static showWarningMessageResultSetIsEmpty = () => Swal.fire(SearchMessages.emptySearchResult.title, SearchMessages.emptySearchResult.message, 'warning');
+
+    public onTargetSelected(target: any) {
+      const targetValue = isInstanceOfTeacher(target) ? target.id : target;
+      this.$router.push({
+        name: 'result',
+        query: {
+          target: targetValue,
+          useTeacherSearch: this.viewModel.searchByTeachers.toString(),
+        },
+      });
     }
   }
 </script>
