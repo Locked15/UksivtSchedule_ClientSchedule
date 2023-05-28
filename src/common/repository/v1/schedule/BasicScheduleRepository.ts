@@ -1,19 +1,17 @@
 /* eslint-disable vue/max-len */
-import APIBase from '@/models/api/routes/base/APIBase';
-import ScheduleRepository from '@/common/repository/base/ScheduleRepository';
-import BasicScheduleAPIRoutes from '@/models/api/routes/v1/schedule/BasicScheduleAPIRouters';
+import ILegacyScheduleRepository from '@/common/repository/base/ILegacyScheduleRepository';
+import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
+import APILegacyRequestFactoryExtension from '@/models/api/connection/extensions/APILegacyRequestFactoryExtension';
 import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
-import APIMessages from '@/models/common/messages/APIMessages';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 
-export default class BasicScheduleRepository implements ScheduleRepository<BasicSchedule> {
-  public useDbAsSource: boolean;
+import ErrorResolver from '../../common/ErrorResolver';
+import { addLegacyMark } from '../../common/MarkHelper';
 
+export default class BasicScheduleRepository implements ILegacyScheduleRepository<BasicSchedule> {
   public useStableBranch: boolean;
 
-  public constructor(useDb: boolean, useStableBranch: boolean) {
-    this.useDbAsSource = useDb;
+  public constructor(useStableBranch: boolean) {
     this.useStableBranch = useStableBranch;
   }
 
@@ -21,40 +19,34 @@ export default class BasicScheduleRepository implements ScheduleRepository<Basic
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
     while (data === undefined && attempts > 0) {
-      attempts -= 1;
       // eslint-disable-next-line no-await-in-loop
       data = await this.tryToGetDataFromAPI(dayIndex, groupName);
+      attempts -= 1;
     }
 
+    addLegacyMark(data);
     return data;
   }
 
   public async tryToGetDataFromAPI(dayIndex: number, groupName: string): Promise<BasicSchedule> {
-    const basicRoute = `${APIBase.apiBasicRoute}/${BasicScheduleAPIRoutes.SCHEDULE_ROUTE}/${BasicScheduleAPIRoutes.DAY_ROUTE}`;
-    const finalRoute = `${this.getSpecifiedAPIAddress()}/${basicRoute}`;
-    const data = await Axios.get(finalRoute, {
+    const route = BasicScheduleRepository.createRouteForBasicScheduleRequest(this.useStableBranch);
+    const data = await Axios.get(route, {
       params: {
         dayIndex,
         groupName,
       },
     })
       .then((response) => response.data)
-      .catch((error) => {
-        if (error.response === undefined || error.response.status === undefined) {
-          Swal.fire(APIMessages.APINotAvailable.title, APIMessages.APINotAvailable.message, 'error');
-        } else {
-          Swal.fire('Что-то пошло не так', error.response.data, 'error');
-        }
-      });
+      .catch((error) => new ErrorResolver(error).alertAboutError());
 
     return data;
   }
 
-  private getSpecifiedAPIAddress(): string {
-    if (this.useStableBranch) {
-      return APIBase.stableAPIAddress;
-    }
+  private static createRouteForBasicScheduleRequest(useStableBranch: boolean): string {
+    const routeFactory = new APIRequestFactory(useStableBranch, false);
+    APILegacyRequestFactoryExtension.applyBasicScheduleRoutePath(routeFactory);
 
-    return APIBase.previewAPIAddress;
+    const route = routeFactory.build();
+    return route.toString();
   }
 }

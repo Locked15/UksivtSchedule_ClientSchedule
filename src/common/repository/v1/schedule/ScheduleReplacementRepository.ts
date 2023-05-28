@@ -1,19 +1,17 @@
 /* eslint-disable vue/max-len */
-import ScheduleRepository from '@/common/repository/base/ScheduleRepository';
-import APIBase from '@/models/api/routes/base/APIBase';
-import ScheduleReplacementsAPIRoutes from '@/models/api/routes/v1/schedule/ScheduleReplacementsAPIRoutes';
+import ILegacyScheduleRepository from '@/common/repository/base/ILegacyScheduleRepository';
+import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
+import APILegacyRequestFactoryExtension from '@/models/api/connection/extensions/APILegacyRequestFactoryExtension';
 import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
-import APIMessages from '@/models/common/messages/APIMessages';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 
-export default class ScheduleReplacementsRepository implements ScheduleRepository<ScheduleReplacement> {
-  public useDbAsSource: boolean;
+import ErrorResolver from '../../common/ErrorResolver';
+import { addLegacyMark } from '../../common/MarkHelper';
 
+export default class ScheduleReplacementsRepository implements ILegacyScheduleRepository<ScheduleReplacement> {
   public useStableBranch: boolean;
 
-  public constructor(useDb: boolean, useStableBranch: boolean) {
-    this.useDbAsSource = useDb;
+  public constructor(useStableBranch: boolean) {
     this.useStableBranch = useStableBranch;
   }
 
@@ -21,40 +19,34 @@ export default class ScheduleReplacementsRepository implements ScheduleRepositor
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
     while (data === null && attempts > 0) {
-      attempts -= 1;
       // eslint-disable-next-line no-await-in-loop
       data = await this.tryToGetDataFromAPI(dayIndex, groupName);
+      attempts -= 1;
     }
 
+    addLegacyMark(data);
     return data;
   }
 
   public async tryToGetDataFromAPI(dayIndex: number, groupName: string): Promise<ScheduleReplacement> {
-    const basicRoute = `${APIBase.apiBasicRoute}/${ScheduleReplacementsAPIRoutes.REPLACEMENTS_CONTROLLER}/${ScheduleReplacementsAPIRoutes.DAY_ROUTE}`;
-    const finalRoute = `${this.getSpecifiedAPIAddress()}/${basicRoute}`;
-    const data = await Axios.get(finalRoute, {
+    const route = ScheduleReplacementsRepository.createRouteForScheduleReplacementRequest(this.useStableBranch);
+    const data = await Axios.get(route, {
       params: {
         dayIndex,
         groupName,
       },
     })
       .then((response) => response.data)
-      .catch((error) => {
-        if (error.response === undefined || error.response.status === undefined) {
-          Swal.fire(APIMessages.APINotAvailable.title, APIMessages.APINotAvailable.message, 'error');
-        } else {
-          Swal.fire('Что-то пошло не так', error.response.data, 'error');
-        }
-      });
+      .catch((error) => new ErrorResolver(error).alertAboutError());
 
     return data;
   }
 
-  private getSpecifiedAPIAddress(): string {
-    if (this.useStableBranch) {
-      return APIBase.stableAPIAddress;
-    }
+  private static createRouteForScheduleReplacementRequest(useStableBranch: boolean): string {
+    const routeFactory = new APIRequestFactory(useStableBranch, false);
+    APILegacyRequestFactoryExtension.applyReplacementsRoutePath(routeFactory);
 
-    return APIBase.previewAPIAddress;
+    const route = routeFactory.build();
+    return route.toString();
   }
 }
