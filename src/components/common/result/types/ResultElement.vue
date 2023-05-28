@@ -10,11 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="lesson in filterLessons(lessons)" :key="`${dayId}-${lesson.Number}`" :class="lesson.Changed ? 'altered-element' : ''">
-        <td>{{ lesson.Number }}</td>
-        <td>{{ lesson.Name }}</td>
-        <td>{{ lesson.Teacher || 'Отсутствует' }}</td>
-        <td>{{ lesson.Place || 'Отсутствует' }}</td>
+      <tr v-for="lesson in filterLessons(lessons)" :key="`${dayId}-${lesson.number}`" :class="lesson.changed ? 'altered-element' : ''">
+        <td>{{ lesson.number }}</td>
+        <td>{{ lesson.name }}</td>
+        <td>{{ lesson.teacher || 'Отсутствует' }}</td>
+        <td>{{ lesson.place || 'Отсутствует' }}</td>
         <td>🕛 ... 🕧</td>
       </tr>
 
@@ -46,7 +46,7 @@
     // eslint-disable-next-line class-methods-use-this
     public filterLessons(lessons: Lesson[]) : Lesson[] {
       const reducedLessons = lessons.filter((lesson) => {
-        const cond = lesson.Name != null && lesson.Name !== '';
+        const cond = lesson.name != null && lesson.name !== '';
         return cond;
       });
 
