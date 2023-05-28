@@ -29,3 +29,9 @@ export const LATEST_SEARCH_TARGET = 'UKSIVT_LatestSearch';
  * This element contains list with groups.
  */
 export const SAVED_GROUPS_DATA = 'Data_GroupsList';
+
+/**
+ * Contains key of the storage element.
+ * This element contains list with teachers info (ID + BIO).
+ */
+export const SAVED_TEACHERS_DATA = 'Data_TeachersList';
