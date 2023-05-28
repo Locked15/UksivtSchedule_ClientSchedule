@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 /**
  * Generates new instance of Vuetify component settings and injects it into Application instance.
