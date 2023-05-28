@@ -1,12 +1,15 @@
+import DateWorker from '@/common/utils/DateWorker';
 import Day from '@/models/api/entities/v1/base/Day';
 import UserMessages from '@/models/common/messages/UserMessages';
 import UserSettings from '@/models/common/user/UserSettings';
 import Swal from 'sweetalert2';
 
-export default class ResultSelectionModel {
-  public groupName: string;
+export default class ResultViewSelectionModel {
+  public target: string;
 
   public selectedDays: Array<Day>;
+
+  public searchByTeachers: boolean;
 
   public currentUserSettings: UserSettings;
 
@@ -14,14 +17,15 @@ export default class ResultSelectionModel {
 
   public static readonly DEFAULT_GROUP_NAME = '19П-3';
 
-  public constructor(groupName: string, settings: UserSettings, selectedDays: Array<Day>) {
-    this.groupName = groupName;
+  public constructor(target: string, settings: UserSettings, searchByTeachers: boolean, selectedDays: Array<Day>) {
+    this.target = target;
     this.currentUserSettings = settings;
+    this.searchByTeachers = searchByTeachers;
     this.selectedDays = selectedDays;
   }
 
-  public static getDefaultModel(): ResultSelectionModel {
-    const currentDay = this.getNormalizedDayOfWeek();
+  public static getDefaultModel(): ResultViewSelectionModel {
+    const currentDay = DateWorker.getNormalizedDayOfWeek(new Date());
     let settings = UserSettings.getUserSettings();
     if (settings === null) {
       Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'info');
@@ -30,18 +34,6 @@ export default class ResultSelectionModel {
       settings.saveCurrentUserSettings();
     }
 
-    return new ResultSelectionModel('', settings, [Day.getDayFromIndex(currentDay)]);
-  }
-
-  private static getNormalizedDayOfWeek(): number {
-    const date = new Date();
-    let dayOfWeek = date.getDay();
-    // Day of week in JS/TS starts from Sunday, so we must to normalize it.
-    if (dayOfWeek === 0) {
-      dayOfWeek = 7;
-    }
-
-    // We need to shift this value (to make it start from Monday):
-    return dayOfWeek - 1;
+    return new ResultViewSelectionModel('', settings, false, [Day.getDayFromIndex(currentDay)]);
   }
 }

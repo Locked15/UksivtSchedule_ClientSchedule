@@ -3,16 +3,16 @@ export default class SearchModel {
 
   searchRequest: string;
 
-  selectedGroups: string[];
+  availableVariants: any[];
 
   constructor(
     searchRequest: string,
     searchByTeachers: boolean,
-    selectedGroups: string[],
+    availableVariants: string[],
   ) {
     this.searchRequest = searchRequest;
     this.searchByTeachers = searchByTeachers;
-    this.selectedGroups = selectedGroups;
+    this.availableVariants = availableVariants;
   }
 
   public static getDefaultModel(): SearchModel {
