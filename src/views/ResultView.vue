@@ -2,202 +2,156 @@
 <template>
   <div>
     <h1>Выборка Результата</h1>
-    <div class="result-selection-parent">
-      <span class="result-selection-row">
-        <v-select label="Какие дни нужно отобразить?" :items="viewModel.ALL_AVAILABLE_DAYS" v-model="viewModel.selectedDays"
-                  item-title="name" item-value="name" @update:model-value="onShowingDaysSelectionChanged"
-                  chips return-object multiple />
-      </span>
-    </div>
+    <div>
+      <ResultDateSelector :selectorModel="selectableDatesModel" :useDBAsSource="viewModel.currentUserSettings.useDBAsSource" />
+      <div class="result-navigation-parent">
+        <span class="result-navigation-header">
+          <hr class="heirloom-hr result-presence-divider" />
+          <h2 class="header-content" title="На основе настроек Вам доступны следующие результаты.">Выбор Результата</h2>
+        </span>
 
-    <div class="result-navigation-parent">
-      <span class="result-navigation-header">
-        <hr class="heirloom-hr result-presence-divider" />
-        <h2 class="header-content" title="На основе настроек Вам доступны следующие результаты.">Выбор Результата</h2>
-      </span>
+        <span class="result-selection-panel">
+          <!-- Template for Basic Schedule. -->
+          <div v-if="checkBasicScheduleSelectionIsEnabled()">
+            <v-dialog v-model="bindData.dialogsActivityState.isBasicScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
+                      fullscreen persistent>
+              <template v-slot:activator="{ props }">
+                <v-btn color="primary" v-bind="props" :disabled="!selectableDatesModel.getAvailabilityState()">Базовое Расписание</v-btn>
+              </template>
 
-      <span class="result-selection-panel">
-        <!-- Template for basic schedule. -->
-        <div v-if="checkBasicScheduleSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isBasicScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
-                    fullscreen persistent>
-            <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Базовое Расписание</v-btn>
-            </template>
+              <v-card>
+                <v-toolbar color="grey">
+                  <v-btn icon="mdi-close" @click="bindData.dialogsActivityState.isBasicScheduleDialogActive = false" />
 
-            <v-card>
-              <v-toolbar color="grey">
-                <v-btn icon="mdi-close" @click="dialogsActivityState.isBasicScheduleDialogActive = false" />
+                  <v-toolbar-title>Базовое Расписание</v-toolbar-title>
+                  <v-spacer />
+                  <v-toolbar-items>
+                    <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                  </v-toolbar-items>
+                </v-toolbar>
+                <ResultDialogComponent :componentModel="createModelForResultComponent(bindData.selectableInformation.basicSchedule)" />
+              </v-card>
+            </v-dialog>
+          </div>
 
-                <v-toolbar-title>Базовое Расписание</v-toolbar-title>
-                <v-spacer />
-                <v-toolbar-items>
-                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
-                </v-toolbar-items>
-              </v-toolbar>
-              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.basicSchedule)" />
-            </v-card>
-          </v-dialog>
-        </div>
+          <!-- Template for Schedule Replacements. -->
+          <div v-if="checkScheduleReplacementsSelectionIsEnabled()">
+            <v-dialog v-model="bindData.dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false" transition="dialog-bottom-transition"
+                      fullscreen persistent>
+              <template v-slot:activator="{ props }">
+                <v-btn color="primary" v-bind="props" :disabled="!selectableDatesModel.getAvailabilityState()">Замены Расписания</v-btn>
+              </template>
 
-        <!-- Template for schedule replacements. -->
-        <div v-if="checkScheduleReplacementsSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isScheduleReplacementsDialogActive" scrim="false" transition="dialog-bottom-transition"
-                    fullscreen persistent>
-            <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Замены Расписания</v-btn>
-            </template>
+              <v-card>
+                <v-toolbar color="grey">
+                  <v-btn icon="mdi-close" @click="bindData.dialogsActivityState.isScheduleReplacementsDialogActive = false" />
 
-            <v-card>
-              <v-toolbar color="grey">
-                <v-btn icon="mdi-close" @click="dialogsActivityState.isScheduleReplacementsDialogActive = false" />
+                  <v-toolbar-title>Замены Расписания</v-toolbar-title>
+                  <v-spacer />
+                  <v-toolbar-items>
+                    <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                  </v-toolbar-items>
+                </v-toolbar>
+                <ResultDialogComponent :componentModel="createModelForResultComponent(bindData.selectableInformation.scheduleReplacements)" />
+              </v-card>
+            </v-dialog>
+          </div>
 
-                <v-toolbar-title>Замены Расписания</v-toolbar-title>
-                <v-spacer />
-                <v-toolbar-items>
-                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
-                </v-toolbar-items>
-              </v-toolbar>
-              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.scheduleReplacements)" />
-            </v-card>
-          </v-dialog>
-        </div>
+          <!-- Template for Final Schedule. -->
+          <div v-if="checkFinalScheduleSelectionIsEnabled()">
+            <v-dialog v-model="bindData.dialogsActivityState.isFinalScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
+                      fullscreen persistent>
+              <template v-slot:activator="{ props }">
+                <v-btn color="primary" v-bind="props" :disabled="!selectableDatesModel.getAvailabilityState()">Итоговое Расписание</v-btn>
+              </template>
 
-        <!-- Template for final schedule. -->
-        <div v-if="checkFinalScheduleSelectionIsEnabled()">
-          <v-dialog v-model="dialogsActivityState.isFinalScheduleDialogActive" scrim="false" transition="dialog-bottom-transition"
-                    fullscreen persistent>
-            <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props" :disabled="viewModel.selectedDays.length < 1">Итоговое Расписание</v-btn>
-            </template>
+              <v-card>
+                <v-toolbar color="grey">
+                  <v-btn icon="mdi-close" @click="bindData.dialogsActivityState.isFinalScheduleDialogActive = false" />
 
-            <v-card>
-              <v-toolbar color="grey">
-                <v-btn icon="mdi-close" @click="dialogsActivityState.isFinalScheduleDialogActive = false" />
-
-                <v-toolbar-title>Итоговое Расписание</v-toolbar-title>
-                <v-spacer />
-                <v-toolbar-items>
-                  <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
-                </v-toolbar-items>
-              </v-toolbar>
-              <ResultComponent :componentModel="createModelForResultComponent(bind_SelectableInformation.finalSchedule)" />
-            </v-card>
-          </v-dialog>
-        </div>
-      </span>
+                  <v-toolbar-title>Итоговое Расписание</v-toolbar-title>
+                  <v-spacer />
+                  <v-toolbar-items>
+                    <v-btn icon="mdi-account-question-outline" @click="getInfoAboutResult()" />
+                  </v-toolbar-items>
+                </v-toolbar>
+                <ResultDialogComponent :componentModel="createModelForResultComponent(bindData.selectableInformation.finalSchedule)" />
+              </v-card>
+            </v-dialog>
+          </div>
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { LATEST_SEARCH_TARGET } from '@/common/keys';
-  import ResultComponent from '@/components/common/result/ResultComponent.vue';
-  import ResultMessage from '@/models/common/messages/ResultMessages';
+  import ResultDialogComponent from '@/components/common/result/ResultDialogComponent.vue';
+  import ResultDialogComponentModel from '@/models/components/common/result/ResultDialogComponentModel';
+  import ResultDateSelector from '@/components/widgets/ResultDateSelector.vue';
   import SelectableInformation from '@/models/common/user/SelectableInformation';
-  import ResultComponentModel from '@/models/views/ResultComponentModel';
-  import ResultSelectionModel from '@/models/views/ResultSelectionModel';
+  import ResultViewSelectionModel from '@/models/views/ResultViewSelectionModel';
   import Swal from 'sweetalert2';
   import { Options, Vue } from 'vue-class-component';
+  import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
 
   @Options({
     components: {
-      ResultComponent,
+      ResultDateSelector,
+      ResultDialogComponent,
     },
   })
+
   export default class ResultView extends Vue {
-    public viewModel = ResultSelectionModel.getDefaultModel();
+    public viewModel = ResultViewSelectionModel.getDefaultModel();
 
-    public dialogsActivityState = {
-      isBasicScheduleDialogActive: false,
-      isScheduleReplacementsDialogActive: false,
-      isFinalScheduleDialogActive: false,
-    };
+    public selectableDatesModel = ResultDateSelectorModel.getDefaultModel();
 
-    public bind_SelectableInformation = {
-      basicSchedule: SelectableInformation.BASIC_SCHEDULE,
-      scheduleReplacements: SelectableInformation.SCHEDULE_REPLACEMENTS,
-      finalSchedule: SelectableInformation.FINAL_SCHEDULE,
+    public bindData = {
+      dialogsActivityState: {
+        isBasicScheduleDialogActive: false,
+        isScheduleReplacementsDialogActive: false,
+        isFinalScheduleDialogActive: false,
+      },
+      selectableInformation: {
+        basicSchedule: SelectableInformation.BASIC_SCHEDULE,
+        scheduleReplacements: SelectableInformation.SCHEDULE_REPLACEMENTS,
+        finalSchedule: SelectableInformation.FINAL_SCHEDULE,
+      },
     };
 
     public async beforeMount() {
-      let target = localStorage.getItem(LATEST_SEARCH_TARGET);
-      if (!target || target == null || target === '') {
-        Swal.fire();
-        target = ResultSelectionModel.DEFAULT_GROUP_NAME;
-      }
+      const target = this.$route.query.target?.toString() || ResultViewSelectionModel.DEFAULT_GROUP_NAME;
+      const searchByTeachers = this.$route.query.useTeacherSearch?.toString().toLowerCase() === 'true';
 
-      this.viewModel.groupName = target;
+      this.viewModel.target = target;
+      this.viewModel.searchByTeachers = searchByTeachers;
     }
 
-    public onShowingDaysSelectionChanged() {
-      if (this.viewModel.selectedDays.length < 1) {
-        Swal.fire(ResultMessage.ShowSelectionIsEmpty.title, ResultMessage.ShowSelectionIsEmpty.message, 'warning');
-      } else if (this.viewModel.selectedDays.length > 3) {
-        Swal.fire(ResultMessage.ShowSelectionIsLarge.title, ResultMessage.ShowSelectionIsLarge.message, 'warning');
-      }
-    }
+    public getInfoAboutResult = () => Swal.fire(this.viewModel.target, 'В данном окне представлена выбранная Вами информация.', 'info');
 
-    /**
-     * ToDo: Remade this, to remove these 4 functions to standalone file.
-     */
-    public checkBasicScheduleSelectionIsEnabled(): boolean {
-      const targetId = SelectableInformation.BASIC_SCHEDULE.id;
-      const selectable = this.viewModel.currentUserSettings.informationToSelect;
+    public checkBasicScheduleSelectionIsEnabled = () => ResultView.checkToPresence(SelectableInformation.BASIC_SCHEDULE.id, this.viewModel.currentUserSettings.informationToSelect);
 
-      return ResultView.checkToPresence(targetId, selectable);
-    }
+    public checkScheduleReplacementsSelectionIsEnabled = () => ResultView.checkToPresence(SelectableInformation.SCHEDULE_REPLACEMENTS.id, this.viewModel.currentUserSettings.informationToSelect);
 
-    public checkScheduleReplacementsSelectionIsEnabled(): boolean {
-      const targetId = SelectableInformation.SCHEDULE_REPLACEMENTS.id;
-      const selectable = this.viewModel.currentUserSettings.informationToSelect;
+    public checkFinalScheduleSelectionIsEnabled = () => ResultView.checkToPresence(SelectableInformation.FINAL_SCHEDULE.id, this.viewModel.currentUserSettings.informationToSelect);
 
-      return ResultView.checkToPresence(targetId, selectable);
-    }
+    private static checkToPresence = (targetId: number, selectable: SelectableInformation[]) => !!selectable.find((element) => element.id === targetId);
 
-    public checkFinalScheduleSelectionIsEnabled(): boolean {
-      const targetId = SelectableInformation.FINAL_SCHEDULE.id;
-      const selectable = this.viewModel.currentUserSettings.informationToSelect;
-
-      return ResultView.checkToPresence(targetId, selectable);
-    }
-
-    private static checkToPresence(targetId: number, selectable: SelectableInformation[]): boolean {
-      const foundElement = selectable.find((element) => element.id === targetId);
-
-      // Firstly, we check value to be empty (!val), and then we revert this, to check presence.
-      return !!foundElement;
-    }
-
-    public getInfoAboutResult() {
-      Swal.fire(this.viewModel.groupName, 'В данном окне представлена выбранная Вами информация.', 'info');
-    }
-
-    public createModelForResultComponent(selectable: SelectableInformation): ResultComponentModel {
-      return new ResultComponentModel(
-        this.viewModel.currentUserSettings,
-        this.viewModel.groupName,
+    public createModelForResultComponent(selectable: SelectableInformation): ResultDialogComponentModel {
+      const model = new ResultDialogComponentModel(
+        this.viewModel.target,
+        this.viewModel.searchByTeachers,
         selectable,
-        this.viewModel.selectedDays,
+        this.selectableDatesModel,
+        this.viewModel.currentUserSettings,
       );
+      return model;
     }
   }
 </script>
 
 <style scoped>
-  .result-selection-parent {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .result-selection-parent > .result-selection-row {
-    align-self: center;
-
-    width: 50%;
-    max-width: 60%;
-    overflow: scroll;
-  }
-
   .result-navigation-parent {
     display: flex;
     flex-direction: column;
