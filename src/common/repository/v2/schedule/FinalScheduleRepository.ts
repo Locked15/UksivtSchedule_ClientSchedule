@@ -1,21 +1,22 @@
 import DateWorker from '@/common/utils/DateWorker';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APIModernRequestFactoryExtension from '@/models/api/connection/extensions/APIModernRequestFactoryExtension';
-import FinalSchedule from '@/models/api/entities/v2/base/FinalSchedule';
+import TeacherScheduleWrapper from '@/models/api/entities/v2/wrappers/TeacherScheduleWrapper';
+import GroupFinalScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupFinalScheduleWrapper';
 import Axios from 'axios';
 
 import IModernScheduleRepository from '../../base/IModernScheduleRepository';
 import ErrorResolver from '../../common/ErrorResolver';
 import { addModernMark } from '../../common/MarkHelper';
 
-export default class FinalScheduleRepository implements IModernScheduleRepository<FinalSchedule> {
+export default class FinalScheduleRepository implements IModernScheduleRepository<GroupFinalScheduleWrapper, TeacherScheduleWrapper> {
   public useStableBranch: boolean;
 
   public constructor(useStableBranch: boolean) {
     this.useStableBranch = useStableBranch;
   }
 
-  public async getDataFromAPIForGroup(targetGroup: string, targetDate: Date, remainAttempts: number): Promise<FinalSchedule> {
+  public async getDataFromAPIForGroup(targetGroup: string, targetDate: Date, remainAttempts: number): Promise<GroupFinalScheduleWrapper> {
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPIForGroup(targetGroup, targetDate);
     while (data === undefined && attempts > 0) {
@@ -28,7 +29,7 @@ export default class FinalScheduleRepository implements IModernScheduleRepositor
     return data;
   }
 
-  public async tryToGetDataFromAPIForGroup(targetGroup: string, targetDate: Date): Promise<FinalSchedule> {
+  public async tryToGetDataFromAPIForGroup(targetGroup: string, targetDate: Date): Promise<GroupFinalScheduleWrapper> {
     const route = FinalScheduleRepository.createRouteForGroupFinalScheduleRequest(this.useStableBranch);
     const data = await Axios.get(route, {
       params: {
@@ -42,7 +43,7 @@ export default class FinalScheduleRepository implements IModernScheduleRepositor
     return data;
   }
 
-  public async getDataFromAPIForTeacher(teacherId: number, targetDate: Date, remainAttempts: number): Promise<FinalSchedule> {
+  public async getDataFromAPIForTeacher(teacherId: number, targetDate: Date, remainAttempts: number): Promise<TeacherScheduleWrapper> {
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPIForTeacher(teacherId, targetDate);
     while (data === undefined && attempts > 0) {
@@ -55,7 +56,7 @@ export default class FinalScheduleRepository implements IModernScheduleRepositor
     return data;
   }
 
-  public async tryToGetDataFromAPIForTeacher(teacherId: number, targetDate: Date): Promise<FinalSchedule> {
+  public async tryToGetDataFromAPIForTeacher(teacherId: number, targetDate: Date): Promise<TeacherScheduleWrapper> {
     const route = FinalScheduleRepository.createRouteForTeacherFinalScheduleRequest(this.useStableBranch);
     const data = await Axios.get(route, {
       params: {
