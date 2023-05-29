@@ -73,7 +73,7 @@
       const { selectionByTeachers } = this.componentModel;
 
       const repo = this.createRepoByCurrentModel();
-      if (useDBAsSource) this.beginModernResultsInit(target, selectionByTeachers, repo as IModernScheduleRepository<ModernAPIEntitiesParent>);
+      if (useDBAsSource) this.beginModernResultsInit(target, selectionByTeachers, repo as IModernScheduleRepository<ModernAPIEntitiesParent, ModernAPIEntitiesParent>);
       else this.beginLegacyResultsInit(target, repo as ILegacyScheduleRepository<LegacyAPIEntitiesParent>);
     }
 
@@ -87,7 +87,7 @@
         : ResultDialogComponent.createRepoForLegacySource(id, useStableAPIBranch);
     }
 
-    private static createRepoForDbSource(selectableDataId: number, useStableBranch: boolean): IModernScheduleRepository<ModernAPIEntitiesParent> {
+    private static createRepoForDbSource(selectableDataId: number, useStableBranch: boolean): IModernScheduleRepository<ModernAPIEntitiesParent, ModernAPIEntitiesParent> {
       if (selectableDataId === SelectableInformation.BASIC_SCHEDULE.id) {
         return new ModernBasicScheduleRepository(useStableBranch);
       }
@@ -107,7 +107,7 @@
       return new LegacyFinalScheduleRepository(useStableBranch);
     }
 
-    private beginModernResultsInit(target: string, selectByTeachers: boolean, repo: IModernScheduleRepository<ModernAPIEntitiesParent>) {
+    private beginModernResultsInit(target: string, selectByTeachers: boolean, repo: IModernScheduleRepository<ModernAPIEntitiesParent, ModernAPIEntitiesParent>) {
       this.componentModel.targetDates.forEach(async (day: Date) => {
         const dayIndex = DateWorker.getNormalizedDayOfWeek(day);
         const resultPromise = selectByTeachers
@@ -154,82 +154,5 @@
 </script>
 
 <style scoped>
-  .result-header {
-    font-size: 2rem;
-
-    text-align: center;
-    margin: 32px;
-  }
-
-  .result-header ~ div {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-  }
-
-  .results-legend {
-    align-self: center;
-  }
-
-  .results-legend > p {
-    text-align: center;
-  }
-
-  .result-parent-container {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-
-    padding: 10px;
-  }
-
-  .result-parent-container > .result-container {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .result-parent-container > .result-container > .result-item {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-
-    width: 65%;
-    max-width: 70%;
-  }
-
-  .result-item > h3 {
-    text-align: center;
-  }
-
-  .small-hr {
-    width: 45%;
-    height: 5px;
-
-    align-self: center;
-    margin-top: -3.141px;
-  }
-
-  .small-hr::before {
-    display: none;
-  }
-
-  .element-info {
-    text-align: center;
-  }
-
-  @media (max-width: 641px) {
-    .result-parent-container > .result-container > .result-item {
-      width: 85%;
-      max-width: 90%;
-    }
-  }
-
-  @media (max-width: 481px) {
-    .result-parent-container > .result-container > .result-item {
-      width: 95%;
-      max-width: 100%;
-    }
-  }
+  @import "@/../public/css/result/result-parent.css";
 </style>
