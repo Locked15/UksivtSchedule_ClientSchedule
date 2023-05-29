@@ -2,7 +2,7 @@
 import IEntityParent from '@/models/api/entities/base/IEntityParent';
 
 /**
- * Basic super-type for all V2 API entities.
+ * Basic super-type for all V2 API Lesson entities.
  */
 export default abstract class ModernAPIEntitiesParent implements IEntityParent {
   declare _isModernEntity: boolean | undefined;
