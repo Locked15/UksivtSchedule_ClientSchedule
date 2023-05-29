@@ -15,7 +15,7 @@ export default class ResultDateSelectorModel {
     this.forTargetDatesSelectionMode = forTargetDatesSelectionMode;
   }
 
-  public static getDefaultModel = () => new ResultDateSelectorModel(new Array<Day>(Day.getCurrentDay()), new Array<Date>(), false);
+  public static getDefaultModel = () => new ResultDateSelectorModel(new Array<Day>(Day.getCurrentDay()), new Array<Date>(new Date()), false);
 
   public getAvailabilityState(): boolean {
     const selectedDaysCount = this.selectedDays.length;
