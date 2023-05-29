@@ -1,17 +1,7 @@
-import ModernAPILessonEntitiesParent from './common/ModernAPIEntitiesParent';
+import ModernAPILessonEntitiesParent from './common/ModernAPILessonEntitiesParent';
 
 export default class GroupLesson extends ModernAPILessonEntitiesParent {
-  public lessonNumber: number | null;
-
-  public lessonName: string | null;
-
-  public lessonPlace: string | null;
-
   public lessonTeacher: string | null;
-
-  public lessonIsChanged: boolean | null;
-
-  public lessonHoursPassed: number | null;
 
   public constructor(
     lessonNumber: number | null,
@@ -21,13 +11,11 @@ export default class GroupLesson extends ModernAPILessonEntitiesParent {
     lessonIsChanged: boolean | null,
     lessonHoursPassed: number | null,
   ) {
-    super();
-
-    this.lessonNumber = lessonNumber;
-    this.lessonName = lessonName;
-    this.lessonPlace = lessonPlace;
+    super(lessonNumber, lessonName, lessonPlace, lessonIsChanged, lessonHoursPassed);
     this.lessonTeacher = lessonTeacher;
-    this.lessonIsChanged = lessonIsChanged;
-    this.lessonHoursPassed = lessonHoursPassed;
+  }
+
+  public override getSpecifiedTarget(): string | null {
+    return this.lessonTeacher;
   }
 }
