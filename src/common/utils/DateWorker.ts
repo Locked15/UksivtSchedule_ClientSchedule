@@ -42,6 +42,18 @@ export default class DateWorker {
     return `${dayOfMonth}-${month}-${year}!`;
   }
 
+  public static getNamedDateTitleString(date: Date): string {
+    const normalizedDate = this.getNormalizedDateInstance(date);
+    const formattedDate = normalizedDate.toLocaleDateString('default', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    return formattedDate;
+  }
+
   public static getRequestVariantForDate(date: Date): string {
     const normalizedDate = this.getNormalizedDateInstance(date);
     const dayOfMonth = normalizedDate.getDate();
