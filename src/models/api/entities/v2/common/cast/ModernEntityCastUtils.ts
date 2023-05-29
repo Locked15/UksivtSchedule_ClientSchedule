@@ -1,12 +1,9 @@
-import GroupLesson from '../GroupLesson';
-import TeacherLesson from '../TeacherLesson';
-import Teacher from '../base/Teacher';
-import TeacherScheduleWrapper from '../wrappers/TeacherScheduleWrapper';
-import GroupBasicScheduleWrapper from '../wrappers/group/GroupBasicScheduleWrapper';
-import GroupFinalScheduleWrapper from '../wrappers/group/GroupFinalScheduleWrapper';
-import GroupScheduleReplacementWrapper from '../wrappers/group/GroupScheduleReplacementWrapper';
-import ModernAPIEntitiesParent from './ModernAPIEntitiesParent';
-import ModernAPILessonEntitiesParent from './ModernAPILessonEntitiesParent';
+import Teacher from '../../base/Teacher';
+import TeacherScheduleWrapper from '../../wrappers/TeacherScheduleWrapper';
+import GroupBasicScheduleWrapper from '../../wrappers/group/GroupBasicScheduleWrapper';
+import GroupFinalScheduleWrapper from '../../wrappers/group/GroupFinalScheduleWrapper';
+import GroupScheduleReplacementWrapper from '../../wrappers/group/GroupScheduleReplacementWrapper';
+import ModernAPIEntitiesParent from '../ModernAPIEntitiesParent';
 
 export function isInstanceOfModernEntity(instance: any): instance is ModernAPIEntitiesParent {
   if (instance) {
@@ -77,35 +74,4 @@ export function isInstanceOfTeacherScheduleWrapper(instance: any): instance is T
     return isDayIndexPresented && isTargetDatePresented && isReplacementsForDateIsAvailablePresented && isLessonsInfoPresented;
   }
   return false;
-}
-
-export default function getLessonSpecifiedTarget(lesson: ModernAPILessonEntitiesParent, forTeacher: boolean): string | null {
-  if (forTeacher) {
-    const castedToTeacherLesson = lesson as TeacherLesson;
-    const newInstance = new TeacherLesson(
-      castedToTeacherLesson.lessonNumber,
-      castedToTeacherLesson.lessonName,
-      castedToTeacherLesson.lessonPlace,
-      castedToTeacherLesson.lessonGroup,
-      castedToTeacherLesson.lessonIsChanged,
-      castedToTeacherLesson.lessonHoursPassed,
-    );
-    return newInstance.getSpecifiedTarget();
-  }
-  if (!forTeacher) {
-    const castedToGroupLesson = lesson as GroupLesson;
-    if (castedToGroupLesson && !forTeacher) {
-      const newInstance = new GroupLesson(
-        castedToGroupLesson.lessonNumber,
-        castedToGroupLesson.lessonName,
-        castedToGroupLesson.lessonPlace,
-        castedToGroupLesson.lessonTeacher,
-        castedToGroupLesson.lessonIsChanged,
-        castedToGroupLesson.lessonHoursPassed,
-      );
-      return newInstance.getSpecifiedTarget();
-    }
-  }
-
-  return null;
 }
