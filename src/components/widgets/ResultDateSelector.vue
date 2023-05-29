@@ -48,7 +48,7 @@
   import Swal from 'sweetalert2';
   import { Vue, Options } from 'vue-class-component';
   import { getDarkStateOfCurrentTheme } from '@/common/utils/ColorThemeWorker';
-import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/DateWorker';
 
   @Options({
     components: {
@@ -114,39 +114,5 @@ import DateWorker from '@/common/utils/DateWorker';
 </script>
 
 <style scoped>
-  .result-selection-parent {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .result-selection-parent > .result-selection-row {
-    align-self: center;
-
-    width: 50%;
-    max-width: 60%;
-    overflow: scroll;
-  }
-
-  .date-selection-panel {
-    display: flex;
-    flex: auto;
-    flex-direction: row;
-  }
-
-  .date-selection-panel > .date-selector-active {
-    max-width: 80%;
-    align-self: flex-start;
-  }
-
-  .result-type-selection {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-
-    margin-top: 12px;
-  }
-
-  .type-switcher-parent {
-    align-self: center;
-  }
+  @import "@/../public/css/widgets/result-date-selector.css";
 </style>

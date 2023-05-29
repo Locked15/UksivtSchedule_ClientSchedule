@@ -164,58 +164,5 @@
 </script>
 
 <style scoped>
-  section {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .settings-parent-container {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-  }
-
-  .explanation-container {
-    max-width: 60%;
-  }
-
-  .explanation-parameters-list {
-    gap: 32px;
-  }
-
-  .explanation-parameter-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .default-option {
-    text-decoration: underline;
-  }
-
-  .settings-split2 {
-    align-self: center;
-
-    height: 15px;
-    width: 75%;
-  }
-
-  .settings-split2::before {
-    border: none;
-  }
-
-  .settings-split3 {
-    align-self: center;
-
-    height: 5px;
-    width: 30%;
-  }
-
-  .settings-split3::before {
-    border: none;
-  }
-
-  .control-panel {
-    margin-top: 3.14%;
-  }
+  @import "@/../public/css/settings/parent-view.css";
 </style>

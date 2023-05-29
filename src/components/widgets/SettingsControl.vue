@@ -2,10 +2,14 @@
   <div class="settings-control-parent">
     <h3 class="header-content">Панель Управления</h3>
     <v-sheet rounded="xl" class="settings-control-panel">
-      <v-checkbox v-model="settingsControlModel.currentUserSettings.useDBAsSource" label="Использовать БД?" @change="onParametersChanged" />
+      <v-checkbox v-model="settingsControlModel.currentUserSettings.useDBAsSource"
+                  label="Использовать БД?"
+                  @change="onParametersChanged"
+                  class="settings-selector" />
       <v-checkbox v-model="settingsControlModel.currentUserSettings.useStableAPIBranch"
                   label="Использовать стабильную ветку API?"
-                  @change="onParametersChanged" />
+                  @change="onParametersChanged"
+                  class="settings-selector" />
 
       <v-select chips
                 label="Выбираемые данные:"
@@ -51,24 +55,5 @@
 </script>
 
 <style scoped>
-  .settings-control-parent {
-      display: flex;
-      flex: auto;
-      flex-direction: column;
-
-      margin-top: 24px;
-    }
-
-  .settings-control-panel {
-      display: flex;
-      flex-direction: column;
-
-      align-self: center;
-      gap: 2.5%;
-
-      width: max-content;
-      padding: 2.16rem;
-
-      border: solid 2.74px;
-    }
+  @import "@/../public/css/settings/component.css";
 </style>

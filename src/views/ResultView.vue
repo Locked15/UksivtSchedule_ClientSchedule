@@ -152,36 +152,5 @@
 </script>
 
 <style scoped>
-  .result-navigation-parent {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .result-navigation-parent > .result-navigation-header {
-    display: flex;
-    flex-direction: column;
-
-    width: 42%;
-    align-self: center;
-  }
-
-  .result-navigation-parent > .result-selection-panel {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-
-    gap: 16px;
-  }
-
-  .result-navigation-header > h2 {
-    cursor: help;
-  }
-
-  .result-presence-divider {
-    height: 15px;
-  }
-
-  .result-presence-divider::after {
-    height: 15px;
-  }
+  @import "@/../public/css/result/parent-view.css";
 </style>
