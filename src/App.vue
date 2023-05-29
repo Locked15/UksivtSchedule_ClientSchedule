@@ -121,7 +121,7 @@
   }
 
   main {
-    margin-top: 32px;
+    margin-top: 64px;
   }
 
   @media (max-width: 671px) {
