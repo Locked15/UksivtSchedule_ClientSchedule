@@ -57,4 +57,9 @@ export default class DateWorker {
 
     return isoString.replace(/(\.\d+)?(Z|[+-]\d+(:\d+)?)$/, '');
   }
+
+  public static getFullTime(date: Date): number {
+    const normalizedDate = this.getNormalizedDateInstance(date);
+    return normalizedDate.getTime();
+  }
 }
