@@ -1,13 +1,16 @@
 <template>
-  <Transition name="result-fade">
-    <div class="result-fade-item">
-      <h3>Базовое Расписание</h3>
-      <div>
-        <h5>Расписание на {{ itemModel.day }}</h5>
-        <LegacyLessons :resultItemId="itemModel.day" :lessons="getFilteredLessons()" />
+  <div class="result-item-transition-container">
+    <hr class="heirloom-hr small-hr" />
+    <Transition name="result-fade">
+      <div class="result-fade-item">
+        <h3>Базовое Расписание</h3>
+        <div class="result-type-title">
+          <h5>Расписание на {{ itemModel.day }}</h5>
+          <LegacyLessons :resultItemId="itemModel.day" :lessons="getFilteredLessons()" />
+        </div>
       </div>
-    </div>
-  </Transition>
+    </Transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,5 +39,5 @@
 </script>
 
 <style scoped>
-  @import '@/../public/css/result.css';
+  @import '@/../public/css/result/result-component.css';
 </style>

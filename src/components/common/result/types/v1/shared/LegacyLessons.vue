@@ -18,7 +18,7 @@
         <td>🕛 ... 🕧</td>
       </tr>
 
-      <tr v-if="lessons.length < 1">
+      <tr class="data-is-empty" v-if="lessons.length < 1">
         <td class="table-warning-text" colspan="2">Пары отсутствуют...</td>
         <td class="table-warning-text">... или ...</td>
         <td class="table-warning-text" colspan="2">... данные недоступны.</td>
@@ -43,3 +43,7 @@
     public lessons!: Array<Lesson>;
   }
 </script>
+
+<style scoped>
+  @import "@/../public/css/result/result-item.css";
+</style>

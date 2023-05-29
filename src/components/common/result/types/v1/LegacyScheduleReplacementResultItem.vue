@@ -1,13 +1,22 @@
 <template>
-  <Transition name="result-fade">
-    <div class="result-fade-item">
-      <h3>Замена для Расписания</h3>
-      <div>
-        <h5>Расписание на {{ getStringTitleForReplacementModel() }}</h5>
-        <LegacyLessons :resultItemId="itemModel.changesDate" :lessons="itemModel.newLessons" />
+  <div class="result-item-transition-container">
+    <hr class="heirloom-hr small-hr" />
+    <Transition name="result-fade">
+      <div class="result-fade-item">
+        <h3>Замена для Расписания</h3>
+        <div class="result-type-title">
+          <h5>Замены на {{ getStringTitleForReplacementModel() }}</h5>
+          <LegacyLessons :resultItemId="itemModel.changesDate" :lessons="itemModel.newLessons" />
+        </div>
+
+        <div>
+          <div class="result-info-message" v-if="!itemModel.changesFound">
+            <p class="error-message">Внимание: Замены для указанной даты не обнаружены.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </Transition>
+    </Transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -35,5 +44,5 @@
 </script>
 
 <style scoped>
-  @import '@/../public/css/result.css';
+  @import '@/../public/css/result/result-component.css';
 </style>
