@@ -1,0 +1,47 @@
+.result-selection-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-selection-parent > .result-selection-row {
+  align-self: center;
+
+  width: 50%;
+  max-width: 60%;
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+}
+
+.date-selection-panel {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 8px;
+}
+
+.date-selection-panel > .date-selector-active {
+  max-width: 80%;
+  align-self: flex-start;
+}
+
+.result-type-selection {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+
+  margin-top: 12px;
+}
+
+.type-switcher-parent {
+  align-self: center;
+}
+
+@media (max-width: 480px) {
+  .result-selection-parent > .result-selection-row {
+    width: 70%;
+    max-width: 80%;
+  }
+}

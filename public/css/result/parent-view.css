@@ -1,0 +1,33 @@
+.result-navigation-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-navigation-parent > .result-navigation-header {
+  display: flex;
+  flex-direction: column;
+
+  width: 42%;
+  align-self: center;
+}
+
+.result-navigation-parent > .result-selection-panel {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+
+  margin-top: 32px;
+  gap: 48px;
+}
+
+.result-navigation-header > h2 {
+  cursor: help;
+}
+
+.result-presence-divider {
+  height: 15px;
+}
+
+.result-presence-divider::after {
+  height: 15px;
+}

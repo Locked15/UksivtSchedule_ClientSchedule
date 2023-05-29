@@ -48,6 +48,11 @@
   box-sizing: border-box;
 }
 
+.footer-content {
+  /* Time Solution. */
+  display: none;
+}
+
 @media (max-width: 671px) {
   .theme-picker {
     margin-top: -32px;

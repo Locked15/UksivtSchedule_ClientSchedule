@@ -17,6 +17,7 @@
 
 .results-legend > p {
   text-align: center;
+  margin: 16px;
 }
 
 .result-parent-container {

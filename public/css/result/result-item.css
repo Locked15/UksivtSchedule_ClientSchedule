@@ -6,3 +6,13 @@
 tr.data-is-empty > td:nth-child(2) {
   text-align: center;
 }
+
+@media (max-width: 480px) {
+  .non-hidable-item {
+    cursor: help;
+  }
+
+  .hidable-item {
+    display: none;
+  }
+}

@@ -21,6 +21,10 @@
   opacity: 0;
 }
 
+.result-type-title {
+  text-align: center;
+}
+
 .result-item {
   display: flex;
   flex: auto;

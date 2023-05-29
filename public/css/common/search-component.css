@@ -1,0 +1,30 @@
+.search-parameters {
+  display: flex;
+  flex: auto;
+  flex-direction: row wrap;
+}
+
+.results-container-outer {
+  border-radius: 16px !important;
+}
+
+.results-container-outer > h3 {
+  padding: 16px;
+}
+
+.results-container-inner {
+  display: flex;
+
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  gap: 14px;
+  row-gap: 14px;
+
+  padding: 16px;
+}
+
+.search-is-empty {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: large;
+}
