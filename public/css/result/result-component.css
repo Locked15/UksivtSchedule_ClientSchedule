@@ -51,14 +51,25 @@
   align-items: center;
 }
 
-.data-not-available {
+.result-info-message {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.data-not-available > p {
+.result-info-message > p {
   text-align: center;
+}
+
+.result-info-message > p.warning-message {
+  color: #FFA500;
+  text-decoration: underline;
+}
+
+.result-info-message > p.error-message {
+  color: #FF0000;
+  text-decoration: underline;
+  text-decoration-style: double;
 }
 
 @media (max-width: 641px) {

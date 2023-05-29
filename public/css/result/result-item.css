@@ -2,3 +2,7 @@
   text-decoration: underline solid;
   text-decoration-thickness: 2px;
 }
+
+tr.data-is-empty > td:nth-child(2) {
+  text-align: center;
+}
