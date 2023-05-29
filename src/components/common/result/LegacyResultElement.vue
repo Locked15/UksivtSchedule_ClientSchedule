@@ -68,5 +68,5 @@
 </script>
 
 <style scoped>
-  @import '@/../public/css/result.css';
+  @import '@/../public/css/result/result-component.css';
 </style>
