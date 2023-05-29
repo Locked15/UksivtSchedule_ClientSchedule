@@ -44,7 +44,7 @@
 
     public getDateTitle(): string {
       if (this.itemModel.scheduleDate != null) {
-        return DateWorker.getDateTitleString(this.itemModel.scheduleDate);
+        return DateWorker.getNamedDateTitleString(this.itemModel.scheduleDate);
       }
       return this.itemModel.schedule.day;
     }

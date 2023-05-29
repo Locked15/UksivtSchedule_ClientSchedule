@@ -24,7 +24,6 @@
 
 <script lang="ts">
   import DateWorker from '@/common/utils/DateWorker';
-  import Day from '@/models/api/entities/v1/base/Day';
   import TeacherScheduleWrapper from '@/models/api/entities/v2/wrappers/TeacherScheduleWrapper';
   import { Options, Vue } from 'vue-class-component';
 
@@ -46,10 +45,7 @@
     }
 
     public getDateTitle(): string {
-      const dayTitle = Day.getDayFromIndex(this.itemModel.dayIndex);
-      const dateTitle = DateWorker.getDateTitleString(this.itemModel.targetDate);
-
-      return `${dayTitle.name} — ${dateTitle}`;
+      return DateWorker.getNamedDateTitleString(this.itemModel.targetDate);
     }
 
     public getResultItemId(): number {

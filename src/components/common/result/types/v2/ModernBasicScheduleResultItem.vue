@@ -32,7 +32,7 @@
     public itemModel!: GroupBasicScheduleWrapper;
 
     public getDateTitle(): string {
-      return DateWorker.getDateTitleString(this.itemModel.targetDate);
+      return DateWorker.getNamedDateTitleString(this.itemModel.targetDate);
     }
 
     public getResultItemId(): number {

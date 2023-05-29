@@ -38,7 +38,7 @@
     public itemModel!: ScheduleReplacement;
 
     public getStringTitleForReplacementModel(): string {
-      return DateWorker.getDateTitleString(this.itemModel.changesDate);
+      return DateWorker.getNamedDateTitleString(this.itemModel.changesDate);
     }
   }
 </script>
