@@ -15,4 +15,14 @@ export default class ResultMessages {
     'Настройка Недоступна',
     'Выборка по дате недоступна при динамическом получении данных. Отметьте базу данных в качестве источника данных для включения выборки по дате.',
   );
+
+  public static readonly ModernLessonDetailsMessage = new BaseMessage(
+    'Подробности',
+    'Пара у: {0}. Прошло всего {1} часов, из них пар: {2}.',
+  );
+
+  public static readonly LegacyLessonDetailsMessage = new BaseMessage(
+    'Подробности',
+    'Аудитория проведения пары: {0}.',
+  );
 }
