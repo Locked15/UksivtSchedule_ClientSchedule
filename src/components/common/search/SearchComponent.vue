@@ -38,7 +38,7 @@
   import SearchRepository from '@/common/repository/v2/SearchRepository';
   import { compareTeacherData, compareGroupData } from '@/common/utils/FilterHelper';
   import Teacher from '@/models/api/entities/v2/base/Teacher';
-  import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/ModernEntityCastUtils';
+  import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SearchMessages from '@/models/common/messages/SearchMessages';
   import UserSettings from '@/models/common/user/UserSettings';
   import SearchModel from '@/models/components/common/search/SearchModel';
@@ -136,30 +136,5 @@
 </script>
 
 <style scoped>
-  .search-parameters {
-    display: flex;
-    flex: auto;
-    flex-direction: row wrap;
-  }
-
-  .results-container-outer {
-    border-radius: 16px;
-  }
-
-  .results-container-inner {
-    display: flex;
-
-    flex-flow: row wrap;
-    justify-content: space-around;
-
-    gap: 14px;
-    row-gap: 14px;
-
-    padding: 16px;
-  }
-
-  .search-is-empty {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: large;
-  }
+  @import "@/../public/css/common/search-component.css";
 </style>

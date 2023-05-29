@@ -46,7 +46,7 @@
   import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
   import { isInstanceOfLegacyEntity } from '@/models/api/entities/v1/common/LegacyEntityCastUtils';
   import ModernAPIEntitiesParent from '@/models/api/entities/v2/common/ModernAPIEntitiesParent';
-  import { isInstanceOfModernEntity } from '@/models/api/entities/v2/common/ModernEntityCastUtils';
+  import { isInstanceOfModernEntity } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SelectableInformation from '@/models/common/user/SelectableInformation';
   import LegacyResultElementModel from '@/models/components/common/result/LegacyResultElementModel';
   import ModernResultElementModel from '@/models/components/common/result/ModernResultElementModel';

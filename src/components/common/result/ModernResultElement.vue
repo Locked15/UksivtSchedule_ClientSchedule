@@ -33,7 +33,7 @@
     isInstanceOfGroupFinalScheduleWrapper,
     isInstanceOfGroupScheduleReplacementWrapper,
     isInstanceOfTeacherScheduleWrapper,
-  } from '@/models/api/entities/v2/common/ModernEntityCastUtils';
+  } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import TeacherScheduleWrapper from '@/models/api/entities/v2/wrappers/TeacherScheduleWrapper';
   import GroupBasicScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupBasicScheduleWrapper';
   import GroupFinalScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupFinalScheduleWrapper';
