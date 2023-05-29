@@ -11,15 +11,12 @@ export default class Lesson extends LegacyAPIEntitiesParent {
 
   public changed: boolean;
 
-  public hoursPassed: number | null;
-
   constructor(
     number: number,
     name: string,
     teacher: string,
     place: string,
     isChanged: boolean,
-    hoursPassed: number | null,
   ) {
     super();
 
@@ -28,6 +25,5 @@ export default class Lesson extends LegacyAPIEntitiesParent {
     this.teacher = teacher;
     this.place = place;
     this.changed = isChanged;
-    this.hoursPassed = hoursPassed;
   }
 }
