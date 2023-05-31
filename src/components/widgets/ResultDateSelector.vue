@@ -9,7 +9,7 @@
                          v-model="selectorModel.selectedTargetDates"
                          @update:model-value="onTargetItemsSelectionChanged()"
                          :teleport="true"
-                         :dark="isCurrentThemeDark"
+                         :dark="getCurrentThemeState()"
                          :clearable="false"
                          placeholder="Укажите целевые даты"
                          :class="selectorModel.selectedTargetDates.length > 0 ? 'date-selector-active' : ''" />
@@ -47,8 +47,8 @@
   import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
   import Swal from 'sweetalert2';
   import { Vue, Options } from 'vue-class-component';
-  import { getDarkStateOfCurrentTheme } from '@/common/utils/ColorThemeWorker';
   import DateWorker from '@/common/utils/DateWorker';
+  import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
 
   @Options({
     components: {
@@ -65,11 +65,16 @@
 
     public selectorModel!: ResultDateSelectorModel;
 
-    public isCurrentThemeDark = getDarkStateOfCurrentTheme();
-
     public datePickerCalendarsFlow = ['year', 'month', 'calendar'];
 
     public data = () => this.selectorModel;
+
+    public getCurrentThemeState(): boolean {
+      const currentThemeName = this.$vuetify.theme.name;
+      const isDarkTheme = ApplicationThemes.colorThemes.find((theme) => theme.name === currentThemeName)?.isDarkTheme;
+
+      return isDarkTheme || false;
+    }
 
     // eslint-disable-next-line class-methods-use-this
     public datePickerDateFormat(dates: Array<Date>): string {
