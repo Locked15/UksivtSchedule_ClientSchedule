@@ -21,6 +21,7 @@ module.exports = {
       files: ['*.vue'],
       rules: {
         '@typescript-eslint/indent': 'off',
+        'class-methods-use-this': 'off',
         'vue/first-attribute-linebreak': [
           'error',
           {
