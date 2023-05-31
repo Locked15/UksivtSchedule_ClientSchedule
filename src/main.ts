@@ -3,25 +3,24 @@ import * as directives from 'vuetify/directives';
 import App from '@/App.vue';
 import router from '@/common/router';
 import store from '@/common/store';
-import SearchComponent from '@/components/common/search/SearchComponent.vue';
 import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
 import '@mdi/font/css/materialdesignicons.css';
+import '@vuepic/vue-datepicker/dist/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createApp } from 'vue';
+import Toast, { PluginOptions as ToastifyPluginOptions } from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
 import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-import '@vuepic/vue-datepicker/dist/main.css';
 
 /**
  * Generates new instance of Vuetify component settings and injects it into Application instance.
  * @returns Vuetify instance. Set type to 'Any' because I don't sure about this.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function generateVuetifyInstance(): any {
+function createVuetifyInstance(): any {
   const vuetify = createVuetify({
     components,
     directives,
-
     theme: {
       themes: {
         Azure: {
@@ -36,7 +35,7 @@ function generateVuetifyInstance(): any {
           },
         },
         Gray: {
-          dark: ApplicationThemes.azureColorTheme.isDarkTheme,
+          dark: ApplicationThemes.darkColorTheme.isDarkTheme,
           colors: {
             primary: ApplicationThemes.darkColorTheme.primaryColor,
             secondary: ApplicationThemes.darkColorTheme.secondaryColor,
@@ -53,11 +52,19 @@ function generateVuetifyInstance(): any {
   return vuetify;
 }
 
+function createVueToastifyConfigInstance(): ToastifyPluginOptions {
+  const config = {
+    transition: 'Vue-Toastification__fade',
+    maxToasts: 20,
+    newestOnTop: true,
+  };
+  return config;
+}
+
 const app = createApp(App);
 app.use(store);
 app.use(router);
-app.use(generateVuetifyInstance());
-
-app.component('SearchComponent', SearchComponent);
+app.use(createVuetifyInstance());
+app.use(Toast, createVueToastifyConfigInstance());
 
 app.mount('#app');
