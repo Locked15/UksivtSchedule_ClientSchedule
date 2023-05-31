@@ -16,7 +16,8 @@
                       item-title="title"
                       item-value="title"
                       class="theme-picker"
-                      return-object />
+                      return-object
+                      z-index="1" />
           </v-btn>
 
           <template v-slot:extension>
