@@ -18,7 +18,7 @@
   flex: auto;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   row-gap: 8px;
 }
 
