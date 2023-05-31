@@ -20,7 +20,7 @@
 
           <!-- Parent for all Unsupported Types. -->
           <div v-else>
-            <p>Unsupported type of Model...</p>
+            <p>Судя по всему, произошла какая-то ошибка...</p>
           </div>
         </div>
       </div>
