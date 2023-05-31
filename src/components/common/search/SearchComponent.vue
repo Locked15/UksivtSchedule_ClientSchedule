@@ -10,7 +10,7 @@
                     persistent-hint
                     clearable />
       <div class="search-parameters">
-        <v-checkbox label="Поиск по преподавателям?" @change="onTeacherSearchStateChanged" v-model="viewModel.searchByTeachers" />
+        <v-checkbox label="Поиск по преподавателям?" @change="onSearchTypeChange" v-model="viewModel.searchByTeachers" />
       </div>
 
       <v-sheet class="results-container-outer" color="grey">
@@ -40,10 +40,12 @@
   import Teacher from '@/models/api/entities/v2/base/Teacher';
   import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SearchMessages from '@/models/common/messages/SearchMessages';
+import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import UserSettings from '@/models/common/user/UserSettings';
   import SearchModel from '@/models/components/common/search/SearchModel';
   import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';
+  import { useToast } from 'vue-toastification';
 
   export default class SearchComponent extends Vue {
     /**
@@ -53,7 +55,6 @@
 
     public data = () => this.viewModel;
 
-    // eslint-disable-next-line class-methods-use-this
     public beforeMount() {
       if (ApplicationData.availableGroups.length < 1) {
         new StructureRepository(true).getGroupsList(false).then((data) => {
@@ -71,7 +72,6 @@
       }
     }
 
-    // eslint-disable-next-line class-methods-use-this
     public getTitleForItem(item: any): string {
       if (isInstanceOfTeacher(item)) {
         return Teacher.clone(item).toString();
@@ -79,7 +79,7 @@
       return item;
     }
 
-    public onTeacherSearchStateChanged() {
+    public onSearchTypeChange() {
       const settings = UserSettings.getUserSettings() || UserSettings.getDefaultUserSettings();
       if (!settings.useDBAsSource) {
         this.viewModel.searchByTeachers = false;
@@ -90,7 +90,12 @@
       }
     }
 
-    public onSearchRequestUpdated = () => (this.viewModel.searchByTeachers ? this.searchForTargetTeacher() : this.searchForTargetGroup());
+    public onSearchRequestUpdated() {
+      if (this.viewModel.searchByTeachers) {
+        this.searchForTargetTeacher();
+      }
+      this.searchForTargetGroup();
+    }
 
     private searchForTargetTeacher() {
       const request = this.viewModel.searchRequest || '';
@@ -120,7 +125,10 @@
       }
     }
 
-    private static showWarningMessageResultSetIsEmpty = () => Swal.fire(SearchMessages.emptySearchResult.title, SearchMessages.emptySearchResult.message, 'warning');
+    private static showWarningMessageResultSetIsEmpty() {
+      const config: any = ToastConfiguration.nothingIsFoundToastConfiguration;
+      useToast().info(SearchMessages.emptySearchResult.message, config);
+    }
 
     public onTargetSelected(target: any) {
       const targetValue = isInstanceOfTeacher(target) ? target.id : target;

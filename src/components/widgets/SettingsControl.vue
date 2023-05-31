@@ -27,9 +27,10 @@
 <script lang="ts">
   import { USER_SETTINGS_KEY } from '@/common/keys';
   import UserMessages from '@/models/common/messages/UserMessages';
+  import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import SettingsModel from '@/models/components/widgets/SettingsModel';
-  import Swal from 'sweetalert2';
   import { Vue } from 'vue-class-component';
+  import { useToast } from 'vue-toastification';
 
   export default class SettingsControl extends Vue {
     public settingsControlModel = new SettingsModel();
@@ -37,7 +38,9 @@
     public beforeMount(): void {
       if (this.settingsControlModel.userSettingsAreInitializedAgain) {
         this.saveCurrentUserSettings();
-        Swal.fire(UserMessages.UserNotFound.title, UserMessages.UserNotFound.message, 'error');
+        const config: any = ToastConfiguration.userSettingsNotFoundToastConfiguration;
+
+        useToast().warning(UserMessages.UserNotFound, config);
       }
     }
 
@@ -46,14 +49,11 @@
     }
 
     private saveCurrentUserSettings() {
-      localStorage.setItem(
-        USER_SETTINGS_KEY,
-        JSON.stringify(this.settingsControlModel.currentUserSettings),
-      );
+      localStorage.setItem(USER_SETTINGS_KEY, JSON.stringify(this.settingsControlModel.currentUserSettings));
     }
   }
 </script>
 
 <style scoped>
-  @import "@/../public/css/settings/component.css";
+  @import '@/../public/css/settings/component.css';
 </style>
