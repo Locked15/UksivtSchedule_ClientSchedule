@@ -2,7 +2,7 @@ import ColorsTheme from '@/models/common/themes/ColorsTheme';
 
 import { CURRENT_THEME_KEY } from '../keys';
 
-export function getCurrentColorTheme(): ColorsTheme | null {
+export function getCurrentColorThemeViaStorage(): ColorsTheme | null {
   const localStorageValue = localStorage.getItem(CURRENT_THEME_KEY);
   if (localStorageValue !== null) {
     return JSON.parse(localStorageValue);
@@ -10,7 +10,7 @@ export function getCurrentColorTheme(): ColorsTheme | null {
   return null;
 }
 
-export function getDarkStateOfCurrentTheme(): boolean {
+export function getDarkStateOfCurrentThemeViaStorage(): boolean {
   const localStorageValue = localStorage.getItem(CURRENT_THEME_KEY);
   if (localStorageValue !== null) {
     const theme: ColorsTheme = JSON.parse(localStorageValue);
