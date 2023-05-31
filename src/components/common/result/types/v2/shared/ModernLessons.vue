@@ -13,8 +13,8 @@
     <tbody>
       <tr v-for="lesson in lessons" :key="`${resultItemId}-${lesson.lessonNumber}`" :class="getClassesForLessonRowItem(lesson)"
           @click="showInfoAboutLesson(lesson)">
-        <td class="non-hidable-item">{{ lesson.lessonNumber || '—' }}</td>
-        <td class="non-hidable-item">{{ lesson.lessonName || '—' }}</td>
+        <td class="non-hidable-item">{{ lesson.lessonNumber }}</td>
+        <td class="non-hidable-item">{{ lesson.lessonName }}</td>
         <td class="non-hidable-item">{{ lesson.lessonPlace || '—' }}</td>
         <td class="hidable-item">{{ getLessonTargetContent(lesson) || '—' }}</td>
         <td class="hidable-item">{{ lesson.lessonHoursPassed || '—' }}</td>
