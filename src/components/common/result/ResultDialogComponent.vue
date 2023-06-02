@@ -44,7 +44,7 @@
   import LegacyResultElement from '@/components/common/result/LegacyResultElement.vue';
   import IEntityParent from '@/models/api/entities/base/IEntityParent';
   import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
-  import { isInstanceOfLegacyEntity } from '@/models/api/entities/v1/common/LegacyEntityCastUtils';
+  import { isInstanceOfLegacyEntity } from '@/models/api/entities/v1/common/cast/LegacyEntityCastUtils';
   import ModernAPIEntitiesParent from '@/models/api/entities/v2/common/ModernAPIEntitiesParent';
   import { isInstanceOfModernEntity } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SelectableInformation from '@/models/common/user/SelectableInformation';
@@ -52,6 +52,8 @@
   import ModernResultElementModel from '@/models/components/common/result/ModernResultElementModel';
   import ResultDialogComponentModel from '@/models/components/common/result/ResultDialogComponentModel';
   import { Options, Vue } from 'vue-class-component';
+  import getFullTimeFromLegacyInstance from '@/models/api/entities/v1/common/cast/LegacyEntityTimeUtils';
+  import getFullTimeFromModernInstance from '@/models/api/entities/v2/common/cast/ModernEntityTimeUtils';
 
   import ModernResultElement from './ModernResultElement.vue';
 
@@ -132,15 +134,22 @@
     }
 
     private updateResultsArray(dayIndex: number, newItem: IEntityParent) {
+      const newObjectFullTime = ResultDialogComponent.getFullTimeForResultItem(dayIndex, newItem);
       this.componentModel.results.push({
-        dayId: dayIndex,
+        fullTime: newObjectFullTime,
         value: newItem,
       });
       this.componentModel.results.sort((a, b) => {
-        if (a.dayId > b.dayId) return 1;
-        if (a.dayId < b.dayId) return -1;
+        if (a.fullTime > b.fullTime) return 1;
+        if (a.fullTime < b.fullTime) return -1;
         return 0;
       });
+    }
+
+    private static getFullTimeForResultItem(dayIndex: number, newItem: IEntityParent): number | null {
+      if (isInstanceOfModernEntity(newItem)) return getFullTimeFromModernInstance(newItem);
+      if (isInstanceOfLegacyEntity(newItem)) return getFullTimeFromLegacyInstance(dayIndex, newItem);
+      return null;
     }
 
     public isInstanceOfLegacyEntity = (object: any) => isInstanceOfLegacyEntity(object);
