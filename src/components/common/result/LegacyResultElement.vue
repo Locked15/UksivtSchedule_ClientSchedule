@@ -21,7 +21,7 @@
   import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
   import FinalSchedule from '@/models/api/entities/v1/FinalSchedule';
   import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
-  import { isFinalSchedule, isScheduleOfDay, isScheduleReplacement } from '@/models/api/entities/v1/common/LegacyEntityCastUtils';
+  import { isFinalSchedule, isScheduleOfDay, isScheduleReplacement } from '@/models/api/entities/v1/common/cast/LegacyEntityCastUtils';
   import LegacyResultElementModel from '@/models/components/common/result/LegacyResultElementModel';
   import { Options, Vue } from 'vue-class-component';
   import LegacyBasicScheduleResultItem from './types/v1/LegacyBasicScheduleResultItem.vue';

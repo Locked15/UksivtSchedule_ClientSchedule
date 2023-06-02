@@ -1,7 +1,7 @@
-import BasicSchedule from '../BasicSchedule';
-import FinalSchedule from '../FinalSchedule';
-import ScheduleReplacement from '../ScheduleReplacement';
-import LegacyAPIEntitiesParent from './LegacyAPIEntitiesParent';
+import BasicSchedule from '../../BasicSchedule';
+import FinalSchedule from '../../FinalSchedule';
+import ScheduleReplacement from '../../ScheduleReplacement';
+import LegacyAPIEntitiesParent from '../LegacyAPIEntitiesParent';
 
 export function isInstanceOfLegacyEntity(instance: any): instance is LegacyAPIEntitiesParent {
   if (instance) {
