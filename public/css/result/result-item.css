@@ -1,6 +1,7 @@
 .altered-element {
   text-decoration: underline solid;
   text-decoration-thickness: 2px;
+  background-color: dodgerblue;
 }
 
 tr.data-is-empty > td:nth-child(2) {
