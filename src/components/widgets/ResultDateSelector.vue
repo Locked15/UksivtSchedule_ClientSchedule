@@ -9,7 +9,7 @@
                          v-model="selectorModel.selectedTargetDates"
                          @update:model-value="onTargetItemsSelectionChanged()"
                          :teleport="true"
-                         :dark="getCurrentThemeState()"
+                         :dark="getCurrentThemeDarkState()"
                          :clearable="false"
                          placeholder="Укажите целевые даты"
                          :class="selectorModel.selectedTargetDates.length > 0 ? 'date-selector-active' : ''" />
@@ -69,7 +69,7 @@
 
     public data = () => this.selectorModel;
 
-    public getCurrentThemeState(): boolean {
+    public getCurrentThemeDarkState(): boolean {
       const currentThemeName = this.$vuetify.theme.name;
       const isDarkTheme = ApplicationThemes.colorThemes.find((theme) => theme.name === currentThemeName)?.isDarkTheme;
 
