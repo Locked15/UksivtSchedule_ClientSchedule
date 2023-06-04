@@ -59,13 +59,13 @@
     // eslint-disable-next-line class-methods-use-this
     public getClassesForLessonRowItem = (lesson: Lesson) => (lesson.changed ? 'altered-element' : '');
 
-  public showInfoAboutLesson(lesson: Lesson) {
-    if (this.isScreenNarrow) {
-      const message = ResultMessages.LegacyLessonDetailsMessage.message
-        .replace('{0}', lesson.place || '[N/A]');
-      Swal.fire(ResultMessages.LegacyLessonDetailsMessage.title, message, 'info');
+    public showInfoAboutLesson(lesson: Lesson) {
+      if (this.isScreenNarrow) {
+        const message = ResultMessages.LegacyLessonDetailsMessage.message
+          .replace('{0}', lesson.place || '[N/A]');
+        Swal.fire(ResultMessages.LegacyLessonDetailsMessage.title, message, 'info');
+      }
     }
-  }
   }
 </script>
 
