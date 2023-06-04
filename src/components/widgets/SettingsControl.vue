@@ -40,7 +40,7 @@
         this.saveCurrentUserSettings();
         const config: any = ToastConfiguration.userSettingsNotFoundToastConfiguration;
 
-        useToast().warning(UserMessages.UserNotFound, config);
+        useToast().warning(UserMessages.UserNotFound.message, config);
       }
     }
 
