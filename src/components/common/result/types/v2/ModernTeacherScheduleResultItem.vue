@@ -40,16 +40,16 @@
   export default class ModernTeacherScheduleResultItem extends Vue {
     public itemModel!: TeacherScheduleWrapper;
 
-    public getCurrentScheduleReplacementsActuality(): boolean {
-      return this.itemModel.lessonsInfo.filter((lesson) => lesson.lessonIsChanged).length > 0;
-    }
-
     public getDateTitle(): string {
       return DateWorker.getNamedDateTitleString(this.itemModel.targetDate);
     }
 
     public getResultItemId(): number {
       return DateWorker.getFullTime(this.itemModel.targetDate);
+    }
+
+    public getCurrentScheduleReplacementsActuality(): boolean {
+      return this.itemModel.lessonsInfo.filter((lesson) => lesson.lessonIsChanged).length > 0;
     }
   }
 </script>
