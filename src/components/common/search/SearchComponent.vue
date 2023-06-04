@@ -93,8 +93,9 @@ import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration
     public onSearchRequestUpdated() {
       if (this.viewModel.searchByTeachers) {
         this.searchForTargetTeacher();
+      } else {
+        this.searchForTargetGroup();
       }
-      this.searchForTargetGroup();
     }
 
     private searchForTargetTeacher() {
