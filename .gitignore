@@ -2,8 +2,10 @@
 node_modules
 /dist
 
+# Analitcs folders
+/target/npmlist.*
 
-# local env files
+# Local env files
 .env.local
 .env.*.local
 
