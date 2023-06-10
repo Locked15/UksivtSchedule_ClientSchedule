@@ -4,7 +4,7 @@
     <Transition name="result-fade">
       <div class="result-fade-item">
         <h3>Замены для Расписания</h3>
-        <div class="result-type-title">
+        <div class="result-item-component">
           <h5>Замены на {{ getDateTitle() }}</h5>
           <ModernLessons :resultItemId="getResultItemId()" :forTeacher="false" :lessons="itemModel.lessonsInfo" />
         </div>

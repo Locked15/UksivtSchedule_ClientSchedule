@@ -4,7 +4,7 @@
     <Transition name="result-fade">
       <div class="result-fade-item">
         <h3>Итоговое Расписание</h3>
-        <div class="result-type-title">
+        <div class="result-item-component">
           <h5>Расписание на {{ getDateTitle() }}</h5>
           <LegacyLessons :resultItemId="itemModel.schedule.day" :lessons="getFilteredLessons()" />
         </div>
