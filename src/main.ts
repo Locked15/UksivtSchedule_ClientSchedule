@@ -55,8 +55,12 @@ function createVuetifyInstance(): any {
 function createVueToastifyConfigInstance(): ToastifyPluginOptions {
   const config = {
     transition: 'Vue-Toastification__fade',
-    maxToasts: 20,
+    maxToasts: 2,
     newestOnTop: true,
+    filterBeforeCreate: (toast: any, toasts: any[]) => {
+      if (toasts.filter((t) => t.type === toast.type).length !== 0) return false;
+      return toast;
+    },
   };
   return config;
 }
