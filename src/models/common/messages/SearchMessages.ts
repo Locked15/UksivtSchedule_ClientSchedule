@@ -4,7 +4,7 @@ import BaseMessage from '@/models/common/messages/base/BaseMessage';
 export default class SearchMessages {
   public static readonly emptySearchResult = new BaseMessage(
     'Ничего не найдено...',
-    'По Вашему поисковому запросу ничего не найдено.\nПопробуйте изменить поисковый запрос.',
+    'По запросу ничего не найдено.\nПопробуйте изменить запрос.',
   );
 
   public static readonly teachersSearchNotYetImplemented = new BaseMessage(
