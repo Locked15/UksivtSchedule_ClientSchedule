@@ -14,7 +14,7 @@
 
 .heirloom-hr::before {
   display: block;
-  content: "";
+  content: '';
   height: 30px;
   margin-top: -31px;
   border-style: solid;
@@ -48,8 +48,8 @@
   box-sizing: border-box;
 }
 
+/* Time Solution. */
 .footer-content {
-  /* Time Solution. */
   display: none;
 }
 
