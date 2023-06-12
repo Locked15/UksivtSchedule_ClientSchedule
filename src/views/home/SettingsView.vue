@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/max-len (Because Prettier have another settings, and this page contains a lot of long texts). -->
-
 <template>
   <div class="settings-parent-container">
     <h1 class="header-content">Настройки</h1>

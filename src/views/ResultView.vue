@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-len -->
 <template>
   <div>
     <h1>Выборка Результата</h1>
