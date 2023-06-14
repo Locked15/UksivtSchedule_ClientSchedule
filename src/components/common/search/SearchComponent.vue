@@ -40,7 +40,7 @@
   import Teacher from '@/models/api/entities/v2/base/Teacher';
   import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SearchMessages from '@/models/common/messages/SearchMessages';
-import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
+  import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import UserSettings from '@/models/common/user/UserSettings';
   import SearchModel from '@/models/components/common/search/SearchModel';
   import Swal from 'sweetalert2';

@@ -93,6 +93,8 @@
   import Swal from 'sweetalert2';
   import { Options, Vue } from 'vue-class-component';
   import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
+  import ApplicationData from '@/common/data/ApplicationData';
+  import Teacher from '@/models/api/entities/v2/base/Teacher';
 
   @Options({
     components: {
@@ -127,7 +129,17 @@
       this.viewModel.searchByTeachers = searchByTeachers;
     }
 
-    public getInfoAboutResult = () => Swal.fire(this.viewModel.target, 'В данном окне представлена выбранная Вами информация.', 'info');
+    public getInfoAboutResult = () => Swal.fire('Сведения', `Данные для: ${this.getTargetObjectTitle()}.`, 'info');
+
+    private getTargetObjectTitle(): string {
+      let result = this.viewModel.target;
+      if (this.viewModel.searchByTeachers) {
+        const foundTeacher = ApplicationData.availableTeachers.find((teacher) => teacher.id === Number(this.viewModel.target));
+        result = foundTeacher ? Teacher.clone(foundTeacher).toString() : '[N/A]';
+      }
+
+      return result;
+    }
 
     public checkBasicScheduleSelectionIsEnabled = () => ResultView.checkToPresence(SelectableInformation.BASIC_SCHEDULE.id, this.viewModel.currentUserSettings.informationToSelect);
 
