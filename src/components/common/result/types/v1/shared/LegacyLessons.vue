@@ -2,11 +2,11 @@
   <v-table>
     <thead>
       <tr>
-        <th class="text-left">Номер</th>
-        <th class="text-left">Название</th>
-        <th class="text-left">Преподаватель</th>
-        <th class="text-left hidable-item">Аудитория</th>
-        <th class="text-left hidable-item" title="На данный момент нереализовано..."><i>Время</i></th>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Преподаватель</th>
+        <th class="hidable-item">Аудитория</th>
+        <th class="text-center hidable-item">Время</th>
       </tr>
     </thead>
     <tbody>
@@ -14,9 +14,11 @@
           @click="showInfoAboutLesson(lesson)">
         <td class="non-hidable-item">{{ lesson.number }}</td>
         <td class="non-hidable-item">{{ lesson.name }}</td>
-        <td class="non-hidable-item">{{ lesson.teacher || '—' }}</td>
-        <td class="hidable-item">{{ lesson.place || '—' }}</td>
-        <td class="hidable-item">🕛 ... 🕧</td>
+        <td class="non-hidable-item">{{ lesson.teacher ?? '—' }}</td>
+        <td class="hidable-item">{{ lesson.place ?? '—' }}</td>
+        <td class="hidable-item hours-info">
+          <div v-for="targetHour in lesson.targetHours" :key="`${targetHour}-${lesson.number}`">{{ targetHour }}</div>
+        </td>
       </tr>
 
       <tr class="data-is-empty" v-if="lessons.length < 1">
@@ -30,6 +32,7 @@
 
 <script lang="ts">
   import ApplicationData from '@/common/data/ApplicationData';
+  import { getLegacyLessonInfoMessage } from '@/common/utils/helpers/LessonHelper';
   import Lesson from '@/models/api/entities/v1/base/Lesson';
   import ResultMessages from '@/models/common/messages/ResultMessages';
   import Swal from 'sweetalert2';
@@ -61,8 +64,7 @@
 
     public showInfoAboutLesson(lesson: Lesson) {
       if (this.isScreenNarrow) {
-        const message = ResultMessages.LegacyLessonDetailsMessage.message
-          .replace('{0}', lesson.place || '[N/A]');
+        const message = getLegacyLessonInfoMessage(lesson);
         Swal.fire(ResultMessages.LegacyLessonDetailsMessage.title, message, 'info');
       }
     }

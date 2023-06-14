@@ -2,12 +2,12 @@
   <v-table>
     <thead>
       <tr>
-        <th class="text-left">Номер</th>
-        <th class="text-left">Название</th>
-        <th class="text-left">Аудитория</th>
-        <th class="text-left hidable-item">{{ getLessonTargetTitle(forTeacher) }}</th>
-        <th class="text-left hidable-item">Часов</th>
-        <th class="text-left hidable-item" title="На данный момент нереализовано..."><i>Время</i></th>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Аудитория</th>
+        <th class="hidable-item">{{ getLessonTargetTitle(forTeacher) }}</th>
+        <th class="hidable-item">Часов</th>
+        <th class="text-center hidable-item">Время</th>
       </tr>
     </thead>
     <tbody>
@@ -15,10 +15,12 @@
           @click="showInfoAboutLesson(lesson)">
         <td class="non-hidable-item">{{ lesson.lessonNumber }}</td>
         <td class="non-hidable-item">{{ lesson.lessonName }}</td>
-        <td class="non-hidable-item">{{ lesson.lessonPlace || '—' }}</td>
-        <td class="hidable-item">{{ getLessonTargetContent(lesson) || '—' }}</td>
-        <td class="hidable-item">{{ lesson.lessonHoursPassed || '—' }}</td>
-        <td class="hidable-item">🕛 ... 🕧</td>
+        <td class="non-hidable-item">{{ lesson.lessonPlace ?? '—' }}</td>
+        <td class="hidable-item">{{ getLessonTargetContent(lesson) ?? '—' }}</td>
+        <td class="hidable-item">{{ lesson.lessonHoursPassed ?? '—' }}</td>
+        <td class="hidable-item hours-info">
+          <div v-for="targetHour in lesson.lessonTargetHours" :key="`${targetHour}-${lesson.lessonNumber}`">{{ targetHour }}</div>
+        </td>
       </tr>
 
       <tr class="data-is-empty" v-if="lessons.length < 1">
@@ -32,8 +34,9 @@
 
 <script lang="ts">
   import ApplicationData from '@/common/data/ApplicationData';
+  import { getModernLessonInfoMessage } from '@/common/utils/helpers/LessonHelper';
   import ModernAPILessonEntitiesParent from '@/models/api/entities/v2/common/ModernAPILessonEntitiesParent';
-  import { getLessonSpecifiedTarget, getPassedLessonsCountInString } from '@/models/api/entities/v2/common/cast/ModernLessonUtils';
+  import { getLessonSpecifiedTarget } from '@/models/api/entities/v2/common/cast/ModernLessonUtils';
   import ResultMessages from '@/models/common/messages/ResultMessages';
   import Swal from 'sweetalert2';
   import { Options, Vue } from 'vue-class-component';
@@ -62,22 +65,17 @@
       return this.isScreenNarrow ? 1 : 2;
     }
 
-    // eslint-disable-next-line class-methods-use-this
     public getLessonTargetTitle = (forTeacher: boolean) => (forTeacher ? 'Группа' : 'Преподаватель');
 
     public getLessonTargetContent(lesson: ModernAPILessonEntitiesParent): string | null {
       return getLessonSpecifiedTarget(lesson, this.forTeacher);
     }
 
-    // eslint-disable-next-line class-methods-use-this
     public getClassesForLessonRowItem = (lesson: ModernAPILessonEntitiesParent) => (lesson.lessonIsChanged ? 'altered-element' : '');
 
     public showInfoAboutLesson(lesson: ModernAPILessonEntitiesParent) {
       if (this.isScreenNarrow) {
-        const message = ResultMessages.ModernLessonDetailsMessage.message
-          .replace('{0}', this.getLessonTargetContent(lesson) || '[N/A]')
-          .replace('{1}', lesson.lessonHoursPassed?.toString() || '[N/A]')
-          .replace('{2}', getPassedLessonsCountInString(lesson));
+        const message = getModernLessonInfoMessage(lesson, this.forTeacher);
         Swal.fire(ResultMessages.ModernLessonDetailsMessage.title, message, 'info');
       }
     }
