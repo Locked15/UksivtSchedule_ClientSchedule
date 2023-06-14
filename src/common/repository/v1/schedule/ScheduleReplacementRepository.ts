@@ -1,4 +1,4 @@
-/* eslint-disable vue/max-len */
+/* eslint-disable no-await-in-loop */
 import ILegacyScheduleRepository from '@/common/repository/base/ILegacyScheduleRepository';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APILegacyRequestFactoryExtension from '@/models/api/connection/extensions/APILegacyRequestFactoryExtension';
@@ -6,6 +6,7 @@ import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
 import Axios from 'axios';
 
 import ErrorResolver from '../../common/ErrorResolver';
+import { addLessonsTargetHoursForLegacyEntity } from '../../common/LessonHoursHelper';
 import { addLegacyMark } from '../../common/MarkHelper';
 
 export default class ScheduleReplacementsRepository implements ILegacyScheduleRepository<ScheduleReplacement> {
@@ -19,12 +20,13 @@ export default class ScheduleReplacementsRepository implements ILegacyScheduleRe
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPI(dayIndex, groupName);
     while (data === null && attempts > 0) {
-      // eslint-disable-next-line no-await-in-loop
       data = await this.tryToGetDataFromAPI(dayIndex, groupName);
       attempts -= 1;
     }
 
     addLegacyMark(data);
+    addLessonsTargetHoursForLegacyEntity(groupName, dayIndex, data.newLessons);
+
     return data;
   }
 

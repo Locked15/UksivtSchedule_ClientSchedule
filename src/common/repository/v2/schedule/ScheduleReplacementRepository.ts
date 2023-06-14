@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop, no-param-reassign */
 import DateWorker from '@/common/utils/workers/DateWorker';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APIModernRequestFactoryExtension from '@/models/api/connection/extensions/APIModernRequestFactoryExtension';
@@ -7,6 +8,7 @@ import Axios from 'axios';
 
 import IModernScheduleRepository from '../../base/IModernScheduleRepository';
 import ErrorResolver from '../../common/ErrorResolver';
+import { getLessonTargetHoursForModernEntity } from '../../common/LessonHoursHelper';
 import { addModernMark } from '../../common/MarkHelper';
 
 export default class ScheduleReplacementRepository implements IModernScheduleRepository<GroupScheduleReplacementWrapper, TeacherScheduleWrapper> {
@@ -20,12 +22,15 @@ export default class ScheduleReplacementRepository implements IModernScheduleRep
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPIForGroup(targetGroup, targetDate);
     while (data === undefined && attempts > 0) {
-      // eslint-disable-next-line no-await-in-loop
       data = await this.tryToGetDataFromAPIForGroup(targetGroup, targetDate);
       attempts -= 1;
     }
 
     addModernMark(data);
+    data.lessonsInfo.forEach((lesson) => {
+      lesson.lessonTargetHours = getLessonTargetHoursForModernEntity(lesson.lessonNumber ?? -1, targetGroup, targetDate);
+    });
+
     return data;
   }
 
@@ -43,16 +48,27 @@ export default class ScheduleReplacementRepository implements IModernScheduleRep
     return data;
   }
 
+  private static createRouteForGroupScheduleReplacementRequest(useStableBranch: boolean) {
+    const routeFactory = new APIRequestFactory(useStableBranch, true);
+    APIModernRequestFactoryExtension.applyReplacementsForGroupRoutePath(routeFactory, true, true);
+
+    const route = routeFactory.build();
+    return route.toString();
+  }
+
   public async getDataFromAPIForTeacher(teacherId: number, targetDate: Date, remainAttempts: number): Promise<TeacherScheduleWrapper> {
     let attempts = remainAttempts;
     let data = await this.tryToGetDataFromAPIForTeacher(teacherId, targetDate);
     while (data === undefined && attempts > 0) {
-      // eslint-disable-next-line no-await-in-loop
       data = await this.tryToGetDataFromAPIForTeacher(teacherId, targetDate);
       attempts -= 1;
     }
 
     addModernMark(data);
+    data.lessonsInfo.forEach((lesson) => {
+      lesson.lessonTargetHours = getLessonTargetHoursForModernEntity(lesson.lessonNumber ?? -1, lesson.lessonGroup ?? '19П-3', targetDate);
+    });
+
     return data;
   }
 
@@ -68,14 +84,6 @@ export default class ScheduleReplacementRepository implements IModernScheduleRep
       .catch((error) => new ErrorResolver(error).alertAboutError());
 
     return data;
-  }
-
-  private static createRouteForGroupScheduleReplacementRequest(useStableBranch: boolean) {
-    const routeFactory = new APIRequestFactory(useStableBranch, true);
-    APIModernRequestFactoryExtension.applyReplacementsForGroupRoutePath(routeFactory, true, true);
-
-    const route = routeFactory.build();
-    return route.toString();
   }
 
   private static createRouteForTeacherScheduleReplacementRequest(useStableBranch: boolean) {
