@@ -1,6 +1,6 @@
 import ColorsTheme from '@/models/common/themes/ColorsTheme';
 
-import { CURRENT_THEME_KEY } from '../keys';
+import { CURRENT_THEME_KEY } from '../../keys';
 
 export function getCurrentColorThemeViaStorage(): ColorsTheme | null {
   const localStorageValue = localStorage.getItem(CURRENT_THEME_KEY);
