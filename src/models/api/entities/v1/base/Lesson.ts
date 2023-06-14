@@ -11,6 +11,8 @@ export default class Lesson extends LegacyAPIEntitiesParent {
 
   public changed: boolean;
 
+  public targetHours: string[];
+
   constructor(
     number: number,
     name: string,
@@ -25,5 +27,6 @@ export default class Lesson extends LegacyAPIEntitiesParent {
     this.teacher = teacher;
     this.place = place;
     this.changed = isChanged;
+    this.targetHours = [];
   }
 }

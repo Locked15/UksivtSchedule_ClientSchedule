@@ -14,6 +14,8 @@ export default abstract class ModernAPILessonEntitiesParent extends ModernAPIEnt
 
   public lessonHoursPassed: number | null;
 
+  public lessonTargetHours: string[];
+
   public constructor(
     lessonNumber: number | null,
     lessonName: string | null,
@@ -28,6 +30,7 @@ export default abstract class ModernAPILessonEntitiesParent extends ModernAPIEnt
     this.lessonPlace = lessonPlace;
     this.lessonIsChanged = lessonIsChanged;
     this.lessonHoursPassed = lessonHoursPassed;
+    this.lessonTargetHours = [];
   }
 
   public abstract getSpecifiedTarget(): string | null;
