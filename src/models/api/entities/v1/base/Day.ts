@@ -1,4 +1,4 @@
-import DateWorker from '@/common/utils/DateWorker';
+import DateWorker from '@/common/utils/workers/DateWorker';
 import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
 
 export default class Day extends LegacyAPIEntitiesParent {

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/workers/DateWorker';
   import GroupBasicScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupBasicScheduleWrapper';
   import { Options, Vue } from 'vue-class-component';
 

@@ -1,4 +1,4 @@
-import DateWorker from '@/common/utils/DateWorker';
+import DateWorker from '@/common/utils/workers/DateWorker';
 
 import LegacyAPIEntitiesParent from '../LegacyAPIEntitiesParent';
 import { isFinalSchedule, isScheduleOfDay, isScheduleReplacement } from './LegacyEntityCastUtils';

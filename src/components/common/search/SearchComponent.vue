@@ -36,7 +36,7 @@
   import ApplicationData from '@/common/data/ApplicationData';
   import StructureRepository from '@/common/repository/v1/StructureRepository';
   import SearchRepository from '@/common/repository/v2/SearchRepository';
-  import { compareTeacherData, compareGroupData } from '@/common/utils/FilterHelper';
+  import { compareTeacherData, compareGroupData } from '@/common/utils/helpers/FilterHelper';
   import Teacher from '@/models/api/entities/v2/base/Teacher';
   import { isInstanceOfTeacher } from '@/models/api/entities/v2/common/cast/ModernEntityCastUtils';
   import SearchMessages from '@/models/common/messages/SearchMessages';

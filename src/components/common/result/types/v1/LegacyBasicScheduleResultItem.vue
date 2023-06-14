@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { checkLegacyLessonIsActual } from '@/common/utils/FilterHelper';
+  import { checkLegacyLessonIsActual } from '@/common/utils/helpers/FilterHelper';
   import BasicSchedule from '@/models/api/entities/v1/BasicSchedule';
   import Lesson from '@/models/api/entities/v1/base/Lesson';
   import { Options, Vue } from 'vue-class-component';

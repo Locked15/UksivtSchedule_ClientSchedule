@@ -47,7 +47,7 @@
   import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
   import Swal from 'sweetalert2';
   import { Vue, Options } from 'vue-class-component';
-  import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/workers/DateWorker';
   import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
 
   @Options({

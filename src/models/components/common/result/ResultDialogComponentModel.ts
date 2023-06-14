@@ -1,4 +1,4 @@
-import DateWorker from '@/common/utils/DateWorker';
+import DateWorker from '@/common/utils/workers/DateWorker';
 import Day from '@/models/api/entities/v1/base/Day';
 import SelectableInformation from '@/models/common/user/SelectableInformation';
 import UserSettings from '@/models/common/user/UserSettings';

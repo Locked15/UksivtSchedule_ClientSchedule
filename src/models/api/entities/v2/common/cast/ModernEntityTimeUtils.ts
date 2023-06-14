@@ -1,4 +1,4 @@
-import DateWorker from '@/common/utils/DateWorker';
+import DateWorker from '@/common/utils/workers/DateWorker';
 
 import ModernAPIEntitiesParent from '../ModernAPIEntitiesParent';
 import {

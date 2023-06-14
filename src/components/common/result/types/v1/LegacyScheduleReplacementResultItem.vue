@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-  import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/workers/DateWorker';
   import ScheduleReplacement from '@/models/api/entities/v1/ScheduleReplacement';
   import { Options, Vue } from 'vue-class-component';
 

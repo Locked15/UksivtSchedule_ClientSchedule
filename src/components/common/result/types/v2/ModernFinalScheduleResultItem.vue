@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/workers/DateWorker';
   import GroupFinalScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupFinalScheduleWrapper';
   import { Options, Vue } from 'vue-class-component';
 

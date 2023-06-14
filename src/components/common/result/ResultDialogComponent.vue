@@ -40,7 +40,7 @@
   import ModernBasicScheduleRepository from '@/common/repository/v2/schedule/BasicScheduleRepository';
   import ModernFinalScheduleRepository from '@/common/repository/v2/schedule/FinalScheduleRepository';
   import ModernScheduleReplacementRepository from '@/common/repository/v2/schedule/ScheduleReplacementRepository';
-  import DateWorker from '@/common/utils/DateWorker';
+  import DateWorker from '@/common/utils/workers/DateWorker';
   import LegacyResultElement from '@/components/common/result/LegacyResultElement.vue';
   import IEntityParent from '@/models/api/entities/base/IEntityParent';
   import LegacyAPIEntitiesParent from '@/models/api/entities/v1/common/LegacyAPIEntitiesParent';
