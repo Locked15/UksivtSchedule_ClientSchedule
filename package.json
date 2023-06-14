@@ -1,6 +1,6 @@
 {
   "name": "uksivt_schedule-client_schedule",
-  "version": "1.1.3-FX3",
+  "version": "1.1.4",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,27 +9,27 @@
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
-    "@popperjs/core": "^2.11.7",
+    "@popperjs/core": "^2.11.8",
     "@vue/eslint-config-airbnb-with-typescript": "^7.0.0",
-    "@vuepic/vue-datepicker": "^5.1.2",
-    "axios": "^1.3.4",
-    "bootstrap": "^5.2.3",
-    "core-js": "^3.30.0",
-    "sweetalert2": "^11.7.11",
-    "vue": "^3.2.47",
+    "@vuepic/vue-datepicker": "^5.2.1",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
+    "core-js": "^3.31.0",
+    "sweetalert2": "^11.7.12",
+    "vue": "^3.3.4",
     "vue-axios": "^3.5.2",
     "vue-class-component": "^8.0.0-0",
-    "vue-router": "^4.1.6",
+    "vue-router": "^4.2.2",
     "vue-toastification": "^2.0.0-rc.5",
-    "vuetify": "^3.1.13",
+    "vuetify": "^3.3.3",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.21.0",
+    "@babel/plugin-proposal-decorators": "^7.22.5",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/bootstrap": "^5.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
     "@vue/cli-plugin-babel": "~5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-plugin-router": "~5.0.8",
@@ -37,11 +37,11 @@
     "@vue/cli-plugin-vuex": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/eslint-config-airbnb": "^7.0.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "eslint": "^8.37.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "eslint": "^8.42.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-vue": "^9.10.0",
+    "eslint-plugin-vue": "^9.14.1",
     "eslint-plugin-vuejs-accessibility": "^2.1.0",
-    "typescript": "~5.0.3"
+    "typescript": "~5.1.3"
   }
 }
