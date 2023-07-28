@@ -33,6 +33,9 @@
 </template>
 
 <script lang="ts">
+  import Swal from 'sweetalert2';
+  import { Vue } from 'vue-class-component';
+  import { useToast } from 'vue-toastification';
   import ApplicationData from '@/common/data/ApplicationData';
   import StructureRepository from '@/common/repository/v1/StructureRepository';
   import SearchRepository from '@/common/repository/v2/SearchRepository';
@@ -43,9 +46,6 @@
   import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import UserSettings from '@/models/common/user/UserSettings';
   import SearchModel from '@/models/components/common/search/SearchModel';
-  import Swal from 'sweetalert2';
-  import { Vue } from 'vue-class-component';
-  import { useToast } from 'vue-toastification';
 
   export default class SearchComponent extends Vue {
     /**

@@ -31,12 +31,12 @@
 </template>
 
 <script lang="ts">
+  import Swal from 'sweetalert2';
+  import { Options, Vue } from 'vue-class-component';
   import ApplicationData from '@/common/data/ApplicationData';
   import { getLegacyLessonInfoMessage } from '@/common/utils/helpers/LessonHelper';
   import Lesson from '@/models/api/entities/v1/base/Lesson';
   import ResultMessages from '@/models/common/messages/ResultMessages';
-  import Swal from 'sweetalert2';
-  import { Options, Vue } from 'vue-class-component';
 
   @Options({
     props: {

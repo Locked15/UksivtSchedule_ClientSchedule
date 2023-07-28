@@ -85,13 +85,13 @@
 </template>
 
 <script lang="ts">
+  import Swal from 'sweetalert2';
+  import { Options, Vue } from 'vue-class-component';
   import ResultDialogComponent from '@/components/common/result/ResultDialogComponent.vue';
   import ResultDialogComponentModel from '@/models/components/common/result/ResultDialogComponentModel';
   import ResultDateSelector from '@/components/widgets/ResultDateSelector.vue';
   import SelectableInformation from '@/models/common/user/SelectableInformation';
   import ResultViewSelectionModel from '@/models/views/ResultViewSelectionModel';
-  import Swal from 'sweetalert2';
-  import { Options, Vue } from 'vue-class-component';
   import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
   import ApplicationData from '@/common/data/ApplicationData';
   import Teacher from '@/models/api/entities/v2/base/Teacher';

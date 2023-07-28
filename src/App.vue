@@ -47,13 +47,13 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import { CURRENT_THEME_KEY } from '@/common/keys';
+
   import FooterComponent from '@/components/base/FooterComponent.vue';
   import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
   import ColorsTheme from '@/models/common/themes/ColorsTheme';
   import ApplicationBaseModel from '@/models/views/ApplicationBaseModel';
-
-  import { Options, Vue } from 'vue-class-component';
 
   @Options({
     props: {

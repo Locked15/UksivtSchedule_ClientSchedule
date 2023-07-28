@@ -1,8 +1,8 @@
+import Axios from 'axios';
 import { SAVED_TEACHERS_DATA } from '@/common/keys';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APIModernRequestFactoryExtension from '@/models/api/connection/extensions/APIModernRequestFactoryExtension';
 import Teacher from '@/models/api/entities/v2/base/Teacher';
-import Axios from 'axios';
 
 import IScheduleAPIRepository from '../base/IScheduleAPIRepository';
 import ErrorResolver from '../common/ErrorResolver';

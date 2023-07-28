@@ -1,10 +1,10 @@
 /* eslint-disable no-await-in-loop, no-param-reassign */
+import Axios from 'axios';
 import DateWorker from '@/common/utils/workers/DateWorker';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APIModernRequestFactoryExtension from '@/models/api/connection/extensions/APIModernRequestFactoryExtension';
 import TeacherScheduleWrapper from '@/models/api/entities/v2/wrappers/TeacherScheduleWrapper';
 import GroupBasicScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupBasicScheduleWrapper';
-import Axios from 'axios';
 
 import IModernScheduleRepository from '../../base/IModernScheduleRepository';
 import ErrorResolver from '../../common/ErrorResolver';

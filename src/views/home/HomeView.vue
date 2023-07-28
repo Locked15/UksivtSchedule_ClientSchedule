@@ -53,9 +53,9 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import FavoriteRequests from '@/components/common/search/FavoriteRequests.vue';
   import SearchComponent from '@/components/common/search/SearchComponent.vue';
-  import { Options, Vue } from 'vue-class-component';
 
   @Options({
     components: {

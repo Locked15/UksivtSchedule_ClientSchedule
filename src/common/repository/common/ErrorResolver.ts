@@ -1,5 +1,5 @@
-import APIMessages from '@/models/common/messages/APIMessages';
 import Swal from 'sweetalert2';
+import APIMessages from '@/models/common/messages/APIMessages';
 
 export default class ErrorResolver {
   private error: any;

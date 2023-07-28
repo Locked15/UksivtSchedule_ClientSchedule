@@ -31,6 +31,7 @@
 <!-- eslint-disable vue/max-len -->
 <!-- eslint-disable class-methods-use-this -->
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import ILegacyScheduleRepository from '@/common/repository/base/ILegacyScheduleRepository';
   import IModernScheduleRepository from '@/common/repository/base/IModernScheduleRepository';
   import IScheduleRepository from '@/common/repository/base/IScheduleAPIRepository';
@@ -51,7 +52,6 @@
   import LegacyResultElementModel from '@/models/components/common/result/LegacyResultElementModel';
   import ModernResultElementModel from '@/models/components/common/result/ModernResultElementModel';
   import ResultDialogComponentModel from '@/models/components/common/result/ResultDialogComponentModel';
-  import { Options, Vue } from 'vue-class-component';
   import getFullTimeFromLegacyInstance from '@/models/api/entities/v1/common/cast/LegacyEntityTimeUtils';
   import getFullTimeFromModernInstance from '@/models/api/entities/v2/common/cast/ModernEntityTimeUtils';
 

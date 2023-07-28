@@ -1,8 +1,8 @@
 /* eslint-disable vue/max-len */
+import Axios from 'axios';
 import { SAVED_GROUPS_DATA } from '@/common/keys';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APILegacyRequestFactoryExtension from '@/models/api/connection/extensions/APILegacyRequestFactoryExtension';
-import Axios from 'axios';
 
 import IScheduleAPIRepository from '../base/IScheduleAPIRepository';
 import ErrorResolver from '../common/ErrorResolver';

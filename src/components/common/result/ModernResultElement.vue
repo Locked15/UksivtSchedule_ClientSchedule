@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import {
     isInstanceOfGroupBasicScheduleWrapper,
     isInstanceOfGroupFinalScheduleWrapper,
@@ -39,7 +40,6 @@
   import GroupFinalScheduleWrapper from '@/models/api/entities/v2/wrappers/group/GroupFinalScheduleWrapper';
   import GroupScheduleReplacementWrapper from '@/models/api/entities/v2/wrappers/group/GroupScheduleReplacementWrapper';
   import ModernResultElementModel from '@/models/components/common/result/ModernResultElementModel';
-  import { Options, Vue } from 'vue-class-component';
   import ModernFinalScheduleResultItem from './types/v2/ModernFinalScheduleResultItem.vue';
   import ModernBasicScheduleResultItem from './types/v2/ModernBasicScheduleResultItem.vue';
   import ModernScheduleReplacementResultItem from './types/v2/ModernScheduleReplacementResultItem.vue';

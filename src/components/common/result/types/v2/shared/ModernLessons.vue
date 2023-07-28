@@ -33,13 +33,13 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
+  import Swal from 'sweetalert2';
   import ApplicationData from '@/common/data/ApplicationData';
   import { getModernLessonInfoMessage } from '@/common/utils/helpers/LessonHelper';
   import ModernAPILessonEntitiesParent from '@/models/api/entities/v2/common/ModernAPILessonEntitiesParent';
   import { getLessonSpecifiedTarget } from '@/models/api/entities/v2/common/cast/ModernLessonUtils';
   import ResultMessages from '@/models/common/messages/ResultMessages';
-  import Swal from 'sweetalert2';
-  import { Options, Vue } from 'vue-class-component';
 
   @Options({
     props: {

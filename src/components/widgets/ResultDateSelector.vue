@@ -43,10 +43,10 @@
 
 <script lang="ts">
   import VueDatePicker from '@vuepic/vue-datepicker';
+  import { Vue, Options } from 'vue-class-component';
+  import Swal from 'sweetalert2';
   import ResultMessages from '@/models/common/messages/ResultMessages';
   import ResultDateSelectorModel from '@/models/components/widgets/ResultDateSelectorModel';
-  import Swal from 'sweetalert2';
-  import { Vue, Options } from 'vue-class-component';
   import DateWorker from '@/common/utils/workers/DateWorker';
   import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
 

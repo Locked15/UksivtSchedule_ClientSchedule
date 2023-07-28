@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import DateWorker from '@/common/utils/workers/DateWorker';
   import { checkLegacyLessonIsActual } from '@/common/utils/helpers/FilterHelper';
   import FinalSchedule from '@/models/api/entities/v1/FinalSchedule';
   import Lesson from '@/models/api/entities/v1/base/Lesson';
-  import { Options, Vue } from 'vue-class-component';
 
   import LegacyLessons from './shared/LegacyLessons.vue';
 

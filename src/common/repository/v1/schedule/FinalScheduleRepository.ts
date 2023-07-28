@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop */
+import Axios from 'axios';
 import ILegacyScheduleRepository from '@/common/repository/base/ILegacyScheduleRepository';
 import APIRequestFactory from '@/models/api/connection/APIRequestFactory';
 import APILegacyRequestFactoryExtension from '@/models/api/connection/extensions/APILegacyRequestFactoryExtension';
 import FinalSchedule from '@/models/api/entities/v1/FinalSchedule';
-import Axios from 'axios';
 
 import ErrorResolver from '../../common/ErrorResolver';
 import { addLessonsTargetHoursForLegacyEntity } from '../../common/LessonHoursHelper';

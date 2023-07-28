@@ -23,9 +23,9 @@
 </template>
 
 <script lang="ts">
+  import { Options, Vue } from 'vue-class-component';
   import DateWorker from '@/common/utils/workers/DateWorker';
   import TeacherScheduleWrapper from '@/models/api/entities/v2/wrappers/TeacherScheduleWrapper';
-  import { Options, Vue } from 'vue-class-component';
 
   import ModernLessons from './shared/ModernLessons.vue';
 

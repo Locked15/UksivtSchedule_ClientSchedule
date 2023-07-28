@@ -1,5 +1,8 @@
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
+import Toast, { PluginOptions as ToastifyPluginOptions } from 'vue-toastification';
+import { createVuetify } from 'vuetify';
+import { createApp } from 'vue';
 import App from '@/App.vue';
 import router from '@/common/router';
 import store from '@/common/store';
@@ -7,10 +10,7 @@ import ApplicationThemes from '@/models/common/themes/ApplicationThemes';
 import '@mdi/font/css/materialdesignicons.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createApp } from 'vue';
-import Toast, { PluginOptions as ToastifyPluginOptions } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
-import { createVuetify } from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
 /**

@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts">
+  import { Vue } from 'vue-class-component';
+  import { useToast } from 'vue-toastification';
   import { USER_SETTINGS_KEY } from '@/common/keys';
   import UserMessages from '@/models/common/messages/UserMessages';
   import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import SettingsModel from '@/models/components/widgets/SettingsModel';
-  import { Vue } from 'vue-class-component';
-  import { useToast } from 'vue-toastification';
 
   export default class SettingsControl extends Vue {
     public settingsControlModel = new SettingsModel();
