@@ -2,22 +2,24 @@
   <div class="result-item-transition-container">
     <hr class="heirloom-hr small-hr" />
     <Transition name="result-fade">
-      <div class="result-fade-item">
-        <h3>Расписание для Преподавателя</h3>
-        <div class="result-item-component">
-          <h5>Расписание на {{ getDateTitle() }}</h5>
-          <ModernLessons :resultItemid="getResultItemId()" :forTeacher="true" :lessons="itemModel.lessonsInfo" />
-        </div>
+      <v-show>
+        <div class="result-fade-item">
+          <h3>Расписание для Преподавателя</h3>
+          <div class="result-item-component">
+            <h5>Расписание на {{ getDateTitle() }}</h5>
+            <ModernLessons :resultItemid="getResultItemId()" :forTeacher="true" :lessons="itemModel.lessonsInfo" />
+          </div>
 
-        <div>
-          <div class="result-info-message" v-if="!itemModel.replacementsForDateIsAvailable">
-            <p class="error-message">Внимание: Целевые данные для указанной даты не обнаружены!</p>
-          </div>
-          <div class="result-info-message" v-else-if="!getCurrentScheduleReplacementsActuality()">
-            <p class="warning-message">Внимание: Данные о заменах пар для указанного преподавателя не обнаружены.</p>
+          <div>
+            <div class="result-info-message" v-if="!itemModel.replacementsForDateIsAvailable">
+              <p class="error-message">Внимание: Целевые данные для указанной даты не обнаружены!</p>
+            </div>
+            <div class="result-info-message" v-else-if="!getCurrentScheduleReplacementsActuality()">
+              <p class="warning-message">Внимание: Данные о заменах пар для указанного преподавателя не обнаружены.</p>
+            </div>
           </div>
         </div>
-      </div>
+      </v-show>
     </Transition>
   </div>
 </template>

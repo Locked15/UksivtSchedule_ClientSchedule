@@ -2,19 +2,21 @@
   <div class="result-item-transition-container">
     <hr class="heirloom-hr small-hr" />
     <Transition name="result-fade">
-      <div class="result-fade-item">
-        <h3>Замена для Расписания</h3>
-        <div class="result-item-component">
-          <h5>Замены на {{ getStringTitleForReplacementModel() }}</h5>
-          <LegacyLessons :resultItemId="itemModel.changesDate" :lessons="itemModel.newLessons" />
-        </div>
+      <v-show>
+        <div class="result-fade-item">
+          <h3>Замена для Расписания</h3>
+          <div class="result-item-component">
+            <h5>Замены на {{ getStringTitleForReplacementModel() }}</h5>
+            <LegacyLessons :resultItemId="itemModel.changesDate" :lessons="itemModel.newLessons" />
+          </div>
 
-        <div>
-          <div class="result-info-message" v-if="!itemModel.changesFound">
-            <p class="error-message">Внимание: Замены для указанной даты не обнаружены.</p>
+          <div>
+            <div class="result-info-message" v-if="!itemModel.changesFound">
+              <p class="error-message">Внимание: Замены для указанной даты не обнаружены.</p>
+            </div>
           </div>
         </div>
-      </div>
+      </v-show>
     </Transition>
   </div>
 </template>

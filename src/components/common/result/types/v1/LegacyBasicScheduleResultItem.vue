@@ -2,13 +2,15 @@
   <div class="result-item-transition-container">
     <hr class="heirloom-hr small-hr" />
     <Transition name="result-fade">
-      <div class="result-fade-item">
-        <h3>Базовое Расписание</h3>
-        <div class="result-item-component">
-          <h5>Расписание на {{ itemModel.day }}</h5>
-          <LegacyLessons :resultItemId="itemModel.day" :lessons="getFilteredLessons()" />
+      <v-show>
+        <div class="result-fade-item">
+          <h3>Базовое Расписание</h3>
+          <div class="result-item-component">
+            <h5>Расписание на {{ itemModel.day }}</h5>
+            <LegacyLessons :resultItemId="itemModel.day" :lessons="getFilteredLessons()" />
+          </div>
         </div>
-      </div>
+      </v-show>
     </Transition>
   </div>
 </template>
