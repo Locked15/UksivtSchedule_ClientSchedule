@@ -24,6 +24,10 @@
   padding: 16px;
 }
 
+.results-container-inner > .result-card {
+  padding: 7.5px;
+}
+
 .search-is-empty {
   font-family: 'IBM Plex Mono', monospace;
   font-size: large;
