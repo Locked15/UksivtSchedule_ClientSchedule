@@ -2,6 +2,11 @@ import Swal from 'sweetalert2';
 import BaseMessage from '@/models/common/messages/base/BaseMessage';
 
 export default class SearchMessages {
+  public static readonly savedDataIsEmpty = new BaseMessage(
+    'Сохранённые данные отсутствуют',
+    'В локальном хранилище отсутствуют необходимые данные для работы. Подождите немного, пока будут получены данные с сервера.',
+  );
+
   public static readonly emptySearchResult = new BaseMessage(
     'Ничего не найдено...',
     'По запросу ничего не найдено.\nПопробуйте изменить запрос.',
