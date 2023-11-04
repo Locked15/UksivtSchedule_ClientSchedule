@@ -4,7 +4,7 @@
     <header>
       <nav>
         <v-app-bar>
-          <v-app-bar-nav-icon icon="mdi-calendar-month-outline" @click="onIconClick" />
+          <v-app-bar-nav-icon icon="mdi-calendar-month-outline" @click="onIconClick" title="Заглавная" />
           <v-app-bar-title class="header-content app-title">Расписание УКСИВТ</v-app-bar-title>
           <v-spacer /> <v-spacer class="app-title" />
 
