@@ -2,10 +2,11 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    es2024: true,
   },
   extends: ['plugin:vue/vue3-essential', '@vue/typescript/recommended', '@vue/eslint-config-airbnb-with-typescript'],
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 'latest',
   },
   rules: {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
