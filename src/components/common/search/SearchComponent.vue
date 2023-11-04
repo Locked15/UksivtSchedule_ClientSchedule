@@ -17,7 +17,7 @@
         <h3 class="header-content">Результаты</h3>
         <div>
           <div class="results-container-inner">
-            <v-card v-for="variant in viewModel.availableVariants.slice(0, 6)" v-bind:key="`result-${variant}`">
+            <v-card class="result-card" v-for="variant in viewModel.availableVariants.slice(0, 6)" v-bind:key="`result-${variant}`">
               <v-card-title>{{ getTitleForItem(variant) }}</v-card-title>
               <v-btn @click="onTargetSelected(variant)">Выбрать</v-btn>
             </v-card>
@@ -46,6 +46,7 @@
   import ToastConfiguration from '@/models/common/messages/base/ToastConfiguration';
   import UserSettings from '@/models/common/user/UserSettings';
   import SearchModel from '@/models/components/common/search/SearchModel';
+  import { checkLocalStorageToContainGroupsData, checkLocalStorageToContainTeachersData } from '@/common/utils/helpers/LocalStorageHelper';
 
   export default class SearchComponent extends Vue {
     /**
@@ -56,6 +57,7 @@
     public data = () => this.viewModel;
 
     public beforeMount() {
+      const localDataIsMissing = checkLocalStorageToContainGroupsData() || checkLocalStorageToContainTeachersData();
       if (ApplicationData.availableGroups.length < 1) {
         new StructureRepository(true).getGroupsList(false).then((data) => {
           if (data != null) {
@@ -70,6 +72,8 @@
           }
         });
       }
+
+      if (!localDataIsMissing) Swal.fire(SearchMessages.savedDataIsEmpty.title, SearchMessages.savedDataIsEmpty.message);
     }
 
     public getTitleForItem(item: any): string {
