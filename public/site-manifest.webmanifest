@@ -1,0 +1,66 @@
+{
+  "name": "Расписание УКСиВТ",
+  "short_name": "Расписание УКСиВТ",
+  "orientation": "portrait-primary",
+  "display": "standalone",
+  "start_url": "./",
+  "scope": "/",
+  "description": "Сайт для получения расписания колледжа УКСиВТ с учетом замен.",
+  "icons": [
+    {
+      "src": "/icons/icon_32px.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/icons/icon_48px.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/icons/icon_64px.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/icons/icon_128px.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/icons/icon_256px.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "screenshots" : [
+    {
+      "src": "./Home-Mobile-Dark.webp",
+      "sizes": "423x711",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Заглавная страница с тёмной темой в мобильной версии."
+    },
+    {
+      "src": "./Home-Mobile-Light.webp",
+      "sizes": "422x713",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Заглавная страница со светлой темой в мобильной версии."
+    },
+    {
+      "src": "./Home-Wide-Dark.webp",
+      "sizes": "1079x844",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Заглавная страница с тёмной темой в настольной версии."
+    },
+    {
+      "src": "./Home-Wide-Light.webp",
+      "sizes": "1081x851",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Заглавная страница со светлой темой в настольной версии."
+    }
+  ]
+}
